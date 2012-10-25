@@ -15,7 +15,12 @@ public class MainActivity extends SherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { /*Al pulsar la tecla menú o al generarse "el menú" de la app*/
-        getSupportMenuInflater().inflate(R.menu.activity_main, menu);/*Al "menú" correspondiente le pones este menú (activity_main)*/
+        
+    	/*Use of getSUPPORTMenuInflater() INSTEAD of the API call getMenuInflater()
+    	 * The first is the one for the ActionBarSherlock library.
+    	 * The second if used for the oficial Android API but the API are ""fully"" compatible.
+    	 * */
+    	getSupportMenuInflater().inflate(R.menu.activity_main, menu);/*Al "menú" correspondiente le pones este menú (activity_main)*/
         return true;
     }
 }
