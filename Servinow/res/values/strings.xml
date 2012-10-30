@@ -4,5 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="title_activity_ticket">Ticket</string>
+	<string name="unit_price_label">"Precio unitario: "</string>
+	<string name="ticket_quantity_label">"Qty: "</string>
 </resources>
