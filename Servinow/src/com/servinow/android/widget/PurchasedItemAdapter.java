@@ -19,6 +19,9 @@ import android.widget.TextView;
  *
  */
 public class PurchasedItemAdapter extends ArrayAdapter<PurchasedItem> {
+  /* ViewHolder pattern
+   * Se usa en los ListView para reducir el numero de findById (optimizacion)
+   */
   static class ViewHolder {
     TextView name;
     TextView unitPrice;
@@ -32,14 +35,16 @@ public class PurchasedItemAdapter extends ArrayAdapter<PurchasedItem> {
     super(context, layoutResourceId, objects);
     this.layoutResourceId = layoutResourceId;
   }
+  
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     View row = convertView;
     ViewHolder holder = null;
     
-    if(row == null) {
+    if(row == null) {      
       LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
       row = inflater.inflate(layoutResourceId, parent, false);
+      //ViewHolder pattern
       holder = new ViewHolder();
       holder.name = (TextView)row.findViewById(R.id.textViewName);
       holder.unitPrice = (TextView)row.findViewById(R.id.textViewUnitPrice);
