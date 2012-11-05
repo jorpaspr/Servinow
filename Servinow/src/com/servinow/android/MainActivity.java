@@ -23,6 +23,8 @@ public class MainActivity extends SherlockActivity {
     	
     	//TestCabo
     	//test blabla
+    	
+    	//Test1 nuevo test y tal y pascual.
     	getSupportMenuInflater().inflate(R.menu.activity_main, menu);/*Al "menú" correspondiente le pones este menú (activity_main)*/
         return true;
     }
