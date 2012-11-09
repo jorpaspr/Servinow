@@ -1,5 +1,8 @@
 package com.servinow.android.QRSystem;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
@@ -22,12 +25,12 @@ public class QRReadingSystem {
 	protected boolean previewing = true;
 	private CameraPreview mPreview;
 
-	private Context context;
 	private FrameLayout container;
+	private QRResultCallback qrCallbacks;
 
-	public QRReadingSystem(Context context, FrameLayout container) {
-		this.context = context;
+	public QRReadingSystem(FrameLayout container, QRResultCallback qrCallbacks) {
 		this.container = container;
+		this.qrCallbacks = qrCallbacks;
 	}
 
 	public void start(){
@@ -39,7 +42,7 @@ public class QRReadingSystem {
 		scanner.setConfig(0, Config.X_DENSITY, 3);
 		scanner.setConfig(0, Config.Y_DENSITY, 3);
 
-		mPreview = new CameraPreview(context, mCamera, previewCb, autoFocusCB);
+		mPreview = new CameraPreview(container.getContext(), mCamera, previewCb, autoFocusCB);
 		container.addView(mPreview);
 	}
 
@@ -80,12 +83,27 @@ public class QRReadingSystem {
 
 				SymbolSet syms = scanner.getResults();
 				for (Symbol sym : syms) {
-					//scanText.setText("barcode result " + sym.getData());
-					Log.i("QR", "Data:_"+sym.getData()+"_fin");
+					Log.i("QRRead", "Data:_"+sym.getData()+"_fin");
+					onQRResult(sym.getData());
+					return;
 				}
 			}
 		}
 	};
+	
+	private void onQRResult(String qrjson){
+		try {
+			QRResult qrr = new Gson().fromJson(qrjson, QRResult.class);
+			
+			if(qrr != null && qrr.getRestaurantID() != null && qrr.getPlaceID() != null) {
+				qrCallbacks.onAnswer(qrr.getRestaurantID(), qrr.getPlaceID());
+			} else {
+				qrCallbacks.onBadCode();
+			}
+		} catch(JsonSyntaxException e){
+			qrCallbacks.onBadCode();
+		}
+	}
 
 	// Mimic continuous auto-focusing
 	private AutoFocusCallback autoFocusCB = new AutoFocusCallback() {
