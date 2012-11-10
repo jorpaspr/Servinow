@@ -1,6 +1,8 @@
 package com.servinow.android.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class Pedido {
 	
@@ -8,16 +10,19 @@ public class Pedido {
 	private Date fecha;
 	private boolean pagado;
 	private boolean confirmado;
+	private ArrayList<LineaPedido> lineas;
 
 	public Pedido() {
 		super();
 	}
 
-	public Pedido(Date fecha, boolean pagado, boolean confirmado) {
+	public Pedido(Date fecha, boolean pagado, boolean confirmado,
+			ArrayList<LineaPedido> lineas) {
 		super();
 		this.fecha = fecha;
 		this.pagado = pagado;
 		this.confirmado = confirmado;
+		this.lineas = lineas;
 	}
 
 	public int getId() {
@@ -50,5 +55,25 @@ public class Pedido {
 
 	public void setConfirmado(boolean confirmado) {
 		this.confirmado = confirmado;
+	}
+
+	public ArrayList<LineaPedido> getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(ArrayList<LineaPedido> lineas) {
+		this.lineas = lineas;
+	}
+	
+	public double getTotal() {
+		double total = 0.0;
+		
+		Iterator<LineaPedido> itr = lineas.iterator();
+		while (itr.hasNext()) {
+			LineaPedido lp = itr.next();
+			total += lp.getTotal();
+		}
+
+		return total;
 	}
 }

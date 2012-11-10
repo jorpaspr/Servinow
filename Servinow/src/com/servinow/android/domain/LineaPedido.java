@@ -5,15 +5,17 @@ public class LineaPedido {
 	private int id;
 	private int cantidad;
 	private Estado estado;
+	private Producto producto;
 
 	public LineaPedido() {
 		super();
 	}
 
-	public LineaPedido(int cantidad, Estado estado) {
+	public LineaPedido(int cantidad, Estado estado, Producto producto) {
 		super();
 		this.cantidad = cantidad;
 		this.estado = estado;
+		this.producto = producto;
 	}
 
 	public int getId() {
@@ -38,5 +40,17 @@ public class LineaPedido {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+	
+	public double getTotal() {
+		return producto.getPrecio() * cantidad;
 	}
 }
