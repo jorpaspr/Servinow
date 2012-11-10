@@ -1,6 +1,7 @@
 package com.servinow.android.domain;
 
-import com.j256.ormlite.dao.ForeignCollection;
+import java.util.Collection;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -18,7 +19,7 @@ public class Restaurant {
 	private String name;
 	
 	@ForeignCollectionField(eager = true) //lazy = false
-	private ForeignCollection<Place> places;
+	private Collection<Place> places;
 
 
 	public int getOnlineID() {
@@ -30,7 +31,7 @@ public class Restaurant {
 	public String getName() {
 		return name;
 	}
-	public ForeignCollection<Place> getPlaces() {
+	public Collection<Place> getPlaces() {
 		return places;
 	}
 	
