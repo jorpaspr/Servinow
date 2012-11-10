@@ -7,23 +7,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.servinow.android.domain.ExampleEntity;
+import com.servinow.android.domain.Place;
+import com.servinow.android.domain.Restaurant;
 
 /*
  * Code based from example: http://ormlite.com/android/examples/
  * http://ormlite.com/sqlite_java_android_orm.shtml
  * */
-public class ExampleDatabase extends OrmLiteSqliteOpenHelper {
+public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 
 	// name of the database file for your application
-	private static final String DATABASE_NAME = "exampleDatabase.db";
+	private static final String DATABASE_NAME = "servinowDatabase.db";
 	// any time you make changes to your database SCHEMA, you may have to increase the database version
 	private static final int DATABASE_VERSION = 1;
 
-	public ExampleDatabase(Context context) {
+	public ServinowDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION/*, R.raw.ormlite_config ¿?*/);
 	}
 
@@ -34,20 +34,9 @@ public class ExampleDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
-			Log.i(ExampleDatabase.class.getName(), "onCreate");
-			TableUtils.createTable(connectionSource, ExampleEntity.class);
-		} catch (SQLException e) {
-			Log.e(ExampleDatabase.class.getName(), "Can't create database", e);
-			throw new RuntimeException(e);
-		}
-
-		//This is only for example data inside the database.
-		try {
-			Dao<ExampleEntity, Integer> dao = getDao(ExampleEntity.class);
-			ExampleEntity exampleEntity = new ExampleEntity("mytext");
-			dao.create(exampleEntity);
+			TableUtils.createTable(connectionSource, Place.class);
+			TableUtils.createTable(connectionSource, Restaurant.class);
 			
-			Log.d("databases", ""+exampleEntity.getOfflineID());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -66,13 +55,12 @@ public class ExampleDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 		try {
-			Log.i(ExampleDatabase.class.getName(), "onUpgrade");
-			TableUtils.dropTable(connectionSource, ExampleEntity.class, true);
+			TableUtils.dropTable(connectionSource, Place.class, true);
+			TableUtils.dropTable(connectionSource, Restaurant.class, true);
 
-			// after we drop the old databases, we create the new ones
+			//After drop old databases then we create the new ones.
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
-			Log.e(ExampleDatabase.class.getName(), "Can't drop databases", e);
 			throw new RuntimeException(e);
 		}
 	}

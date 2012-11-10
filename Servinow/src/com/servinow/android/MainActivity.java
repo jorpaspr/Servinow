@@ -1,14 +1,13 @@
 package com.servinow.android;
 
-import java.util.List;
+import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
+/*
 import com.servinow.android.dao.MyEntityDAO;
 import com.servinow.android.domain.ExampleEntity;
-
-import android.os.Bundle;
-import android.util.Log;
+*/
 
 public class MainActivity extends SherlockActivity {
 
@@ -21,10 +20,10 @@ public class MainActivity extends SherlockActivity {
          * You instantiate the session with the database.
          * Try to store as a property to avoid a lot of reconnection in each activity session.
          * */
-    	MyEntityDAO mydao = new MyEntityDAO(this);
+    	/*MyEntityDAO mydao = new MyEntityDAO(this);
     	List<ExampleEntity> exampleEntitiesList = mydao.getAllExampleEntities();
     	
-    	Log.i("Data", ""+exampleEntitiesList.size());
+    	Log.i("Data", ""+exampleEntitiesList.size());*/
     	
     	/*
     	 * Close the database session if you have ended with your database work.
@@ -32,7 +31,7 @@ public class MainActivity extends SherlockActivity {
     	 * and instantiate another session in onResume() activity method.
     	 * That means that you have the DAO session opened during all activity's life cycle.
     	 * */
-    	mydao.close();
+    	//mydao.close();
     }
     
 /*
