@@ -10,7 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "restaurant")
 public class Restaurant {
 	
-	@DatabaseField(generatedId = true)
+	@DatabaseField(id = true)
 	private int onlineID;
 
 	@DatabaseField(canBeNull = false)
@@ -21,6 +21,15 @@ public class Restaurant {
 	
 	@ForeignCollectionField(eager = true) //lazy = false
 	private Collection<Place> places;
+	
+	@ForeignCollectionField(eager = true)
+	private Collection<Producto> products;
+	
+	@ForeignCollectionField(eager = true)
+	private Collection<Pedido> orders;
+	
+	@ForeignCollectionField(eager = true)
+	private Collection<Categoria> categories;
 
 
 	public int getOnlineID() {
@@ -35,7 +44,15 @@ public class Restaurant {
 	public Collection<Place> getPlaces() {
 		return places;
 	}
-	
+	public Collection<Producto> getProducts() {
+		return products;
+	}
+	public Collection<Pedido> getOrders() {
+		return orders;
+	}
+	public Collection<Categoria> getCategories() {
+		return categories;
+	}
 	Restaurant() {
 	}
 }

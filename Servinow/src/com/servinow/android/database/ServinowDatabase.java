@@ -9,7 +9,12 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.servinow.android.domain.Categoria;
+import com.servinow.android.domain.LineaPedido;
+import com.servinow.android.domain.Menu;
+import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Place;
+import com.servinow.android.domain.Plato;
 import com.servinow.android.domain.Restaurant;
 
 /*
@@ -34,6 +39,12 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
+			TableUtils.createTable(connectionSource, Categoria.class);
+			TableUtils.createTable(connectionSource, Plato.class);
+			TableUtils.createTable(connectionSource, Menu.class);
+			TableUtils.createTable(connectionSource, Pedido.class);
+			TableUtils.createTable(connectionSource, LineaPedido.class);
+			
 			TableUtils.createTable(connectionSource, Place.class);
 			TableUtils.createTable(connectionSource, Restaurant.class);
 			
@@ -55,6 +66,12 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 		try {
+			TableUtils.dropTable(connectionSource, Categoria.class, true);
+			TableUtils.dropTable(connectionSource, Plato.class, true);
+			TableUtils.dropTable(connectionSource, Menu.class, true);
+			TableUtils.dropTable(connectionSource, Pedido.class, true);
+			TableUtils.dropTable(connectionSource, LineaPedido.class, true);
+			
 			TableUtils.dropTable(connectionSource, Place.class, true);
 			TableUtils.dropTable(connectionSource, Restaurant.class, true);
 
