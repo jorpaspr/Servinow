@@ -1,23 +1,37 @@
 package com.servinow.android.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "pedido")
 public class Pedido {
-	
+
+	@DatabaseField(generatedId = true)
 	private int id;
+	
+	@DatabaseField(canBeNull = false)
 	private Date fecha;
+	
+	@DatabaseField(canBeNull = false)
 	private boolean pagado;
+	
+	@DatabaseField(canBeNull = false)
 	private boolean confirmado;
-	private ArrayList<LineaPedido> lineas;
+	
+	@ForeignCollectionField(eager = true) // (eager = false) equivale a lazy
+	private ForeignCollection<LineaPedido> lineas;
 
 	public Pedido() {
 		super();
 	}
 
 	public Pedido(Date fecha, boolean pagado, boolean confirmado,
-			ArrayList<LineaPedido> lineas) {
+			ForeignCollection<LineaPedido> lineas) {
 		super();
 		this.fecha = fecha;
 		this.pagado = pagado;
@@ -57,11 +71,11 @@ public class Pedido {
 		this.confirmado = confirmado;
 	}
 
-	public ArrayList<LineaPedido> getLineas() {
+	public ForeignCollection<LineaPedido> getLineas() {
 		return lineas;
 	}
 
-	public void setLineas(ArrayList<LineaPedido> lineas) {
+	public void setLineas(ForeignCollection<LineaPedido> lineas) {
 		this.lineas = lineas;
 	}
 	

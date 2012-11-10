@@ -1,10 +1,21 @@
 package com.servinow.android.domain;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "lineaPedido")
 public class LineaPedido {
-	
+
+	@DatabaseField(generatedId = true)
 	private int id;
+	
+	@DatabaseField(canBeNull = false)
 	private int cantidad;
+	
+	@DatabaseField(canBeNull = false)
 	private Estado estado;
+	
+	@DatabaseField(canBeNull = false, foreign = true)
 	private Producto producto;
 
 	public LineaPedido() {
