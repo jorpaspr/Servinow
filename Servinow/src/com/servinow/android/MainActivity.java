@@ -12,6 +12,7 @@ public class MainActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); /*A esta actividad/ventana le pones este layout*/
     }
+    // TODO eliminar comentario de prueba
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { /*Al pulsar la tecla menú o al generarse "el menú" de la app*/
