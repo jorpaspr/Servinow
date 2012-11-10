@@ -1,5 +1,11 @@
 package com.servinow.android.domain;
 
+import java.util.Collection;
+import java.util.List;
+
+import android.test.suitebuilder.annotation.LargeTest;
+
+import com.j256.ormlite.dao.EagerForeignCollection;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -18,8 +24,7 @@ public class Restaurant {
 	private String name;
 	
 	@ForeignCollectionField(eager = true) //lazy = false
-	private ForeignCollection<Place> places;
-
+	private Collection<Place> places;
 
 	public int getOnlineID() {
 		return onlineID;
@@ -30,7 +35,7 @@ public class Restaurant {
 	public String getName() {
 		return name;
 	}
-	public ForeignCollection<Place> getPlaces() {
+	public Collection<Place> getPlaces() {
 		return places;
 	}
 	
