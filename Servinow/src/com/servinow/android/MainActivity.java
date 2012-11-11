@@ -1,7 +1,6 @@
 package com.servinow.android;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,8 @@ public class MainActivity extends SherlockActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);etContentView(R.layout.mainactivity); /*A esta actividad/ventana le pones este layout*/
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mainactivity); /*A esta actividad/ventana le pones este layout*/
         
         Button qrReadingButton = (Button) findViewById(R.id.mainactivity_qrreading);
         qrReadingButton.setOnClickListener(new OnClickListener() {
