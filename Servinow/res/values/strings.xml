@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
     <string name="app_name">Servinow</string>
@@ -6,10 +5,12 @@
 	<string name="qrreading_cancel">Cancelar lectura</string>
 	<string name="mainactivity_qrreading">Leer QR del restaurante</string>
 	<string name="mainactivity_directtorestaurant">Ir directamente a un restaurante (only for DEBUG)</string>
-	<string name="mainactivity_welcome">Bienvenido a Servinow. Lea el código QR de su mesa o busque restaurantes cercanos en nuestro mapa.</string>
+	<string name="mainactivity_welcome">Bienvenido a Servinow. Lea el cÃ³digo QR de su mesa o busque restaurantes cercanos en nuestro mapa.</string>
 	<string name="mainactivity_gotomap">Ver restaurantes Servinow cercanos</string>
 
-    <string name="title_activity_ticket">Ticket</string>
+	<string name="title_activity_ticket">Ticket</string>
 	<string name="unit_price_label">"Precio unitario: "</string>
 	<string name="ticket_quantity_label">"Qty: "</string>
+	<string name="activity_ticket_menu_back">Volver</string>
+	<string name="activity_ticket_menu_pay">Pagar</string>
 </resources>

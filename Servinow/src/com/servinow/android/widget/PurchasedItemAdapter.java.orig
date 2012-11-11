@@ -3,11 +3,13 @@
  */
 package com.servinow.android.widget;
 
-import java.util.List;
-
 import com.servinow.android.R;
+<<<<<<< HEAD
+import com.servinow.android.domain.PurchasedItem;
+=======
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Producto;
+>>>>>>> 0131d8c... amend 2
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +23,11 @@ import android.widget.TextView;
  * @author KoxAlen
  *
  */
+<<<<<<< HEAD
+public class PurchasedItemAdapter extends ArrayAdapter<PurchasedItem> {
+=======
 public class PurchasedItemAdapter extends ArrayAdapter<LineaPedido> {
+>>>>>>> 0131d8c... amend 2
   /* ViewHolder pattern
    * Se usa en los ListView para reducir el numero de findById (optimizacion)
    */
@@ -34,7 +40,11 @@ public class PurchasedItemAdapter extends ArrayAdapter<LineaPedido> {
   
   private int layoutResourceId;
 
-  public PurchasedItemAdapter(Context context, int layoutResourceId, List<LineaPedido> objects) {
+<<<<<<< HEAD
+  public PurchasedItemAdapter(Context context, int layoutResourceId, PurchasedItem[] objects) {
+=======
+  public PurchasedItemAdapter(Context context, int layoutResourceId, LineaPedido[] objects) {
+>>>>>>> 0131d8c... amend 2
     super(context, layoutResourceId, objects);
     this.layoutResourceId = layoutResourceId;
   }
@@ -58,12 +68,20 @@ public class PurchasedItemAdapter extends ArrayAdapter<LineaPedido> {
       holder = (ViewHolder) row.getTag();
     }
     
+<<<<<<< HEAD
+    PurchasedItem purchasedItem = getItem(position);
+    holder.name.setText(purchasedItem.getName());
+    holder.unitPrice.setText(purchasedItem.getUnitPrice()+"€");
+    holder.qty.setText(""+purchasedItem.getQuantity());
+    holder.price.setText(purchasedItem.getTotalPrice()+"€");
+=======
     LineaPedido lineaPedido = getItem(position);
     Producto producto = lineaPedido.getProducto();
     holder.name.setText(producto.getNombre());
     holder.unitPrice.setText(producto.getPrecio()+"€");
     holder.qty.setText(""+lineaPedido.getCantidad());
     holder.price.setText(lineaPedido.getTotal()+"€");
+>>>>>>> 0131d8c... amend 2
     
     return row;
   }

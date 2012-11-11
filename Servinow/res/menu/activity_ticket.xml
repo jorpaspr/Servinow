@@ -1,20 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_settings"
-        android:title="@string/menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:visible="false"
-        />
-    <item android:id="@+id/menu_cancel"
-    	android:title="Volver"
-    	android:showAsAction="ifRoom|withText"
-    	android:enabled="true"
-    	android:visible="true"
-    	/>
-    <item android:id="@+id/menu_cont"
-    	android:title="Continuar"    	
-    	android:showAsAction="ifRoom|withText"
-    	android:enabled="true"
-    	android:visible="true"
-    	/>
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/itemBack" android:showAsAction="always|withText" android:title="@string/activity_ticket_menu_back" android:visible="true"></item>
+    <item android:id="@+id/itemPay" android:showAsAction="always|withText" android:title="@string/activity_ticket_menu_pay" android:enabled="true" android:visible="true"></item>
 </menu>
