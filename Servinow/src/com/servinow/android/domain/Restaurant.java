@@ -47,6 +47,12 @@ public class Restaurant {
 	public String getName() {
 		return name;
 	}
+	public float getTax() {
+		return tax;
+	}
+	public String getEmailPayPal() {
+		return emailPayPalAccount;
+	}
 	public Collection<Place> getPlaces() {
 		return places;
 	}
