@@ -31,10 +31,11 @@ public class Pedido {
 	
 	@ForeignCollectionField(eager = true) // (eager = false) equivale a lazy
 	private Collection<LineaPedido> orderLines;
-	
-	//No getter (or setter) for this.
+
+	// Requerido por ORMLite
+	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	protected Restaurant restaurant;
+	private Restaurant restaurant;
 
 	public Pedido() {
 	}
@@ -43,16 +44,6 @@ public class Pedido {
 		this.fecha = fecha;
 		this.pagado = false;
 		this.confirmado = false;
-	}
-
-	//TODO remove
-	public Pedido(Date fecha, boolean pagado, boolean confirmado,
-			ForeignCollection<LineaPedido> lineas) {
-		super();
-		this.fecha = fecha;
-		this.pagado = pagado;
-		this.confirmado = confirmado;
-		this.orderLines = lineas;
 	}
 
 	public int getId() {

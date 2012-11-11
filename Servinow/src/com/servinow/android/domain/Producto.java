@@ -1,50 +1,77 @@
 package com.servinow.android.domain;
 
-import com.j256.ormlite.field.DatabaseField;
+import java.util.Collection;
 
 import android.graphics.drawable.Drawable;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+
 /*
  * TODO ONLY getters.
- * */
-public abstract class Producto {
+ * TODO Remove what is deprecated. I maintain it for compatibility with "old" code.
+ * Everyone has to use the data stored in the DB and not create your own examples entities.
+ **/
+public class Producto {
 
 	@DatabaseField(id = true)
-	protected int id;
+	private int id;
 	
 	@DatabaseField(canBeNull = false)
-	protected String nombre;
+	private String nombre;
 	
 	@DatabaseField(canBeNull = true)
 	private String urlImage;
 	
 	//TODO remove.
-	protected Drawable imagen;
+	@Deprecated
+	private Drawable imagen;
 	
 	@DatabaseField(canBeNull = true)
-	protected String descripcion;
+	private String descripcion;
 	
 	@DatabaseField(canBeNull = false)
-	protected double precio;
-	
-	//TODO remove. The user can't know how many stock there are in the restaurant. Just know if "there are" (boolean).
-	protected int stock;
+	private double precio;
 	
 	@DatabaseField(canBeNull = false)
-	protected boolean isInStock;
+	private boolean stock;
 	
-	//No getter (or setter) for this.
-	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	protected Categoria category;
+	@DatabaseField(canBeNull = false)
+	private TipoProducto tipo;
 	
-	//No getter (or setter) for this.
+	@ForeignCollectionField(eager = true)
+	private Collection<Producto> meals;
+	
+	// Requerido por ORMLite - No getter or setter for this.
+	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	protected Restaurant restaurant;
+	private Categoria category;
+	
+	// Requerido por ORMLite - No getter or setter for this.
+	@SuppressWarnings("unused")
+	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
+	private Restaurant restaurant;
+	
+	public Producto() {
+	}
+
+	//TODO remove.
+	@Deprecated
+	public Producto(String nombre, Drawable imagen, String descripcion,
+			double precio, boolean stock) {
+		super();
+		this.nombre = nombre;
+		this.imagen = imagen;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.stock = stock;
+	}
 
 	public int getId() {
 		return id;
 	}
 
+	@Deprecated
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -52,15 +79,26 @@ public abstract class Producto {
 	public String getNombre() {
 		return nombre;
 	}
-
+	
+	@Deprecated
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	@Deprecated
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Drawable getImagen() {
 		return imagen;
 	}
 
+	@Deprecated
 	public void setImagen(Drawable imagen) {
 		this.imagen = imagen;
 	}
@@ -69,6 +107,7 @@ public abstract class Producto {
 		return precio;
 	}
 
+	@Deprecated
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
@@ -77,17 +116,35 @@ public abstract class Producto {
 		return descripcion;
 	}
 
+	@Deprecated
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	//TODO remove.
-	public int getStock() {
+	public boolean isStock() {
 		return stock;
 	}
 
-	//TODO remove.
-	public void setStock(int stock) {
+	@Deprecated
+	public void setStock(boolean stock) {
 		this.stock = stock;
+	}
+
+	public TipoProducto getTipo() {
+		return tipo;
+	}
+
+	@Deprecated
+	public void setTipo(TipoProducto tipo) {
+		this.tipo = tipo;
+	}
+
+	public Collection<Producto> getMeals() {
+		return meals;
+	}
+
+	@Deprecated
+	public void setMeals(Collection<Producto> meals) {
+		this.meals = meals;
 	}
 }
