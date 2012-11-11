@@ -16,10 +16,10 @@ import com.servinow.android.domain.Restaurant;
 
 import android.content.Context;
 
-public class CategoryCache extends ServinowDAOBase {
+public class CategoryCache extends ServinowDAOBase<Categoria, Integer> {
 
 	public CategoryCache(Context context) {
-		super(context);
+		super(context, Categoria.class);
 	}
 	
 	public List<Categoria> getCategories(Restaurant restaurant){
@@ -32,7 +32,7 @@ public class CategoryCache extends ServinowDAOBase {
 		return categoryList;
 	}
 	
-	void setCategoriesCache(Collection<Categoria> categoryList, Restaurant restaurant){
+	void setCategoriesCache(Restaurant restaurant , Collection<Categoria> categoryList){
 		RuntimeExceptionDao<Categoria, Integer> categoryDAO = servinowDatabase.getRuntimeExceptionDao(Categoria.class);
 		
 		for(Categoria categoria: categoryList){

@@ -5,10 +5,10 @@ import android.content.Context;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.servinow.android.domain.Restaurant;
 
-public class RestaurantCache extends ServinowDAOBase {
+public class RestaurantCache extends ServinowDAOBase<Restaurant, Integer> {
 
 	public RestaurantCache(Context context){
-		super(context);
+		super(context, Restaurant.class);
 	}
 	
 	public Restaurant getRestaurantFromCache(int restaurantID){
@@ -21,6 +21,7 @@ public class RestaurantCache extends ServinowDAOBase {
 		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = servinowDatabase.getRuntimeExceptionDao(Restaurant.class);
 		restaurantDAO.createOrUpdate(restaurant);
 		
-		new CategoryCache(context).setCategoriesCache(restaurant.getCategories(), restaurant);
+		new CategoryCache(context).setCategoriesCache(restaurant, restaurant.getCategories());
+		new ProductCache(context).setProductCache(restaurant, restaurant.getProducts());
 	}
 }
