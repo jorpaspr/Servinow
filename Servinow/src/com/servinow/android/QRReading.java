@@ -9,10 +9,12 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.servinow.android.QRSystem.QRReadingSystem;
 import com.servinow.android.QRSystem.QRResultCallback;
+import com.servinow.android.startRestaurantSystem.CacheRestaurantSystem;
 
 public class QRReading extends SherlockActivity implements QRResultCallback{
 
 	private QRReadingSystem qrReadingSystem;
+	private CacheRestaurantSystem startRestDEBUG;
 	
 	//Remove me in the final product START
 	public static enum PARAM {
@@ -28,6 +30,7 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 		Bundle extras = getIntent().getExtras();
 		if(extras != null && extras.getBoolean(PARAM.GOTORESTAURANT.toString(), false)) {
 			onAnswer(1, 1);
+			startRestDEBUG = new CacheRestaurantSystem(this, 1, 1, this);
 			return;
 		}//Remove me ENDS.
 		
@@ -47,6 +50,9 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 		super.onPause();
 		if(qrReadingSystem != null)
 			qrReadingSystem.releaseCamera();
+		
+		if(startRestDEBUG != null)
+			startRestDEBUG.stop();
 	}
 
 	@Override
@@ -54,6 +60,9 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 		super.onResume();
 		if(qrReadingSystem != null)
 			qrReadingSystem.start();
+		
+		if(startRestDEBUG != null)
+			startRestDEBUG.start();
 	}
 
 	//http://stackoverflow.com/questions/10407159/android-how-to-manage-start-activity-for-result
