@@ -21,6 +21,8 @@ public class LineaPedido {
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Producto producto;
 	
+	// Requerido por ORMLite
+	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Pedido order;
 

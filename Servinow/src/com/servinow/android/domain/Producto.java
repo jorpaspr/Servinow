@@ -1,45 +1,67 @@
 package com.servinow.android.domain;
 
-import com.j256.ormlite.field.DatabaseField;
+import java.util.Collection;
 
 import android.graphics.drawable.Drawable;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+
 /*
  * TODO ONLY getters.
- * */
-public abstract class Producto {
+ **/
+public class Producto {
 
 	@DatabaseField(id = true)
-	protected int id;
+	private int id;
 	
 	@DatabaseField(canBeNull = false)
-	protected String nombre;
+	private String nombre;
 	
 	@DatabaseField(canBeNull = true)
 	private String urlImage;
 	
 	//TODO remove.
-	protected Drawable imagen;
+	private Drawable imagen;
 	
 	@DatabaseField(canBeNull = true)
-	protected String descripcion;
+	private String descripcion;
 	
 	@DatabaseField(canBeNull = false)
-	protected double precio;
-	
-	//TODO remove. The user can't know how many stock there are in the restaurant. Just know if "there are" (boolean).
-	protected int stock;
+	private double precio;
 	
 	@DatabaseField(canBeNull = false)
-	protected boolean isInStock;
+	private boolean stock;
 	
-	//No getter (or setter) for this.
-	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	protected Categoria category;
+	@DatabaseField(canBeNull = false)
+	private TipoProducto tipo;
 	
-	//No getter (or setter) for this.
+	@ForeignCollectionField(eager = true)
+	private Collection<Producto> meals;
+	
+	// Requerido por ORMLite
+	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	protected Restaurant restaurant;
+	private Categoria category;
+	
+	// Requerido por ORMLite
+	@SuppressWarnings("unused")
+	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
+	private Restaurant restaurant;
+	
+	public Producto() {
+	}
+
+	//TODO remove.
+	public Producto(String nombre, Drawable imagen, String descripcion,
+			double precio, boolean stock) {
+		super();
+		this.nombre = nombre;
+		this.imagen = imagen;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.stock = stock;
+	}
 
 	public int getId() {
 		return id;
@@ -55,6 +77,14 @@ public abstract class Producto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Drawable getImagen() {
@@ -81,13 +111,27 @@ public abstract class Producto {
 		this.descripcion = descripcion;
 	}
 
-	//TODO remove.
-	public int getStock() {
+	public boolean isStock() {
 		return stock;
 	}
 
-	//TODO remove.
-	public void setStock(int stock) {
+	public void setStock(boolean stock) {
 		this.stock = stock;
+	}
+
+	public TipoProducto getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoProducto tipo) {
+		this.tipo = tipo;
+	}
+
+	public Collection<Producto> getMeals() {
+		return meals;
+	}
+
+	public void setMeals(Collection<Producto> meals) {
+		this.meals = meals;
 	}
 }
