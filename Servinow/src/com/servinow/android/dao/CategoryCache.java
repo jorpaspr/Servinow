@@ -23,7 +23,7 @@ public class CategoryCache extends ServinowDAOBase<Categoria, Integer> {
 	}
 	
 	public List<Categoria> getCategories(Restaurant restaurant){
-		RuntimeExceptionDao<Categoria, Integer> categoryDAO = servinowDatabase.getRuntimeExceptionDao(Categoria.class);
+		RuntimeExceptionDao<Categoria, Integer> categoryDAO = getDAO();
 		
 		HashMap<String, Object> sqlFieldsToMatch = new HashMap<String, Object>();
 		sqlFieldsToMatch.put("restaurant_id", restaurant);
@@ -33,7 +33,7 @@ public class CategoryCache extends ServinowDAOBase<Categoria, Integer> {
 	}
 	
 	void setCategoriesCache(Restaurant restaurant , Collection<Categoria> categoryList){
-		RuntimeExceptionDao<Categoria, Integer> categoryDAO = servinowDatabase.getRuntimeExceptionDao(Categoria.class);
+		RuntimeExceptionDao<Categoria, Integer> categoryDAO = getDAO();
 		
 		for(Categoria categoria: categoryList){
 			categoria.restaurant = restaurant;

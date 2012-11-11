@@ -12,13 +12,13 @@ public class RestaurantCache extends ServinowDAOBase<Restaurant, Integer> {
 	}
 	
 	public Restaurant getRestaurantFromCache(int restaurantID){
-		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = servinowDatabase.getRuntimeExceptionDao(Restaurant.class);
+		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = getDAO();
 		Restaurant restaurant = restaurantDAO.queryForId(restaurantID);
 		return restaurant;
 	}
 
 	public void setRestaurantCache(Restaurant restaurant){
-		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = servinowDatabase.getRuntimeExceptionDao(Restaurant.class);
+		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = getDAO();
 		restaurantDAO.createOrUpdate(restaurant);
 		
 		new CategoryCache(context).setCategoriesCache(restaurant, restaurant.getCategories());
