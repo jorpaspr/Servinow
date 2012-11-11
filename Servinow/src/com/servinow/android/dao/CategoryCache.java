@@ -39,8 +39,6 @@ public class CategoryCache extends ServinowDAOBase {
 			categoria.restaurant = restaurant;
 			categoryDAO.createOrUpdate(categoria);
 		}
-		
-		List<Categoria> catli = categoryDAO.queryForAll();
 	}
 
 }
