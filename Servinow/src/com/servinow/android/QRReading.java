@@ -13,10 +13,24 @@ import com.servinow.android.QRSystem.QRResultCallback;
 public class QRReading extends SherlockActivity implements QRResultCallback{
 
 	private QRReadingSystem qrReadingSystem;
+	
+	//Remove me in the final product START
+	public static enum PARAM {
+		GOTORESTAURANT
+	}
+	//Remove me ENDS.
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Remove me in the final product START
+		Bundle extras = getIntent().getExtras();
+		if(extras != null && extras.getBoolean(PARAM.GOTORESTAURANT.toString(), false)) {
+			onAnswer(1, 1);
+			return;
+		}//Remove me ENDS.
+		
 		setContentView(R.layout.qrreading);
 
 		/**
@@ -31,13 +45,15 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 	@Override
 	protected void onPause() {
 		super.onPause();
-		qrReadingSystem.releaseCamera();
+		if(qrReadingSystem != null)
+			qrReadingSystem.releaseCamera();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		qrReadingSystem.start();
+		if(qrReadingSystem != null)
+			qrReadingSystem.start();
 	}
 
 	//http://stackoverflow.com/questions/10407159/android-how-to-manage-start-activity-for-result
