@@ -2,13 +2,16 @@ package com.servinow.android.startRestaurantSystem;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.servinow.android.QRSystem.QRResultCallback;
+import com.servinow.android.dao.CategoryCache;
 import com.servinow.android.dao.RestaurantCache;
+import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Place;
 import com.servinow.android.domain.Restaurant;
 import com.servinow.android.synchronization.ServinowApi_GetRestaurant;
@@ -44,16 +47,20 @@ public class CacheRestaurantSystem {
 			ServinowApi_GetRestaurant callToInternet = new ServinowApi_GetRestaurant(restaurantID, placeID);
 			//try {
 				//String restaurantJson = callToInternet.call();
-				String restaurantJson = "{onlineID: 12,lastUpdate: 12345,name: \"My Restaurant\",places: [{onlineID: 1,lastUpdate: 12345}],categories: [{id: 1,nombre: \"cat1\"}, {id: 3,nombre: \"cat234\"}]}";
+				String restaurantJson = "{onlineID: 1,lastUpdate: 12345,name: \"My Restaurant\",places: [{onlineID: 1,lastUpdate: 12345}],categories: [{id: 1,nombre: \"cat1\"}, {id: 3,nombre: \"cat234\"}]}";
 				
 				Restaurant restaurant = new Gson().fromJson(restaurantJson, Restaurant.class);
 				RestaurantCache restaurantCache = new RestaurantCache(context);
 				restaurantCache.setRestaurantCache(restaurant);
 				restaurantCache.close();
-				/* To test.
+
 				restaurantCache = new RestaurantCache(context);
 				Restaurant rt = restaurantCache.getRestaurantFromCache(restaurantID);
-				restaurantCache.close();*/
+				restaurantCache.close();
+				
+				CategoryCache categorycache = new CategoryCache(context);
+				List<Categoria> cat = categorycache.getCategories(restaurant);
+				categorycache.close();
 				
 			//} catch (IOException e) {
 			//	return false;

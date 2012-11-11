@@ -20,5 +20,7 @@ public class RestaurantCache extends ServinowDAOBase {
 	public void setRestaurantCache(Restaurant restaurant){
 		RuntimeExceptionDao<Restaurant, Integer> restaurantDAO = servinowDatabase.getRuntimeExceptionDao(Restaurant.class);
 		restaurantDAO.createOrUpdate(restaurant);
+		
+		new CategoryCache(context).setCategoriesCache(restaurant.getCategories(), restaurant);
 	}
 }

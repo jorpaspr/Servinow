@@ -15,10 +15,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "category")
 public class Categoria {
-	
-	public static enum FIELDNAME{
-		restaurant
-	}
 
 	@DatabaseField(id = true)
 	private int id;
@@ -38,7 +34,7 @@ public class Categoria {
 	// Requerido por ORMLite
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	private Restaurant restaurant;
+	public Restaurant restaurant;
 	
 	public Categoria() {
 	}

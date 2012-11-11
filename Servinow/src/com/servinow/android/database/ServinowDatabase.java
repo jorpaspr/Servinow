@@ -12,6 +12,7 @@ import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Place;
+import com.servinow.android.domain.Producto;
 import com.servinow.android.domain.Restaurant;
 
 /*
@@ -36,13 +37,12 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
+			TableUtils.createTable(connectionSource, Restaurant.class);
+			TableUtils.createTable(connectionSource, Place.class);
 			TableUtils.createTable(connectionSource, Categoria.class);
+			TableUtils.createTable(connectionSource, Producto.class);
 			TableUtils.createTable(connectionSource, Pedido.class);
 			TableUtils.createTable(connectionSource, LineaPedido.class);
-			
-			TableUtils.createTable(connectionSource, Place.class);
-			TableUtils.createTable(connectionSource, Restaurant.class);
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -60,18 +60,18 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-		try {
-			TableUtils.dropTable(connectionSource, Categoria.class, true);
-			TableUtils.dropTable(connectionSource, Pedido.class, true);
-			TableUtils.dropTable(connectionSource, LineaPedido.class, true);
-			
-			TableUtils.dropTable(connectionSource, Place.class, true);
-			TableUtils.dropTable(connectionSource, Restaurant.class, true);
-
-			//After drop old databases then we create the new ones.
-			onCreate(db, connectionSource);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//			/*TODO TableUtils.dropTable(connectionSource, Categoria.class, true);
+//			TableUtils.dropTable(connectionSource, Pedido.class, true);
+//			TableUtils.dropTable(connectionSource, LineaPedido.class, true);
+//			
+//			TableUtils.dropTable(connectionSource, Place.class, true);
+//			TableUtils.dropTable(connectionSource, Restaurant.class, true);*/
+//
+//			//After drop old databases then we create the new ones.
+//			onCreate(db, connectionSource);
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		}
 	}
 }

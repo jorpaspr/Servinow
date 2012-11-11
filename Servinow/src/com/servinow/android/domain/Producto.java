@@ -6,12 +6,14 @@ import android.graphics.drawable.Drawable;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /*
  * TODO ONLY getters.
  * TODO Remove what is deprecated. I maintain it for compatibility with "old" code.
  * Everyone has to use the data stored in the DB and not create your own examples entities.
  **/
+@DatabaseTable(tableName = "product")
 public class Producto {
 
 	@DatabaseField(id = true)
@@ -41,6 +43,11 @@ public class Producto {
 	
 	@ForeignCollectionField(eager = true)
 	private Collection<Producto> meals;
+	
+	// Requerido por ORMLite - No getter or setter for this.
+	@SuppressWarnings("unused")
+	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
+	private Producto product;
 	
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
