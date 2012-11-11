@@ -19,6 +19,9 @@ public class Restaurant {
 	@DatabaseField(canBeNull = false)
 	private String name;
 	
+	@DatabaseField(canBeNull = false)
+	private float tax;
+	
 	@ForeignCollectionField(eager = true) //lazy = false
 	private Collection<Place> places;
 	

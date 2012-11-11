@@ -47,20 +47,20 @@ public class CacheRestaurantSystem {
 			ServinowApi_GetRestaurant callToInternet = new ServinowApi_GetRestaurant(restaurantID, placeID);
 			//try {
 				//String restaurantJson = callToInternet.call();
-				String restaurantJson = "{onlineID: 1,lastUpdate: 12345,name: \"My Restaurant\",places: [{onlineID: 1,lastUpdate: 12345}],categories: [{id: 1,nombre: \"cat1\"}, {id: 3,nombre: \"cat234\"}]}";
+				String restaurantJson = "{onlineID: 1,lastUpdate: 12345,name: \"My Restaurant\", tax: 21.0 ,places: [{onlineID: 1,lastUpdate: 12345}],categories: [{id: 1,nombre: \"cat1\"}, {id: 3,nombre: \"cat234\"}]}";
 				
 				Restaurant restaurant = new Gson().fromJson(restaurantJson, Restaurant.class);
 				RestaurantCache restaurantCache = new RestaurantCache(context);
 				restaurantCache.setRestaurantCache(restaurant);
 				restaurantCache.close();
 
-				restaurantCache = new RestaurantCache(context);
+				/*restaurantCache = new RestaurantCache(context);
 				Restaurant rt = restaurantCache.getRestaurantFromCache(restaurantID);
-				restaurantCache.close();
+				restaurantCache.close();*/
 				
-				CategoryCache categorycache = new CategoryCache(context);
+				/*CategoryCache categorycache = new CategoryCache(context);
 				List<Categoria> cat = categorycache.getCategories(restaurant);
-				categorycache.close();
+				categorycache.close();*/
 				
 			//} catch (IOException e) {
 			//	return false;
