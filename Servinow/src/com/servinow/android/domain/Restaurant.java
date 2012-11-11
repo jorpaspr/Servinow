@@ -19,6 +19,9 @@ public class Restaurant {
 	@DatabaseField(canBeNull = false)
 	private String name;
 	
+	@DatabaseField(canBeNull = true)
+	private String emailPayPalAccount;
+	
 	@DatabaseField(canBeNull = false)
 	private float tax;
 	
