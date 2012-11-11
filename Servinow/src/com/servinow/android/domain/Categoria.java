@@ -15,6 +15,10 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "category")
 public class Categoria {
+	
+	public static enum FIELDNAME{
+		restaurant
+	}
 
 	@DatabaseField(id = true)
 	private int id;

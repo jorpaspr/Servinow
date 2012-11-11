@@ -9,6 +9,8 @@ import com.j256.ormlite.field.ForeignCollectionField;
 
 /*
  * TODO ONLY getters.
+ * TODO Remove what is deprecated. I maintain it for compatibility with "old" code.
+ * Everyone has to use the data stored in the DB and not create your own examples entities.
  **/
 public class Producto {
 
@@ -22,6 +24,7 @@ public class Producto {
 	private String urlImage;
 	
 	//TODO remove.
+	@Deprecated
 	private Drawable imagen;
 	
 	@DatabaseField(canBeNull = true)
@@ -39,12 +42,12 @@ public class Producto {
 	@ForeignCollectionField(eager = true)
 	private Collection<Producto> meals;
 	
-	// Requerido por ORMLite
+	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Categoria category;
 	
-	// Requerido por ORMLite
+	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Restaurant restaurant;
@@ -53,6 +56,7 @@ public class Producto {
 	}
 
 	//TODO remove.
+	@Deprecated
 	public Producto(String nombre, Drawable imagen, String descripcion,
 			double precio, boolean stock) {
 		super();
@@ -67,6 +71,7 @@ public class Producto {
 		return id;
 	}
 
+	@Deprecated
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -74,7 +79,8 @@ public class Producto {
 	public String getNombre() {
 		return nombre;
 	}
-
+	
+	@Deprecated
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -83,6 +89,7 @@ public class Producto {
 		return urlImage;
 	}
 
+	@Deprecated
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
@@ -91,6 +98,7 @@ public class Producto {
 		return imagen;
 	}
 
+	@Deprecated
 	public void setImagen(Drawable imagen) {
 		this.imagen = imagen;
 	}
@@ -99,6 +107,7 @@ public class Producto {
 		return precio;
 	}
 
+	@Deprecated
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
@@ -107,6 +116,7 @@ public class Producto {
 		return descripcion;
 	}
 
+	@Deprecated
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -115,6 +125,7 @@ public class Producto {
 		return stock;
 	}
 
+	@Deprecated
 	public void setStock(boolean stock) {
 		this.stock = stock;
 	}
@@ -123,6 +134,7 @@ public class Producto {
 		return tipo;
 	}
 
+	@Deprecated
 	public void setTipo(TipoProducto tipo) {
 		this.tipo = tipo;
 	}
@@ -131,6 +143,7 @@ public class Producto {
 		return meals;
 	}
 
+	@Deprecated
 	public void setMeals(Collection<Producto> meals) {
 		this.meals = meals;
 	}
