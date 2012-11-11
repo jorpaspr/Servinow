@@ -3,7 +3,7 @@ package com.servinow.payment;
 
 import android.content.Intent;
 
-public interface IPaymentActivity {
+public interface IPaymentCallback {
 	void onPaymentSuccesful(Payment.Method method);
 	void onPaymentProcess(Payment.Method method);
 	void onPaymentCanceled(Payment.Method method);

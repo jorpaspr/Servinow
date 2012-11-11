@@ -9,6 +9,8 @@ import com.paypal.android.MEP.PayPal;
 import com.paypal.android.MEP.PayPalActivity;
 import com.paypal.android.MEP.PayPalInvoiceData;
 import com.paypal.android.MEP.PayPalPayment;
+import com.servinow.android.domain.Pedido;
+import com.servinow.android.domain.Restaurant;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,19 +28,17 @@ public class Payment {
 		PAYPAL
 	};
 	
-	private IPaymentActivity iPaymentActivity;
+	private IPaymentCallback iPaymentActivity;
 	private SherlockFragmentActivity activity;
 	private Payment.Method paymentMethod;
-	private String emailRecipient;
-	private float order;
-	private float tax;
+	private Restaurant restaurante;
+	private Pedido pedido;
 	
-	public Payment(IPaymentActivity activity, String emailRecipient, float order, float tax) {
+	public Payment(IPaymentCallback activity, Restaurant restaurante, Pedido pedido) {
 		this.activity =  (SherlockFragmentActivity) activity;
 		this.iPaymentActivity = activity;
-		this.emailRecipient = emailRecipient;
-		this.order = order;
-		this.tax = tax;
+		this.restaurante = restaurante;
+		this.pedido = pedido;
 	}
 	
 	public void setPaymentMethod(){
@@ -84,7 +84,7 @@ public class Payment {
 
 		payment.setCurrencyType("EUR");
 
-		payment.setRecipient(emailRecipient);
+		payment.setRecipient(restaurante.get);
 
 		payment.setPaymentType(PayPal.PAYMENT_TYPE_GOODS);
 		
