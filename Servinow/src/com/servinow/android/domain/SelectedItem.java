@@ -16,9 +16,7 @@ public class SelectedItem {
 	  
 	  private double unitPrice;
 	  
-	  //private int image;
-	  
-	  private int image;
+	  private String urlImage;
 	  
 	  private boolean checked = false;
 	  
@@ -29,18 +27,18 @@ public class SelectedItem {
 	  /**
 	   * 
 	   */
-	  public SelectedItem(String name, int quantity, double unitPrice, int image) {
+	  public SelectedItem(String name, int quantity, double unitPrice, String urlImage) {
 		this.name = name;
 	    this.quantity = quantity;
 	    this.unitPrice = unitPrice;
-	    this.image = image;
+	    this.urlImage = urlImage;
 	  }
 	  
-	  public SelectedItem(String name, int quantity, double unitPrice, int image, boolean checked) {
+	  public SelectedItem(String name, int quantity, double unitPrice, String urlImage, boolean checked) {
 		this.name = name;
 	    this.quantity = quantity;
 	    this.unitPrice = unitPrice;
-	    this.image = image;
+	    this.urlImage = urlImage;
 	    this.checked = checked;
 	  }
 	  
@@ -50,7 +48,7 @@ public class SelectedItem {
 		this.name = producto.getNombre();
 	    this.quantity = lineaPedido.getCantidad();
 	    this.unitPrice = producto.getPrecio();
-	    this.image = producto.getImagen();
+	    this.urlImage = producto.getUrlImage();
 	  }
 	  
 	  /**
@@ -75,8 +73,8 @@ public class SelectedItem {
 	  /**
 	   * @return the image
 	   */
-	  public int getImage() {
-		  return image;
+	  public String geturlImage() {
+		  return urlImage;
 	  }
 	  
 	  

@@ -10,6 +10,7 @@ import com.servinow.android.domain.SelectedItem;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
       	holder.checkBox.setTag( selectedItem ); 
 	    
 	    holder.name.setText(selectedItem.getName());
-	    holder.image.setImageResource(selectedItem.getImage());
+	    holder.image.setImageURI(Uri.parse(selectedItem.geturlImage()));
 	    holder.image.setVisibility(selectedItem.getImageVisibility());
 	    holder.unitPrice.setText(selectedItem.getUnitPrice()+"Û");
 	    holder.quantity.setText(""+selectedItem.getQuantity());

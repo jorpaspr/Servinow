@@ -9,8 +9,7 @@
     <string name="lista_pedido_button_cancelar">Cancelar</string>
     <string name="lista_pedido_button_confirmar">Confirmar</string>
     <string name="lista_pedido_descripcion_imagen">detalle de la imagen</string>
-    <string name="title_activity_lista_pedido">Lista Pedido</string>
-    <string name="menu_lista_pedido_delete">Borrar</string>
+    <string name="lista_pedido_title">Lista Pedido</string>
     <string name="lista_pedido_confirm_dialog_message">¿De verdad desea confirmar el pedido?</string>
     <string name="lista_pedido_confirm_dialog_title">Confirmar pedido</string>
     <string name="lista_pedido_confirm_button_cancel">Cancel</string>

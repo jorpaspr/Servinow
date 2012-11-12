@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -15,29 +16,30 @@ public class Pedido {
 	//Local ID.
 	@DatabaseField(generatedId = true) //AUTOINCREMENT
 	private int id; //localID
-	
+
 	@DatabaseField(canBeNull = true)
 	private Integer onlineID;
-	
+
 	@DatabaseField(canBeNull = false)
 	private Date fecha;
-	
+
 	@DatabaseField(canBeNull = false, defaultValue="false")
 	private boolean pagado;
-	
+
 	@DatabaseField(canBeNull = false, defaultValue="false")
 	private boolean confirmado;
-	
+
 	@ForeignCollectionField(eager = true) // (eager = false) equivale a lazy
 	private Collection<LineaPedido> orderLines;
 
 	// Requerido por ORMLite
+	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Restaurant restaurant;
 
 	public Pedido() {
 	}
-	
+
 	public Pedido(Date fecha){
 		this.fecha = fecha;
 		this.pagado = false;
@@ -86,10 +88,10 @@ public class Pedido {
 	public void setLineas(Collection<LineaPedido> lineas) {
 		this.orderLines = lineas;
 	}
-	
+
 	public double getTotal() {
 		double total = 0.0;
-		
+
 		Iterator<LineaPedido> itr = orderLines.iterator();
 		while (itr.hasNext()) {
 			LineaPedido lp = itr.next();

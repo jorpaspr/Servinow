@@ -27,12 +27,11 @@ public abstract class ServinowDAOBase<MainClass, ID> {
 		servinowDatabase.close();
 		dao = null;
 	}
-	
+
 	protected RuntimeExceptionDao<MainClass, ID> getDAO() {
 		if(dao == null)
 			dao = servinowDatabase.getRuntimeExceptionDao(clazzMainClass);
-		
+
 		return dao;
 	}
-
 }

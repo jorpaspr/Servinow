@@ -27,17 +27,17 @@ public abstract class ServinowApi {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(getReadTimeout());
 			conn.setConnectTimeout(getConnectTimeout());
-	
+
 			conn.connect();
 			is = conn.getInputStream();
-			
+
 			BufferedReader r = new BufferedReader(new InputStreamReader(is));
 			StringBuilder total = new StringBuilder();
 			String line;
 			while ((line = r.readLine()) != null) {
 			    total.append(line);
 			}
-			
+
 			return total.toString();
 		} finally {
 			if(is != null)
@@ -52,5 +52,5 @@ public abstract class ServinowApi {
 	private static int getConnectTimeout() {
 		return connectTimeout;
 	}
-	
+
 }

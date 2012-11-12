@@ -18,52 +18,53 @@ public class Producto {
 
 	@DatabaseField(id = true)
 	private int id;
-	
+
 	@DatabaseField(canBeNull = false)
 	private String nombre;
-	
+
 	@DatabaseField(canBeNull = true)
 	private String urlImage;
-	
-	@DatabaseField(canBeNull = false)
-	private int imagen;
-	
+
+	//TODO remove.
+	@Deprecated
+	private Drawable imagen;
+
 	@DatabaseField(canBeNull = true)
 	private String descripcion;
-	
+
 	@DatabaseField(canBeNull = false)
 	private double precio;
-	
+
 	@DatabaseField(canBeNull = false)
 	private boolean stock;
-	
+
 	@DatabaseField(canBeNull = false)
 	private TipoProducto tipo;
-	
+
 	@ForeignCollectionField(eager = true)
 	private Collection<Producto> meals;
-	
+
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	public Producto product;
-	
+
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	public Categoria category;
-	
+
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	public Restaurant restaurant;
-	
+
 	public Producto() {
 	}
 
 	//TODO remove.
 	@Deprecated
-	public Producto(String nombre, int imagen, String descripcion,
+	public Producto(String nombre, Drawable imagen, String descripcion,
 			double precio, boolean stock) {
 		super();
 		this.nombre = nombre;
@@ -85,7 +86,7 @@ public class Producto {
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	@Deprecated
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -100,12 +101,12 @@ public class Producto {
 		this.urlImage = urlImage;
 	}
 
-	public int getImagen() {
+	public Drawable getImagen() {
 		return imagen;
 	}
 
 	@Deprecated
-	public void setImagen(Integer imagen) {
+	public void setImagen(Drawable imagen) {
 		this.imagen = imagen;
 	}
 
