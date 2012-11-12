@@ -29,7 +29,7 @@
         </activity>
         <activity
 			android:name=".TicketActivity"
-			android:label="@string/title_activity_ticket" 
+			android:label="@string/activity_ticket_title" 
 			android:uiOptions="splitActionBarWhenNarrow" >
 		</activity>
         <activity android:name="QRReading"></activity>

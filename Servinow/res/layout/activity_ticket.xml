@@ -14,27 +14,27 @@
     </ListView>
 
     <TextView
-    	android:id="@+id/textView1"
+    	android:id="@+id/textViewSubTotal"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
-    	android:text="Sub total: 999€"
+    	android:text="@string/activity_ticket_subtotal"
     	android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-    	android:id="@+id/textView2"
+    	android:id="@+id/textViewTax"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
-    	android:text="IVA(90%): 899,1€"
+    	android:text="@string/activity_ticket_tax"
     	android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-    	android:id="@+id/textView3"
+    	android:id="@+id/textViewTotal"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
-    	android:text="Total: 1898,1€"
+    	android:text="@string/activity_ticket_total"
     	android:textAppearance="?android:attr/textAppearanceLarge" />
  
 </LinearLayout>
