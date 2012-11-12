@@ -37,6 +37,7 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
+			
 			TableUtils.createTable(connectionSource, Restaurant.class);
 			TableUtils.createTable(connectionSource, Place.class);
 			TableUtils.createTable(connectionSource, Categoria.class);
@@ -60,18 +61,19 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-//		try {
-//			/*TODO TableUtils.dropTable(connectionSource, Categoria.class, true);
-//			TableUtils.dropTable(connectionSource, Pedido.class, true);
-//			TableUtils.dropTable(connectionSource, LineaPedido.class, true);
-//			
-//			TableUtils.dropTable(connectionSource, Place.class, true);
-//			TableUtils.dropTable(connectionSource, Restaurant.class, true);*/
-//
-//			//After drop old databases then we create the new ones.
-//			onCreate(db, connectionSource);
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}
+		try {
+			//TODO 
+			TableUtils.dropTable(connectionSource, Categoria.class, true);
+			TableUtils.dropTable(connectionSource, Pedido.class, true);
+			TableUtils.dropTable(connectionSource, LineaPedido.class, true);
+			
+			TableUtils.dropTable(connectionSource, Place.class, true);
+			TableUtils.dropTable(connectionSource, Restaurant.class, true);
+
+			//After drop old databases then we create the new ones.
+			onCreate(db, connectionSource);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

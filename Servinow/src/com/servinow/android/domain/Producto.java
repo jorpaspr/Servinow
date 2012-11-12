@@ -25,9 +25,8 @@ public class Producto {
 	@DatabaseField(canBeNull = true)
 	private String urlImage;
 	
-	//TODO remove.
-	@Deprecated
-	private Drawable imagen;
+	@DatabaseField(canBeNull = false)
+	private int imagen;
 	
 	@DatabaseField(canBeNull = true)
 	private String descripcion;
@@ -64,7 +63,7 @@ public class Producto {
 
 	//TODO remove.
 	@Deprecated
-	public Producto(String nombre, Drawable imagen, String descripcion,
+	public Producto(String nombre, int imagen, String descripcion,
 			double precio, boolean stock) {
 		super();
 		this.nombre = nombre;
@@ -101,12 +100,12 @@ public class Producto {
 		this.urlImage = urlImage;
 	}
 
-	public Drawable getImagen() {
+	public int getImagen() {
 		return imagen;
 	}
 
 	@Deprecated
-	public void setImagen(Drawable imagen) {
+	public void setImagen(Integer imagen) {
 		this.imagen = imagen;
 	}
 

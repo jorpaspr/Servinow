@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -33,7 +32,6 @@ public class Pedido {
 	private Collection<LineaPedido> orderLines;
 
 	// Requerido por ORMLite
-	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Restaurant restaurant;
 

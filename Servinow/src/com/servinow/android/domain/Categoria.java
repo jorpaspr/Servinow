@@ -18,16 +18,16 @@ public class Categoria {
 
 	@DatabaseField(id = true)
 	private int id;
-	
+
 	@DatabaseField(canBeNull = false)
 	private String nombre;
-	
+
 	@DatabaseField(canBeNull = true)
 	private String urlImage;
-	
+
 	//TODO remove.
 	private Drawable imagen;
-	
+
 	@ForeignCollectionField(eager = true)
 	private Collection<Producto> products;
 
@@ -35,7 +35,7 @@ public class Categoria {
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	public Restaurant restaurant;
-	
+
 	public Categoria() {
 	}
 

@@ -22,17 +22,17 @@ public class LineaPedido {
 	private Producto producto;
 	
 	// Requerido por ORMLite
-	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Pedido order;
 
 	public LineaPedido() {
 	}
 
-	public LineaPedido(int cantidad, Estado estado, Producto producto) {
+	public LineaPedido(int cantidad, Estado estado, Producto producto, Pedido pedido) {
 		this.cantidad = cantidad;
 		this.estado = estado;
 		this.producto = producto;
+		this.order = pedido;
 	}
 
 	public int getId() {
@@ -69,5 +69,8 @@ public class LineaPedido {
 	
 	public double getTotal() {
 		return producto.getPrecio() * cantidad;
+	}
+	public Pedido getPedido(){
+		return order;
 	}
 }
