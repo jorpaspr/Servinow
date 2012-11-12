@@ -49,10 +49,10 @@ public class PurchasedItemAdapter extends ArrayAdapter<LineaPedido> {
       row = inflater.inflate(layoutResourceId, parent, false);
       //ViewHolder pattern
       holder = new ViewHolder();
-      holder.name = (TextView)row.findViewById(R.id.textViewName);
-      holder.unitPrice = (TextView)row.findViewById(R.id.textViewUnitPrice);
-      holder.qty = (TextView)row.findViewById(R.id.textViewQty);
-      holder.price = (TextView)row.findViewById(R.id.textViewPrice);
+      holder.name = (TextView)row.findViewById(R.id.ticket_list_item_textViewName);
+      holder.unitPrice = (TextView)row.findViewById(R.id.ticket_list_item_textViewUnitPrice);
+      holder.qty = (TextView)row.findViewById(R.id.ticket_list_item_textViewQty);
+      holder.price = (TextView)row.findViewById(R.id.ticket_list_item_textViewPrice);
       row.setTag(holder);
     } else {
       holder = (ViewHolder) row.getTag();

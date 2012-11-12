@@ -17,7 +17,7 @@
 
 
 		<TextView
-			android:id="@+id/textViewName"
+			android:id="@+id/ticket_list_item_textViewName"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -38,7 +38,7 @@
 
 
 			<TextView
-				android:id="@+id/textViewUnitPrice"
+				android:id="@+id/ticket_list_item_textViewUnitPrice"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -71,7 +71,7 @@
 
 
 		<TextView
-			android:id="@+id/textViewQty"
+			android:id="@+id/ticket_list_item_textViewQty"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
@@ -88,7 +88,7 @@
 
 
 	<TextView
-		android:id="@+id/textViewPrice"
+		android:id="@+id/ticket_list_item_textViewPrice"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="right|center_vertical"
