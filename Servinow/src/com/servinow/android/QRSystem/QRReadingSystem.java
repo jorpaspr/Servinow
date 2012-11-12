@@ -1,9 +1,8 @@
 package com.servinow.android.QRSystem;
 
-import cacheRestaurantSystem.CacheRestaurantSystem;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.servinow.android.restaurantCacheSyncSystem.CacheRestaurantSystem;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;

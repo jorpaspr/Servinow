@@ -8,7 +8,7 @@
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> 
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -28,12 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
-            android:name=".ListaPedidoActivity"
-            android:label="@string/lista_pedido_title" >
-        </activity>
-        <activity android:name="QRReading" >
-        </activity>
+			android:name=".ListaPedidoActivity"
+			android:label="@string/lista_pedido_title"
+		>
+		</activity>
+        
+        <activity android:name="QRReading"></activity>
     </application>
 
 </manifest>

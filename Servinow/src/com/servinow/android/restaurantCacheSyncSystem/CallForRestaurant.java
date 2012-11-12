@@ -1,4 +1,4 @@
-package cacheRestaurantSystem;
+package com.servinow.android.restaurantCacheSyncSystem;
 
 import java.io.IOException;
 
