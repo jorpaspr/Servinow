@@ -2,14 +2,18 @@ package com.servinow.payment;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.paypal.android.MEP.PayPal;
 import com.paypal.android.MEP.PayPalActivity;
 import com.paypal.android.MEP.PayPalInvoiceData;
+import com.paypal.android.MEP.PayPalInvoiceItem;
 import com.paypal.android.MEP.PayPalPayment;
+import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
+import com.servinow.android.domain.Producto;
 import com.servinow.android.domain.Restaurant;
 
 import android.app.Activity;
@@ -96,18 +100,32 @@ public class Payment {
 		// Set the tax amount
 		invoice.setTax(new BigDecimal(restaurante.getTax()));
 		
+		//Set products information
+		Iterator<LineaPedido> iter = pedido.getLineas().iterator();
+		while(iter.hasNext()){
+			LineaPedido lineapedido = iter.next();
+			Producto producto = lineapedido.getProducto();
+			
+			PayPalInvoiceItem item = new PayPalInvoiceItem();
+			item.setName(producto.getNombre());
+			item.setID(""+producto.getId());
+			item.setTotalPrice(new BigDecimal(lineapedido.getTotal()));
+			item.setUnitPrice(new BigDecimal(producto.getPrecio()));
+			item.setQuantity(lineapedido.getCantidad());
+			
+			invoice.getInvoiceItems().add(item);
+		}
+		
+		payment.setInvoiceData(invoice);
+		
 		return payment;
-	}
-	
-	private void useNormalMethod(){
-		ArrayList<Object> params = new ArrayList<Object>();
-		new checkInNormalPayment().execute(params);
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		   switch(resultCode) {
 		      case Activity.RESULT_OK:
+		    	  pedido.setPagado(true);
 		    	  iPaymentActivity.onPaymentSuccesful(paymentMethod);
 		          break;
 
@@ -119,6 +137,12 @@ public class Payment {
 		    	   iPaymentActivity.onPaymentFailure(paymentMethod);
 		  }
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void useNormalMethod(){
+		ArrayList<Object> params = new ArrayList<Object>();
+		new checkInNormalPayment().execute(params);
 	}
 	
 	private class selectPaymentMethodDialog extends DialogFragment {
