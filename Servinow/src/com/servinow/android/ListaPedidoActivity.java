@@ -32,11 +32,6 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	private ListaPedidoAdapter listaPedidoAdapter;
 	private Pedido pedido;
 	
-	/*
-	private Button button_confirm;
-	private Button button_cancel;
-	*/
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
