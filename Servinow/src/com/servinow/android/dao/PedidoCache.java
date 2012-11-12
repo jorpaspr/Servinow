@@ -38,13 +38,13 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 	}
 	
 	public void deleteAll(){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		List<Pedido> pedidoList = pedidoDAO.queryForAll();
 		pedidoDAO.delete(pedidoList);
 	}
 	
 	public Pedido getPedidoNotConfirmed(){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		
 		List<Pedido> pedidoList = pedidoDAO.queryForEq("confirmado", false);
 		
