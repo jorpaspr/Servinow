@@ -3,6 +3,7 @@ package com.servinow.payment;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -36,13 +37,13 @@ public class Payment {
 	private SherlockFragmentActivity activity;
 	private Payment.Method paymentMethod;
 	private Restaurant restaurante;
-	private Pedido pedido;
+	private List<Pedido> pedidos;
 	
-	public Payment(IPaymentCallback activity, Restaurant restaurante, Pedido pedido) {
+	public Payment(IPaymentCallback activity, Restaurant restaurante, List<Pedido> pedidos) {
 		this.activity =  (SherlockFragmentActivity) activity;
 		this.iPaymentActivity = activity;
 		this.restaurante = restaurante;
-		this.pedido = pedido;
+		this.pedidos = pedidos;
 	}
 	
 	public void setPaymentMethod(){
@@ -50,7 +51,7 @@ public class Payment {
 	    newFragment.show(activity.getSupportFragmentManager(), "PAYMENTMETHODDIALOG");
 	}
 	
-	private void pay(){
+	public void pay(){
 		switch (paymentMethod) {
 		case PAYPAL:
 			usePaypalMethod();
@@ -73,6 +74,7 @@ public class Payment {
 	}
 	
 	private PayPalPayment createPayPalPayment() {
+		Iterator<Pedido> iter;
 		PayPal pp = PayPal.getInstance();
 		if (pp == null) {  // Test to see if the library is already initialized
 			// This main initialization call takes your Context, AppID, and target server
@@ -83,8 +85,15 @@ public class Payment {
 		}
 		
 		PayPalPayment payment = new PayPalPayment();
-
-		payment.setSubtotal(new BigDecimal(pedido.getTotal())); //Subtotal
+		
+		// Calculate subtotal from all orders
+		iter = pedidos.iterator();
+		float subTotal = 0;
+		while(iter.hasNext()){
+			subTotal += iter.next().getTotal();
+		}
+		
+		payment.setSubtotal(new BigDecimal(subTotal)); //Subtotal
 
 		payment.setCurrencyType("EUR");
 
@@ -100,21 +109,26 @@ public class Payment {
 		// Set the tax amount
 		invoice.setTax(new BigDecimal(restaurante.getTax()));
 		
-		//Set products information
-		Iterator<LineaPedido> iter = pedido.getLineas().iterator();
+		//Set products information for all orders
+		iter = pedidos.iterator();
 		while(iter.hasNext()){
-			LineaPedido lineapedido = iter.next();
-			Producto producto = lineapedido.getProducto();
-			
-			PayPalInvoiceItem item = new PayPalInvoiceItem();
-			item.setName(producto.getNombre());
-			item.setID(""+producto.getId());
-			item.setTotalPrice(new BigDecimal(lineapedido.getTotal()));
-			item.setUnitPrice(new BigDecimal(producto.getPrecio()));
-			item.setQuantity(lineapedido.getCantidad());
-			
-			invoice.getInvoiceItems().add(item);
+			Pedido pedido = iter.next();
+			Iterator<LineaPedido> iter2 = pedido.getLineas().iterator();
+			while(iter2.hasNext()){
+				LineaPedido lineapedido = iter2.next();
+				Producto producto = lineapedido.getProducto();
+				
+				PayPalInvoiceItem item = new PayPalInvoiceItem();
+				item.setName(producto.getNombre());
+				item.setID(""+producto.getId());
+				item.setTotalPrice(new BigDecimal(lineapedido.getTotal()));
+				item.setUnitPrice(new BigDecimal(producto.getPrecio()));
+				item.setQuantity(lineapedido.getCantidad());
+				
+				invoice.getInvoiceItems().add(item);
+			}
 		}
+		
 		
 		payment.setInvoiceData(invoice);
 		
@@ -125,7 +139,10 @@ public class Payment {
 
 		   switch(resultCode) {
 		      case Activity.RESULT_OK:
-		    	  pedido.setPagado(true);
+			    	Iterator<Pedido> iter = pedidos.iterator();
+			  		while(iter.hasNext()){
+			  			iter.next().setPagado(true);
+			  		}
 		    	  iPaymentActivity.onPaymentSuccesful(paymentMethod);
 		          break;
 

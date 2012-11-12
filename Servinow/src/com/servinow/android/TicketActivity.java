@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.servinow.android.R.id;
 import com.servinow.android.dao.PedidoCache;
 import com.servinow.android.dao.RestaurantCache;
@@ -12,14 +13,19 @@ import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Restaurant;
 import com.servinow.android.widget.PurchasedItemAdapter;
+import com.servinow.payment.IPaymentCallback;
+import com.servinow.payment.Payment;
+import com.servinow.payment.Payment.Method;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class TicketActivity extends SherlockListActivity {
+public class TicketActivity extends SherlockListActivity implements IPaymentCallback {
   private int restaurantID;
-
+  private Restaurant restaurant;
+  private  List<Pedido> pedidos;
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -27,8 +33,8 @@ public class TicketActivity extends SherlockListActivity {
     if (parameters != null) {
       
       restaurantID = parameters.getInt("restaurantID");
-      List<Pedido> pedidos = new PedidoCache(this).getPedidosNoPagados(restaurantID);
-      Restaurant restaurant = new RestaurantCache(this).getRestaurantFromCache(restaurantID);
+      pedidos = new PedidoCache(this).getPedidosNoPagados(restaurantID);
+      restaurant = new RestaurantCache(this).getRestaurantFromCache(restaurantID);
       
       List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();      
       double subtotal = 0;
@@ -62,4 +68,40 @@ public class TicketActivity extends SherlockListActivity {
     getSupportMenuInflater().inflate(R.menu.activity_ticket, menu);
     return true;
   }
+  
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+      switch (item.getItemId()) {
+      	case R.id.itemPay:
+      		Payment payment = new Payment(this, restaurant, pedidos);
+      		payment.setPaymentMethod();
+      		payment.pay();
+      		break;
+      }
+      return false;
+  }
+
+	@Override
+	public void onPaymentSuccesful(Method method) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onPaymentProcess(Method method) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onPaymentCanceled(Method method) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onPaymentFailure(Method method) {
+		// TODO Auto-generated method stub
+		
+	}
 }
