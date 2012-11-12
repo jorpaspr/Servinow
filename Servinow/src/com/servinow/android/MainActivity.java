@@ -47,8 +47,8 @@ public class MainActivity extends SherlockActivity {
 		
 		Producto producto = new Producto("Macarrones", R.drawable.macarrones, "Ricos macarrones", 5.0, true);
 		Producto producto1 = new Producto("Sushi", R.drawable.sushi, "Sushi", 4.0, true);
-		Producto producto2 = new Producto("Hamburguesa", R.drawable.hamburguesa, "Ricos macarrones", 5.0, true);
-		Producto producto3 = new Producto("Cerveza", R.drawable.cerveza, "Ricos macarrones", 5.0, true);
+		Producto producto2 = new Producto("Hamburguesa", R.drawable.hamburguesa, "Hambrguesa", 5.0, true);
+		Producto producto3 = new Producto("Cerveza", R.drawable.cerveza, "Cerveza", 5.0, true);
 		
 		producto.setId(1);
 		producto1.setId(2);
