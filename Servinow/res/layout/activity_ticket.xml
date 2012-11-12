@@ -12,25 +12,25 @@
     	android:layout_weight="1" >
 
     </ListView>
-
+
     <TextView
-    	android:id="@+id/textViewSubTotal"
+    	android:id="@+id/activity_ticket_textViewSubTotal"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
     	android:text="@string/activity_ticket_subtotal"
     	android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TextView
-    	android:id="@+id/textViewTax"
+    	android:id="@+id/activity_ticket_textViewTax"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
     	android:text="@string/activity_ticket_tax"
     	android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <TextView
-    	android:id="@+id/textViewTotal"
+    	android:id="@+id/activity_ticket_textViewTotal"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:gravity="right"
