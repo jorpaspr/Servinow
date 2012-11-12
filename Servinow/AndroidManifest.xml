@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.servinow.android"
     android:versionCode="1"
@@ -6,8 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
-	<uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -28,8 +29,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-		</activity>
-		<activity android:name="QRReading"></activity>
+        </activity>
+        <activity
+            android:name=".ListaPedidoActivity"
+            android:label="@string/lista_pedido_title" >
+        </activity>
+        <activity
+            android:name=".TicketActivity"
+            android:label="@string/activity_ticket_title"
+            android:uiOptions="splitActionBarWhenNarrow" >
+        </activity>
+        <activity android:name="QRReading" >
+        </activity>
         <activity
             android:name="com.paypal.android.MEP.PayPalActivity"
             android:configChanges="keyboardHidden|orientation"

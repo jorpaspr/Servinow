@@ -65,6 +65,9 @@ public class Restaurant {
 	public Collection<Categoria> getCategories() {
 		return categories;
 	}
+	public float getTax() {
+	  return tax;
+	}
 	Restaurant() {
 	}
 }
