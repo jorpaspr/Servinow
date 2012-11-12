@@ -6,10 +6,7 @@ package com.servinow.android.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Pedido;
-import com.servinow.android.domain.Restaurant;
 
 import android.content.Context;
 
@@ -17,15 +14,13 @@ import android.content.Context;
  * @author KoxAlen
  *
  */
-public class PedidoCache extends ServinowDAOBase {
-  RuntimeExceptionDao<Pedido, Integer> pedidoDao;
+public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 
   /**
    * @param context
    */
   public PedidoCache(Context context) {
-    super(context);
-    pedidoDao = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+    super(context, Pedido.class);
   }
   
   public List<Pedido> getPedidosNoPagados(int restaurantID) {
@@ -34,7 +29,7 @@ public class PedidoCache extends ServinowDAOBase {
     sqlFieldsToMatch.put("pagado", false);
     sqlFieldsToMatch.put("confirmado", true);
     
-    List<Pedido> pedidosList = pedidoDao.queryForFieldValues(sqlFieldsToMatch);
+    List<Pedido> pedidosList = getDAO().queryForFieldValues(sqlFieldsToMatch);
     return pedidosList;
     
   }
