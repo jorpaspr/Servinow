@@ -80,11 +80,11 @@ public class Payment {
 		
 		PayPalPayment payment = new PayPalPayment();
 
-		payment.setSubtotal(new BigDecimal(order)); //Subtotal
+		payment.setSubtotal(new BigDecimal(pedido.getTotal())); //Subtotal
 
 		payment.setCurrencyType("EUR");
 
-		payment.setRecipient(restaurante.get);
+		payment.setRecipient(restaurante.getEmailPayPal());
 
 		payment.setPaymentType(PayPal.PAYMENT_TYPE_GOODS);
 		
@@ -94,7 +94,7 @@ public class Payment {
 		PayPalInvoiceData invoice = new PayPalInvoiceData();
 
 		// Set the tax amount
-		invoice.setTax(new BigDecimal(tax));
+		invoice.setTax(new BigDecimal(restaurante.getTax()));
 		
 		return payment;
 	}
