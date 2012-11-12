@@ -15,7 +15,7 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 	}
 	
 	public List<Pedido> getAllPedidos(){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		
 		List<Pedido> pedidoList = pedidoDAO.queryForAll();
 		
@@ -23,17 +23,17 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 	}
 	
 	public void insertPedido(Pedido pedido){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		pedidoDAO.create(pedido);
 	}
 	
 	public void deletePedido(Pedido pedido){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		pedidoDAO.delete(pedido);
 	}
 	
 	public void deletePedido(int idPedido){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		pedidoDAO.deleteById(idPedido);
 	}
 	

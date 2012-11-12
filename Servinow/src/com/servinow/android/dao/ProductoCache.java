@@ -19,7 +19,7 @@ public class ProductoCache extends ServinowDAOBase<Producto, Integer> {
 	}
 	
 	public void deleteAll(){
-		RuntimeExceptionDao<Producto, Integer> productoDAO = servinowDatabase.getRuntimeExceptionDao(Producto.class);
+		RuntimeExceptionDao<Producto, Integer> productoDAO = getDAO();
 		List<Producto> productoList = productoDAO.queryForAll();
 		productoDAO.delete(productoList);
 	}

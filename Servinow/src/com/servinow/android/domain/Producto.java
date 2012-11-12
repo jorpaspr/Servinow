@@ -46,17 +46,17 @@ public class Producto {
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	private Producto product;
+	public Producto product;
 	
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	private Categoria category;
+	public Categoria category;
 	
 	// Requerido por ORMLite - No getter or setter for this.
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	private Restaurant restaurant;
+	public Restaurant restaurant;
 	
 	public Producto() {
 	}

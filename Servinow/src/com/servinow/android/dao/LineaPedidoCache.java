@@ -17,7 +17,7 @@ public class LineaPedidoCache extends ServinowDAOBase<LineaPedido, Integer> {
 	}
 	
 	public List<LineaPedido> getAllListaPedido(){
-		RuntimeExceptionDao<LineaPedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(LineaPedido.class);
+		RuntimeExceptionDao<LineaPedido, Integer> pedidoDAO = getDAO();
 		
 		List<LineaPedido> lineaPedidoList = pedidoDAO.queryForAll();
 		
@@ -25,34 +25,23 @@ public class LineaPedidoCache extends ServinowDAOBase<LineaPedido, Integer> {
 	}
 	
 	public void insertLineaPedido(LineaPedido lineaPedido){
-		RuntimeExceptionDao<LineaPedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(LineaPedido.class);
+		RuntimeExceptionDao<LineaPedido, Integer> pedidoDAO = getDAO();
 		pedidoDAO.create(lineaPedido);
 	}
 	
 	public void deleteAll(){
-		RuntimeExceptionDao<LineaPedido, Integer> lineaPedidoDAO = servinowDatabase.getRuntimeExceptionDao(LineaPedido.class);
+		RuntimeExceptionDao<LineaPedido, Integer> lineaPedidoDAO = getDAO();
 		List<LineaPedido> pedidoList = lineaPedidoDAO.queryForAll();
 		lineaPedidoDAO.delete(pedidoList);
 	}
 	
 	public void deleteLineaPedido(int id){
-		RuntimeExceptionDao<LineaPedido, Integer> lineaPedidoDAO = servinowDatabase.getRuntimeExceptionDao(LineaPedido.class);
+		RuntimeExceptionDao<LineaPedido, Integer> lineaPedidoDAO = getDAO();
 		// Conseguir la lineaPedido a partir del id
 		LineaPedido lineaPedido = lineaPedidoDAO.queryForId(id);
 		
 		// Borrar lineaPedido
 		lineaPedidoDAO.delete(lineaPedido);
-		
-		// Borrar la referencia a lineaPedido en el pedido que aparezca
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = servinowDatabase.getRuntimeExceptionDao(Pedido.class);
-		Pedido pedido = lineaPedido.getPedido();
-		Collection<LineaPedido> lineas = pedido.getLineas();
-		Iterator<LineaPedido> iter = lineas.iterator();
-		while (iter.hasNext()) {
-		    if (iter.next() == lineaPedido) iter.remove();
-		}
-		pedido.setLineas(lineas);
-		pedidoDAO.update(pedido);
 	}
 	
 	

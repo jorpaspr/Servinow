@@ -2,6 +2,7 @@ package com.servinow.android.dao;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.servinow.android.database.ServinowDatabase;
+import com.servinow.android.domain.Producto;
 
 import android.content.Context;
 
@@ -26,11 +27,12 @@ public abstract class ServinowDAOBase<MainClass, ID> {
 		servinowDatabase.close();
 		dao = null;
 	}
-
+	
 	protected RuntimeExceptionDao<MainClass, ID> getDAO() {
 		if(dao == null)
 			dao = servinowDatabase.getRuntimeExceptionDao(clazzMainClass);
-
+		
 		return dao;
 	}
+
 }
