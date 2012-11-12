@@ -25,17 +25,21 @@ public class TicketActivity extends SherlockListActivity {
     super.onCreate(savedInstanceState);
     Bundle parameters = getIntent().getExtras();
     if (parameters != null) {
+      
       restaurantID = parameters.getInt("restaurantID");
       List<Pedido> pedidos = new PedidoCache(this).getPedidosNoPagados(restaurantID);
       Restaurant restaurant = new RestaurantCache(this).getRestaurantFromCache(restaurantID);
-      List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();
+      
+      List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();      
       double subtotal = 0;
       for(Pedido p : pedidos) {
         lineasPedido.addAll(p.getLineas());
         subtotal += p.getTotal();
       }
+      
       PurchasedItemAdapter adapter = new PurchasedItemAdapter(this, R.layout.ticket_list_item, lineasPedido);
       setListAdapter(adapter);
+      
       setContentView(R.layout.activity_ticket);
       
       TextView subtotalView = (TextView) findViewById(R.id.activity_ticket_textViewSubTotal);
