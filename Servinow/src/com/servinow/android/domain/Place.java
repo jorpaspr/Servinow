@@ -12,7 +12,7 @@ public class Place {
 
 	@DatabaseField(canBeNull = false)
 	private long lastUpdate;
-
+	
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Restaurant restaurant;
 

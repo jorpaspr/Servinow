@@ -19,7 +19,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 public class QRReadingSystem {
-
+	
 	static {
 		System.loadLibrary("iconv");
 	}
@@ -59,7 +59,7 @@ public class QRReadingSystem {
 			mCamera = null;
 			container.removeAllViews();
 		}
-
+		
 		if(cacheRestaurantSystem != null){
 			cacheRestaurantSystem.stop();
 		}
@@ -99,13 +99,13 @@ public class QRReadingSystem {
 			}
 		}
 	};
-
+	
 	private CacheRestaurantSystem cacheRestaurantSystem = null;
-
+	
 	private void onQRResult(String qrjson){
 		try {
 			QRResult qrr = new Gson().fromJson(qrjson, QRResult.class);
-
+			
 			if(qrr != null && qrr.getRestaurantID() != null && qrr.getPlaceID() != null) {
 				cacheRestaurantSystem = new CacheRestaurantSystem(container.getContext(), qrr.getRestaurantID(), qrr.getPlaceID(), qrCallbacks);
 				cacheRestaurantSystem.start();

@@ -18,7 +18,7 @@ public abstract class ServinowDAOBase<MainClass, ID> {
 		this.servinowDatabase = new ServinowDatabase(this.context);
 		this.clazzMainClass = clazzMainClass;
 	}
-
+	
 	public boolean isOpen(){
 		return servinowDatabase.isOpen();
 	}
@@ -27,11 +27,11 @@ public abstract class ServinowDAOBase<MainClass, ID> {
 		servinowDatabase.close();
 		dao = null;
 	}
-
+	
 	protected RuntimeExceptionDao<MainClass, ID> getDAO() {
 		if(dao == null)
 			dao = servinowDatabase.getRuntimeExceptionDao(clazzMainClass);
-
+		
 		return dao;
 	}
 }

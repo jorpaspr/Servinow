@@ -16,19 +16,19 @@ public class Pedido {
 	//Local ID.
 	@DatabaseField(generatedId = true) //AUTOINCREMENT
 	private int id; //localID
-
+	
 	@DatabaseField(canBeNull = true)
 	private Integer onlineID;
-
+	
 	@DatabaseField(canBeNull = false)
 	private Date fecha;
-
+	
 	@DatabaseField(canBeNull = false, defaultValue="false")
 	private boolean pagado;
-
+	
 	@DatabaseField(canBeNull = false, defaultValue="false")
 	private boolean confirmado;
-
+	
 	@ForeignCollectionField(eager = true) // (eager = false) equivale a lazy
 	private Collection<LineaPedido> orderLines;
 
@@ -39,7 +39,7 @@ public class Pedido {
 
 	public Pedido() {
 	}
-
+	
 	public Pedido(Date fecha){
 		this.fecha = fecha;
 		this.pagado = false;
@@ -88,10 +88,10 @@ public class Pedido {
 	public void setLineas(Collection<LineaPedido> lineas) {
 		this.orderLines = lineas;
 	}
-
+	
 	public double getTotal() {
 		double total = 0.0;
-
+		
 		Iterator<LineaPedido> itr = orderLines.iterator();
 		while (itr.hasNext()) {
 			LineaPedido lp = itr.next();

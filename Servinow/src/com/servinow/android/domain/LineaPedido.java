@@ -8,19 +8,19 @@ public class LineaPedido {
 
 	@DatabaseField(generatedId = true)
 	private int id;
-
+	
 	@DatabaseField(canBeNull = true)
 	private Integer onlineID;
-
+	
 	@DatabaseField(canBeNull = false)
 	private int cantidad;
-
+	
 	@DatabaseField(canBeNull = false)
 	private Estado estado; //It is stored as string automatically in the DB by ORMLite. Great!
-
+	
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Producto producto;
-
+	
 	// Requerido por ORMLite
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
@@ -66,7 +66,7 @@ public class LineaPedido {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-
+	
 	public double getTotal() {
 		return producto.getPrecio() * cantidad;
 	}

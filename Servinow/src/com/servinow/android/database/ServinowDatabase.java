@@ -27,7 +27,7 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	public ServinowDatabase(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION/*, R.raw.ormlite_config À?*/);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION/*, R.raw.ormlite_config Â¿?*/);
 	}
 
 	/**
