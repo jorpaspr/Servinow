@@ -10,7 +10,7 @@
 
 	<string name="title_activity_ticket">Ticket</string>
 	<string name="unit_price_label">"Precio unitario: "</string>
-	<string name="ticket_quantity_label">"Qty: "</string>
+	<string name="ticket_quantity_label">"x"</string>
 	<string name="activity_ticket_menu_back">Volver</string>
 	<string name="activity_ticket_menu_pay">Pagar</string>
 </resources>
