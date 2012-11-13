@@ -1,5 +1,6 @@
 package com.servinow.android.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -52,5 +53,16 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 		
 		return pedido;
 	}
+	
+	  public List<Pedido> getPedidosNoPagados(int restaurantID) {
+    HashMap<String, Object> sqlFieldsToMatch = new HashMap<String, Object>();
+    sqlFieldsToMatch.put("restaurant_id", restaurantID);
+    sqlFieldsToMatch.put("pagado", false);
+    sqlFieldsToMatch.put("confirmado", true);
+    
+    List<Pedido> pedidosList = getDAO().queryForFieldValues(sqlFieldsToMatch);
+    return pedidosList;
+    
+  }
 	
 }
