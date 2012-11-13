@@ -95,7 +95,6 @@ public class CategoriasActivity extends SherlockActivity {
 			i.putExtras(b);
 
 			startActivity(i);
-			finish();
 		}
     };
 }
