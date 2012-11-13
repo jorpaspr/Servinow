@@ -36,6 +36,9 @@ public class Pedido {
 	@SuppressWarnings("unused")
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
 	private Restaurant restaurant;
+	
+	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
+	private Place place;
 
 	public Pedido() {
 	}
@@ -95,6 +98,14 @@ public class Pedido {
 	
 	public Restaurant getRestaurant() {
 		return restaurant;
+	}
+	
+	public void setPlace(Place place){
+		this.place = place;
+	}
+	
+	public Place getPlace(){
+		return place;
 	}
 	
 	public double getTotal() {
