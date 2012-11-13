@@ -89,6 +89,14 @@ public class Pedido {
 		this.orderLines = lineas;
 	}
 	
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+	
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	
 	public double getTotal() {
 		double total = 0.0;
 		
