@@ -21,7 +21,8 @@ public class MainActivity extends SherlockActivity {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this, QRReading.class));
+			//	startActivity(new Intent(MainActivity.this, QRReading.class));
+				startActivity(new Intent(MainActivity.this, CheckOrderStateActivity.class));
 			}
 		});
         
