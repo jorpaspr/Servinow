@@ -18,7 +18,9 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 	
 	//Remove me in the final product START
 	public static enum PARAM {
-		GOTORESTAURANT
+		GOTORESTAURANT,
+		RESTAURANT,
+		PLACE; // MESA
 	}
 	//Remove me ENDS.
 
@@ -68,9 +70,15 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 	//http://stackoverflow.com/questions/10407159/android-how-to-manage-start-activity-for-result
 	@Override
 	public void onAnswer(int restaurantID, int placeID) {
-		Toast.makeText(this, "Aquí se debe abrir la actividad de listado de categorías", Toast.LENGTH_LONG).show();
-		//Pasar por parámetro el restaurante y la mesa.
-		//finish(); Uncomment me after execute the category activity.
+		Intent i = new Intent(QRReading.this, CategoriasActivity.class);
+		Bundle b = new Bundle();
+		b.putBoolean(QRReading.PARAM.GOTORESTAURANT.toString(), true);
+		b.putInt(QRReading.PARAM.RESTAURANT.toString(), restaurantID);
+		b.putInt(QRReading.PARAM.PLACE.toString(), placeID);
+		i.putExtras(b);
+		
+		startActivity(i);
+		finish();
 	}
 
 	@Override

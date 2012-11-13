@@ -1,6 +1,7 @@
 package com.servinow.android.dao;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
