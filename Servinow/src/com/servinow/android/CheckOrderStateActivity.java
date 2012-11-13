@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.servinow.android.CheckOrderState.CheckStateArrayAdapter;
 import com.servinow.android.CheckOrderState.OrdersState;
+import com.servinow.android.widget.CheckStateArrayAdapter;
 
 public class CheckOrderStateActivity extends SherlockActivity {
 

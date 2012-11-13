@@ -1,4 +1,4 @@
-package com.servinow.android.CheckOrderState;
+package com.servinow.android.widget;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.servinow.android.R;
+import com.servinow.android.CheckOrderState.OrdersState;
 
 public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
