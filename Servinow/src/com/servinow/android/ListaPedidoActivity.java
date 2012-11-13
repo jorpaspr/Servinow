@@ -37,8 +37,6 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_pedido);
 		
-		Log.i("Database", "hola");
-		
 		// Leer de la base de datos
 		
 		PedidoCache pedidoDAO = new PedidoCache( ListaPedidoActivity.this );
