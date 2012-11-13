@@ -64,5 +64,14 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
     return pedidosList;
     
   }
-	
+	  
+	public boolean IsThereOrderNotConfirmed(){
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
+		List<Pedido> pedidoList = pedidoDAO.queryForEq("confirmado", false);
+		boolean isThereOrderNotConfirmed = true;
+		if(pedidoList.size() == 0){
+			isThereOrderNotConfirmed = false;
+		}
+		return isThereOrderNotConfirmed;
+	}
 }
