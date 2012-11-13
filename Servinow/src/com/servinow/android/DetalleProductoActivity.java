@@ -1,5 +1,6 @@
 package com.servinow.android;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -56,7 +57,20 @@ public class DetalleProductoActivity extends SherlockActivity {
 		final Button button = (Button) findViewById(R.id.buttonAdd);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	printToast("Se ha hecho click en el botón de añadir");
+				Bundle b = new Bundle();
+				b.putInt(Param.RESTAURANT.toString(), restaurantID);
+				b.putInt(Param.PLACE.toString(), placeID);
+				b.putInt(Param.CATEGORIA.toString(), categoriaID);
+				b.putInt(Param.PRODUCTO.toString(), productoID);
+				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
+				b.putInt(Param.CANTIDAD.toString(), 1);
+				
+				// TODO conectar con la parte de Carlos.
+				/*Intent i = new Intent(DetalleProductoActivity.this, ?.class);
+				i.putExtras(b);
+				startActivity(i);*/
+				// TODO para depuración, eliminar
+            	printToast("Se ha hecho click en el botón de añadir");            	
             }
         });
     }

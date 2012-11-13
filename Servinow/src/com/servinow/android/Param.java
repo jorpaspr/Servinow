@@ -4,5 +4,6 @@ public enum Param {
 	RESTAURANT,
 	PLACE,
 	CATEGORIA,
-	PRODUCTO;
+	PRODUCTO,
+	CANTIDAD;
 }
