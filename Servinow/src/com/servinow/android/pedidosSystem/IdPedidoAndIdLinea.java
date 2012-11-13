@@ -8,9 +8,4 @@ public class IdPedidoAndIdLinea {
 	public IdPedidoAndIdLinea(){
 		
 	}
-	
-	public IdPedidoAndIdLinea(int idProducto, int idLinea){
-		this.idProducto = idProducto;
-		this.idLinea = idLinea;
-	}
 }
