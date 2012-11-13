@@ -9,14 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.servinow.android.dao.CategoryCache;
-import com.servinow.android.dao.RestaurantCache;
 import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Producto;
-import com.servinow.android.domain.Restaurant;
 import com.servinow.android.widget.ProductoAdapter;
 
 public class ProductosActivity extends SherlockListActivity {
@@ -26,26 +23,18 @@ public class ProductosActivity extends SherlockListActivity {
 	private int restaurantID;
 	private int placeID;
 
-	public static enum PARAM {
-		GOTOPRODUCTO,
-		RESTAURANT,
-		PLACE,
-		CATEGORIA,
-		PRODUCTO;
-	}
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-		if(extras != null && extras.getBoolean(CategoriasActivity.PARAM.GOTOCATEGORIA.toString(), false))
+		if(extras != null)
 		{
-			restaurantID = extras.getInt(CategoriasActivity.PARAM.RESTAURANT.toString());
-			placeID = extras.getInt(CategoriasActivity.PARAM.PLACE.toString());
-			categoriaID = extras.getInt(CategoriasActivity.PARAM.CATEGORIA.toString());
+			restaurantID = extras.getInt(Param.RESTAURANT.toString());
+			placeID = extras.getInt(Param.PLACE.toString());
+			categoriaID = extras.getInt(Param.CATEGORIA.toString());
 			Categoria categoria = new CategoryCache(this).getCategoria(categoriaID);
-			List<Producto> listaProductos = new ArrayList(categoria.getProducts());
+			List<Producto> listaProductos = new ArrayList<Producto>(categoria.getProducts());
 			
 			productos = new Producto [listaProductos.size()];
 			listaProductos.toArray(productos);
@@ -70,11 +59,10 @@ public class ProductosActivity extends SherlockListActivity {
 
 			Intent i = new Intent(ProductosActivity.this, DetalleProductoActivity.class);
 			Bundle b = new Bundle();
-			b.putBoolean(ProductosActivity.PARAM.GOTOPRODUCTO.toString(), true);
-			b.putInt(ProductosActivity.PARAM.RESTAURANT.toString(), restaurantID);
-			b.putInt(ProductosActivity.PARAM.PLACE.toString(), placeID);
-			b.putInt(ProductosActivity.PARAM.CATEGORIA.toString(), categoriaID);
-			b.putInt(ProductosActivity.PARAM.PRODUCTO.toString(), productoID);
+			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+			b.putInt(Param.PLACE.toString(), placeID);
+			b.putInt(Param.CATEGORIA.toString(), categoriaID);
+			b.putInt(Param.PRODUCTO.toString(), productoID);
 			i.putExtras(b);
 
 			startActivity(i);

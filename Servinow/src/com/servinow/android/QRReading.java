@@ -72,7 +72,6 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 	public void onAnswer(int restaurantID, int placeID) {
 		Intent i = new Intent(QRReading.this, CategoriasActivity.class);
 		Bundle b = new Bundle();
-		b.putBoolean(QRReading.PARAM.GOTORESTAURANT.toString(), true);
 		b.putInt(QRReading.PARAM.RESTAURANT.toString(), restaurantID);
 		b.putInt(QRReading.PARAM.PLACE.toString(), placeID);
 		i.putExtras(b);

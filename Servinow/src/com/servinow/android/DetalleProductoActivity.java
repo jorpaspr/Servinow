@@ -14,10 +14,10 @@ import com.servinow.android.domain.Producto;
 
 public class DetalleProductoActivity extends SherlockActivity {
 
-	private int productoID;
-	private int categoriaID;
 	private int restaurantID;
 	private int placeID;
+	private int categoriaID;
+	private int productoID;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,12 +25,12 @@ public class DetalleProductoActivity extends SherlockActivity {
         setContentView(R.layout.activity_detalle_producto);
         
         Bundle extras = getIntent().getExtras();
-		if(extras != null && extras.getBoolean(ProductosActivity.PARAM.GOTOPRODUCTO.toString(), false))
+		if(extras != null)
 		{
-			restaurantID = extras.getInt(ProductosActivity.PARAM.RESTAURANT.toString());
-			placeID = extras.getInt(ProductosActivity.PARAM.PLACE.toString());
-			categoriaID = extras.getInt(ProductosActivity.PARAM.CATEGORIA.toString());
-			productoID = extras.getInt(ProductosActivity.PARAM.PRODUCTO.toString());
+			restaurantID = extras.getInt(Param.RESTAURANT.toString());
+			placeID = extras.getInt(Param.PLACE.toString());
+			categoriaID = extras.getInt(Param.CATEGORIA.toString());
+			productoID = extras.getInt(Param.PRODUCTO.toString());
 			
 			Producto producto = new ProductCache(this).getProducto(productoID);
 	        Resources res = getResources();
