@@ -36,4 +36,11 @@ public class ProductCache extends ServinowDAOBase<Producto, Integer> {
 			productDAO.createOrUpdate(product);
 		}
 	}
+
+	public Producto getProducto(int productoID) {
+		RuntimeExceptionDao<Producto, Integer> productDAO = getDAO();
+		Producto producto = productDAO.queryForId(productoID);
+		
+		return producto;
+	}
 }

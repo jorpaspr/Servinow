@@ -11,7 +11,7 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="20dp"
@@ -42,7 +42,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/buttonAdd"
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:text="Añadir" />
@@ -52,7 +52,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="50dp"
