@@ -1,4 +1,4 @@
-package com.servinow.android.startRestaurantSystem;
+package com.servinow.android.restaurantCacheSyncSystem;
 
 import java.io.IOException;
 import java.util.ArrayList;

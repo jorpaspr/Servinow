@@ -1,6 +1,5 @@
 package com.servinow.android;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -9,7 +8,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.servinow.android.QRSystem.QRReadingSystem;
 import com.servinow.android.QRSystem.QRResultCallback;
-import com.servinow.android.startRestaurantSystem.CacheRestaurantSystem;
+import com.servinow.android.restaurantCacheSyncSystem.CacheRestaurantSystem;
 
 public class QRReading extends SherlockActivity implements QRResultCallback{
 
