@@ -78,7 +78,6 @@ private Menu menuActionBar;
       	case R.id.itemPay:
       		Payment payment = new Payment(this, restaurant, pedidos);
       		payment.setPaymentMethod();
-      		payment.pay();
       		break;
       }
       return false;
@@ -91,16 +90,30 @@ private Menu menuActionBar;
 
   @Override
   public void onPaymentSuccesful(Method method) {
-	  Intent i = new Intent(TicketActivity.this, MainActivity.class);
-	  startActivity(i);
-	  
-	  finish();
+  	switch(method){
+  	case NORMAL:
+  		break;
+  	case PAYPAL:
+  		Intent i = new Intent(TicketActivity.this, MainActivity.class);
+      	startActivity(i);
+
+      	finish();
+  		break;
+  	}
+
   }
 
   @Override
-  public void onNormalPaymentProcess() {
-	  enableMenuOptions(false);
-	  Toast.makeText(this, R.string.activity_ticket_normalpaymentinprocess, Toast.LENGTH_LONG).show();
+  public void onPaymentProcess(Method method) {
+  	switch(method){
+	    	case NORMAL:
+	    		enableMenuOptions(false);
+	    		Toast.makeText(this, R.string.activity_ticket_normalpaymentinprocess, Toast.LENGTH_LONG).show();
+	    		break;
+	    	case PAYPAL:
+	    		enableMenuOptions(false);
+	    		break;
+  	}
   }
 
   @Override

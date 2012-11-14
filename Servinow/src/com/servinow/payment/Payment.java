@@ -12,6 +12,7 @@ import com.paypal.android.MEP.PayPalActivity;
 import com.paypal.android.MEP.PayPalInvoiceData;
 import com.paypal.android.MEP.PayPalInvoiceItem;
 import com.paypal.android.MEP.PayPalPayment;
+import com.servinow.android.dao.PedidoCache;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Producto;
@@ -69,7 +70,7 @@ public class Payment {
 
 		Intent checkoutIntent = PayPal.getInstance().checkout(payment, activity);
 		
-		iPaymentActivity.onPaymentFailure(paymentMethod);
+		iPaymentActivity.onPaymentProcess(paymentMethod);
 		activity.startActivityForResult(checkoutIntent, 1); 
 	}
 	
@@ -107,7 +108,7 @@ public class Payment {
 		PayPalInvoiceData invoice = new PayPalInvoiceData();
 
 		// Set the tax amount
-		invoice.setTax(new BigDecimal(restaurante.getTax()));
+		invoice.setTax(new BigDecimal(((restaurante.getTax()/100)*subTotal)));
 		
 		//Set products information for all orders
 		iter = pedidos.iterator();
@@ -139,13 +140,13 @@ public class Payment {
 
 		   switch(resultCode) {
 		      case Activity.RESULT_OK:
-			    	Iterator<Pedido> iter = pedidos.iterator();
-			  		while(iter.hasNext()){
-			  			iter.next().setPagado(true);
-			  		}
+		    	  PedidoCache pdc = new PedidoCache(activity);
+		    	  Iterator<Pedido> iter = pedidos.iterator();
+		    	  while(iter.hasNext()){
+		    		  pdc.setPagado(iter.next());
+		    	  }
 		    	  iPaymentActivity.onPaymentSuccesful(paymentMethod);
 		          break;
-
 		       case Activity.RESULT_CANCELED:
 		    	   iPaymentActivity.onPaymentCanceled(paymentMethod);
 		           break;
@@ -186,7 +187,6 @@ public class Payment {
 	private class checkInNormalPayment extends AsyncTask<ArrayList<Object>, Void, Void>{
 
 		protected void onPreExecute() {
-			iPaymentActivity.onNormalPaymentProcess();
 		}
 		
 		@Override
@@ -201,7 +201,7 @@ public class Payment {
 		}
 		
 		protected void onPostExecute(Void a) {
-			iPaymentActivity.onPaymentSuccesful(paymentMethod);
+			iPaymentActivity.onPaymentProcess(paymentMethod);
 		}
 	}
 	
