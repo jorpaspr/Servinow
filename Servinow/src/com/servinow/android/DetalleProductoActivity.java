@@ -40,17 +40,15 @@ public class DetalleProductoActivity extends SherlockActivity {
 			
 			Producto producto = new ProductCache(this).getProducto(productoID);
 	        Resources res = getResources();
-				
-			//TODO obtener las imágenes a partir de su URL
-			producto.setImagen(res.getDrawable(R.drawable.meal));
 
 	        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 			imageView.setImageDrawable(producto.getImagen());
 			
-			
-	        // TODO pruebas de carga de imágenes
+			// TODO el layout se desbarata al establecer el bitmap
 			ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
-			imageAsyncHelper.getBitmap(producto.getImageName(), new ImageAsyncHelperCallBack() {
+			
+			Bitmap img = imageAsyncHelper.getBitmap(producto.getImageName(),
+					new ImageAsyncHelperCallBack() {
 				
 				@Override
 				public void onImageSyn(Bitmap img) {
@@ -59,8 +57,9 @@ public class DetalleProductoActivity extends SherlockActivity {
 					printToast("Imagen obtenida");
 				}
 			}, null);
-	        // END
 			
+			if (img != null)
+				imageView.setImageBitmap(img);
 			
 			TextView textViewPrecio = (TextView) findViewById(R.id.textViewPrecio);
 			textViewPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
