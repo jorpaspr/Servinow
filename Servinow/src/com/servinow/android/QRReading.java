@@ -24,16 +24,15 @@ public class QRReading extends SherlockActivity implements QRResultCallback{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.qrreading);
 		
 		//Remove me in the final product START
 		Bundle extras = getIntent().getExtras();
 		if(extras != null && extras.getBoolean(PARAM.GOTORESTAURANT.toString(), false)) {
-			onAnswer(1, 1);
+			//onAnswer(1, 1);
 			startRestDEBUG = new CacheRestaurantSystem(this, 1, 1, this);
 			return;
 		}//Remove me ENDS.
-		
-		setContentView(R.layout.qrreading);
 
 		/**
 		 * The activity have to be in portrait mode all time.
