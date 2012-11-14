@@ -21,11 +21,13 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TicketActivity extends SherlockListActivity implements IPaymentCallback {
   private int restaurantID;
   private Restaurant restaurant;
   private  List<Pedido> pedidos;
+private Menu menuActionBar;
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class TicketActivity extends SherlockListActivity implements IPaymentCall
       pedidos = new PedidoCache(this).getPedidosNoPagados(restaurantID);
       restaurant = new RestaurantCache(this).getRestaurantFromCache(restaurantID);
       
-      List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();      
+      List<LineaPedido> lineasPedido = new LinkedList<LineaPedido>();
       double subtotal = 0;
       for(Pedido p : pedidos) {
         lineasPedido.addAll(p.getLineas());
@@ -56,7 +58,7 @@ public class TicketActivity extends SherlockListActivity implements IPaymentCall
       subtotalView.setText(res.getString(R.string.activity_ticket_subtotal, subtotal));
       
       float tax = restaurant.getTax();
-      double taxAmount = tax*subtotal;
+      double taxAmount = (tax/100)*subtotal;
       taxView.setText(res.getString(R.string.activity_ticket_tax, tax, taxAmount));
       
       totalView.setText(res.getString(R.string.activity_ticket_total, subtotal+taxAmount));
@@ -66,6 +68,7 @@ public class TicketActivity extends SherlockListActivity implements IPaymentCall
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getSupportMenuInflater().inflate(R.menu.activity_ticket, menu);
+    menuActionBar = menu;
     return true;
   }
   
@@ -80,28 +83,33 @@ public class TicketActivity extends SherlockListActivity implements IPaymentCall
       }
       return false;
   }
+  
+  private void enableMenuOptions(boolean enabled){
+	  menuActionBar.findItem(R.id.itemBack).setEnabled(enabled);
+	  menuActionBar.findItem(R.id.itemPay).setEnabled(enabled);
+  }
 
-	@Override
-	public void onPaymentSuccesful(Method method) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onPaymentProcess(Method method) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onPaymentCanceled(Method method) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onPaymentFailure(Method method) {
-		// TODO Auto-generated method stub
-		
-	}
+  @Override
+  public void onPaymentSuccesful(Method method) {
+	  Intent i = new Intent(TicketActivity.this, MainActivity.class);
+	  startActivity(i);
+	  
+	  finish();
+  }
+
+  @Override
+  public void onNormalPaymentProcess() {
+	  enableMenuOptions(false);
+	  Toast.makeText(this, R.string.activity_ticket_normalpaymentinprocess, Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onPaymentCanceled(Method method) {
+	  Toast.makeText(this, R.string.activity_ticket_paymentcancelled, Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onPaymentFailure(Method method) {
+	  Toast.makeText(this, R.string.activity_ticket_paymentfailure, Toast.LENGTH_LONG).show();
+  }
 }

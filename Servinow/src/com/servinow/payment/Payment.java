@@ -186,7 +186,7 @@ public class Payment {
 	private class checkInNormalPayment extends AsyncTask<ArrayList<Object>, Void, Void>{
 
 		protected void onPreExecute() {
-			iPaymentActivity.onPaymentProcess(paymentMethod);
+			iPaymentActivity.onNormalPaymentProcess();
 		}
 		
 		@Override
