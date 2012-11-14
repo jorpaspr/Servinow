@@ -13,6 +13,8 @@ import com.servinow.android.domain.Restaurant;
 import com.servinow.android.pedidosSystem.IdPedidoAndIdLinea;
 import com.servinow.android.dao.LineaPedidoCache;
 import com.servinow.android.dao.PedidoCache;
+import com.servinow.android.dao.PlaceCache;
+import com.servinow.android.dao.RestaurantCache;
 
 public class pedidosHandler {
 	
@@ -26,13 +28,23 @@ public class pedidosHandler {
 		
 		PedidoCache pedidoCache = new PedidoCache(this.context);
 		LineaPedidoCache lineaPedidoCache = new LineaPedidoCache(this.context);
+		RestaurantCache restaurantCache = new RestaurantCache(this.context);
+		PlaceCache placeCache = new PlaceCache(this.context);
+		
+		// Coger place de la base de datos a partir de su id
+		Place place = placeCache.getPlaceFromCache(mesaId);
+		// Coger restaurant de la base de datos a partir de su id
+		Restaurant restaurant = restaurantCache.getRestaurantFromCache(restauranteId);
 		
 		// Si el pedido no est‡ creado, se crea un nuevo pedido no confirmado
 		if(pedidoCache.IsThereOrderNotConfirmed()){
 			Pedido pedido = new Pedido(new Date());
+			pedido.setPlace(place);
+			pedido.setRestaurant(restaurant);
 			pedidoCache.insertPedido(pedido);
 		}
-		Pedido pedidoNoConfirmado = pedidoCache.getPedidoNotConfirmed();
+		// Coger pedidoNoConfirmado de la base de datos
+		Pedido pedidoNoConfirmado = pedidoCache.getPedidoNotConfirmed(place, restaurant);
 		
 		// Crear LineaPedido a partir de la cantidad y el producto
 		LineaPedido lineaPedido = new LineaPedido(cantidad, Estado.EN_COLA, producto);
