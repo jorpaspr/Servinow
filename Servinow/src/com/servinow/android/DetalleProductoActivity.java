@@ -1,7 +1,9 @@
 package com.servinow.android;
 
-import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.servinow.android.Util.ImageAsyncHelper;
+import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.dao.ProductCache;
+import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Producto;
 
 public class DetalleProductoActivity extends SherlockActivity {
@@ -35,11 +40,27 @@ public class DetalleProductoActivity extends SherlockActivity {
 			
 			Producto producto = new ProductCache(this).getProducto(productoID);
 	        Resources res = getResources();
+				
 			//TODO obtener las imágenes a partir de su URL
 			producto.setImagen(res.getDrawable(R.drawable.meal));
 
 	        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 			imageView.setImageDrawable(producto.getImagen());
+			
+			
+	        // TODO pruebas de carga de imágenes
+			ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
+			imageAsyncHelper.getBitmap(producto.getImageName(), new ImageAsyncHelperCallBack() {
+				
+				@Override
+				public void onImageSyn(Bitmap img) {
+					ImageView imageView = (ImageView) findViewById(R.id.imageView);
+					imageView.setImageBitmap(img);
+					printToast("Imagen obtenida");
+				}
+			}, null);
+	        // END
+			
 			
 			TextView textViewPrecio = (TextView) findViewById(R.id.textViewPrecio);
 			textViewPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
