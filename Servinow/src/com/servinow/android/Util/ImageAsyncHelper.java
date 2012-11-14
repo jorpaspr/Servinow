@@ -18,7 +18,7 @@ public class ImageAsyncHelper {
 	}
 
 	public Bitmap getBitmap(String imageNameAsJPG, ImageAsyncHelperCallBack callback, Bitmap defaultImage){
-		String absolutePathImg = Environment.getExternalStorageDirectory()+"servinow/.cache/"+imageNameAsJPG;
+		String absolutePathImg = Environment.getExternalStorageDirectory()+"/servinow/.cache/"+imageNameAsJPG;
 		Bitmap img = BitmapFactory.decodeFile(absolutePathImg);
 		
 		if(img == null){
@@ -61,6 +61,7 @@ public class ImageAsyncHelper {
 				Bitmap img = new ServinowApiImage(imageNameAsJPG).getBitMap();
 				return img;
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			
 			return null;
@@ -70,7 +71,8 @@ public class ImageAsyncHelper {
 		protected void onPostExecute(Bitmap img) {
 			super.onPostExecute(img);
 			
-			callback.onImageSyn(img);
+			if(img != null)
+				callback.onImageSyn(img);
 		}
 	}
 }

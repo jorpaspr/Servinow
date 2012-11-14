@@ -32,8 +32,10 @@ public class ServinowApiImage extends ServinowApi {
 
 	private void saveImage(Bitmap img) throws IOException{
 		File directoryToSave = new File(Environment.getExternalStorageDirectory(), "servinow/.cache");
-
+		directoryToSave.mkdirs();
+		
 		File imageFile = new File(directoryToSave, imageNameAsJPG);
+		
 		FileOutputStream outStream = new FileOutputStream(imageFile);
 		img.compress(Bitmap.CompressFormat.JPEG, 90,outStream);
 
