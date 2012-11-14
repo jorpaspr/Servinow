@@ -19,10 +19,7 @@
     <string name="lista_pedido_button_delete_cancel">Cancelar</string>
     <string name="lista_pedido_button_delete_confirm">Borrar</string>
     <string name="app_name">Servinow</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_activityexample">MainActivity</string>
     <string name="paymentmethoddialog_title">Seleccionar método de pago</string>
     <string name="paymentmethoddialog_normal">Efectivo</string>
     <string name="paymentmethoddialog_paypal">PayPal</string>
