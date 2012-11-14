@@ -47,7 +47,6 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 	}
 	
 	public Pedido getPedidoNotConfirmed(Place place, Restaurant restaurant){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		
 		HashMap<String, Object> sqlFieldsToMatch = new HashMap<String, Object>();
 	    sqlFieldsToMatch.put("confirmado", false);
