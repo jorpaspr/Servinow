@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,7 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.servinow.android.R;
-import com.servinow.android.CheckOrderState.OrdersState;
+import com.servinow.android.domain.Estado;
+import com.servinow.android.domain.OrdersState;
+import com.servinow.android.widget.PurchasedItemAdapter.ViewHolder;
 
 public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
@@ -31,6 +34,13 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 //	private final String[] platos;
 //	public Boolean res = false;
 	
+	
+	static class ViewHolder {
+		    TextView name;
+		    TextView state;
+		    ImageView image;
+		    TextView ronda;
+	}
 	
 	public CheckStateArrayAdapter(Context context, ArrayList<OrdersState> orders) {
 		super(context, -1, orders);
@@ -42,35 +52,57 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO insertar im‡genes
+		View rowView = convertView;
+		ViewHolder holder=new ViewHolder();;
 		
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
-		
+		LayoutInflater inflater = null;
 		
 		OrdersState ord = orders.get(position);
-		View rowView;
+	//	if(rowView==null){
+	//		inflater = (LayoutInflater) context
+	//			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			inflater = ((Activity)getContext()).getLayoutInflater();	
+		/*	if(!ord.roundmark){
+				rowView = inflater.inflate(R.layout.list_check_state, parent, false);
+			  
+			}else{
+				rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
+			}
+			holder.name = (TextView) rowView.findViewById(R.id.TextViewCheckStateName);
+			holder.state = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
+			holder.image = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
+			holder.ronda = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
+			rowView.setTag(holder);
+		}else{
+			holder = (ViewHolder) rowView.getTag();*/
+//		}
+		
 		
 		if(!ord.roundmark){
-		
 			rowView = inflater.inflate(R.layout.list_check_state, parent, false);
-		
+			
 			TextView TVName = (TextView) rowView.findViewById(R.id.TextViewCheckStateName);
 			TextView TVState = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
 			ImageView imageView = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
 			
-			
-			
 		
 			TVName.setText(ord.name);
-			TVState.setText(ord.state);
 			
-			if(ord.state.equals(R.string.checkstateactivity_encola))
-				TVState.setTextColor(Color.argb(255, 255, 0, 0));
-			else if(ord.state.equals(R.string.checkstateactivity_encocina))
-				TVState.setTextColor(Color.argb(255, 187, 187, 0));
-			else if(ord.state.equals(R.string.checkstateactivity_preparado))
-				TVState.setTextColor(Color.argb(255, 66, 204, 68));
+			
+			if(ord.state == Estado.EN_COLA){
+				holder.state.setTextColor(Color.argb(255, 255, 0, 0));
+				TVState.setText(R.string.checkstateactivity_encola);
+			}
+			else if(ord.state == Estado.PREPARANDO){
+				holder.state.setTextColor(Color.argb(255, 187, 187, 0));
+				TVState.setText(R.string.checkstateactivity_encocina);
+			}
+			else if(ord.state == Estado.LISTO){
+				holder.state.setTextColor(Color.argb(255, 66, 204, 68));
+				TVState.setText(R.string.checkstateactivity_preparado);
+			}else{
+				TVState.setText(R.string.checkstateactivity_servido);
+			}
 			
 		//	imageView.setImageResource(R.drawable.arroz);
 			imageView.setImageBitmap(ord.image);
@@ -93,9 +125,8 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		else{
 			rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
 			
-			TextView TVRound = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
-			
-			TVRound.setText(" - Ronda "+ord.round+" - ");
+			TextView tv = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
+			tv.setText(" - Ronda "+ord.round+" - ");
 			Log.d("+++++","++++");
 		}
 		
