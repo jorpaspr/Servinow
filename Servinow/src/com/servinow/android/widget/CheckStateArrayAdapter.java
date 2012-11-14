@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,13 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	private final ArrayList<OrdersState> orders;
 //	private final String[] platos;
 //	public Boolean res = false;
+	private OrdersState ord=null;
 	
+	protected Handler taskHandler = new Handler();
+	protected Boolean isComplete = false;
+	public Boolean flagTimer=false;
+	public int countOrders=0;
+	public int countChanges=0;
 	
 	static class ViewHolder {
 		    TextView name;
@@ -47,6 +54,9 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		this.context = context;
 		this.orders = orders;
 	//	this.platos = platos;
+		countOrders=orders.size();
+		countChanges=countOrders*3;
+		setTimer(1000);
 	}
 
 	@Override
@@ -57,7 +67,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		
 		LayoutInflater inflater = null;
 		
-		OrdersState ord = orders.get(position);
+		ord = orders.get(position);
 	//	if(rowView==null){
 	//		inflater = (LayoutInflater) context
 	//			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -101,6 +111,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 				TVState.setTextColor(Color.argb(255, 66, 204, 68));
 				TVState.setText(R.string.checkstateactivity_preparado);
 			}else{
+				TVState.setTextColor(Color.argb(255, 0, 0, 0));
 				TVState.setText(R.string.checkstateactivity_servido);
 			}
 			
@@ -111,6 +122,9 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 			ImageButton deleteButton = (ImageButton) rowView.findViewById(R.id.CheckState_row_Cancel);
 	        deleteButton.setTag(position);
 
+	        if(ord.state != Estado.EN_COLA)
+	        	deleteButton.setEnabled(false);
+	        
 	        deleteButton.setOnClickListener(
 	           new Button.OnClickListener() {
 	               @Override
@@ -127,7 +141,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 			
 			TextView tv = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
 			tv.setText(" - Ronda "+ord.round+" - ");
-			Log.d("+++++","++++");
+	//		Log.d("+++++","++++");
 		}
 		
 		
@@ -168,6 +182,47 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	public void deleteInDB(){
 		//TODO BORRAR EN LA BASE DE DATOS
 	}
+	
+	protected void setTimer( long time )
+    {
+        final long elapse = 1000+ (int)(Math.random()*2000);
+        Runnable t = new Runnable() {
+            public void run()
+            {
+                runNextTask();
+                	if(!flagTimer)
+                		taskHandler.postDelayed( this, elapse );
+                	
+                
+            }
+        };
+    	taskHandler.postDelayed( t, elapse );
+    }
+     
+    protected void runNextTask()
+    {
+        // run my task.
+        // determine isComplete.
+    	int nOrder = (int)(Math.random()*orders.size());
+    	if(orders.size()>0){
+    		while(orders.get(nOrder).roundmark==true)
+    			nOrder = (int)(Math.random()*orders.size());
+    	
+    		if(orders.get(nOrder).state == Estado.EN_COLA){
+    			orders.get(nOrder).state=Estado.PREPARANDO;
+    			countChanges--;
+    		}else if(orders.get(nOrder).state == Estado.PREPARANDO){
+    			orders.get(nOrder).state=Estado.LISTO;
+    			countChanges--;
+    		}else if(orders.get(nOrder).state == Estado.LISTO){
+    			orders.get(nOrder).state=Estado.SERVIDO;
+    			countChanges--;
+    		}
+    	}
+    	notifyDataSetChanged();
+    	if(countChanges<=0)
+    		flagTimer=true;
+    }
 	
 	
 }

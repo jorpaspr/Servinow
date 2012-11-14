@@ -3,7 +3,6 @@ package com.servinow.android.domain;
 import android.graphics.Bitmap;
 
 public class OrdersState {
-
 	public String name = "name";
 	public Estado state = Estado.EN_COLA;
 	public Bitmap image;

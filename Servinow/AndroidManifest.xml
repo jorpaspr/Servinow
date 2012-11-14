@@ -43,6 +43,9 @@
 		</activity>
         <activity android:name="QRReading"></activity>
         <activity android:name=".CheckOrderStateActivity"></activity>
+        <activity android:name="CategoriasActivity"></activity>
+        <activity android:name="ProductosActivity"></activity>
+        <activity android:name="DetalleProductoActivity"></activity>
     </application>
 
 </manifest>

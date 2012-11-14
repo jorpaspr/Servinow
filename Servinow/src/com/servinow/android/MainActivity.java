@@ -1,16 +1,14 @@
 package com.servinow.android;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import android.content.Intent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends SherlockActivity {
-	
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class MainActivity extends SherlockActivity {	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,8 +20,9 @@ public class MainActivity extends SherlockActivity {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this, QRReading.class));
-			//	startActivity(new Intent(MainActivity.this, CheckOrderStateActivity.class));
+			//	startActivity(new Intent(MainActivity.this, QRReading.class));
+				startActivity(new Intent(MainActivity.this, CheckOrderStateActivity.class));
+				
 			}
 		});
         

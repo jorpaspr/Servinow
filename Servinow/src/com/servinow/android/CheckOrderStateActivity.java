@@ -11,6 +11,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -25,11 +27,18 @@ import com.servinow.android.widget.CheckStateArrayAdapter;
 public class CheckOrderStateActivity extends SherlockActivity {
 
 	private ListView lv;
+	public Boolean flagTimer=false;
+	public int countOrders=0;
+	public int countChanges=0;
 	
 	private List<Pedido> listaPedidos = null;
 
 	private ArrayList<OrdersState> orders = new ArrayList<OrdersState>();
-	private ArrayList<OrdersState> ordersToDisplay = new ArrayList<OrdersState>();
+	public ArrayList<OrdersState> ordersToDisplay = new ArrayList<OrdersState>();
+	private CheckStateArrayAdapter adapter = null;
+	
+	protected Handler taskHandler = new Handler();
+	protected Boolean isComplete = false;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,16 +48,20 @@ public class CheckOrderStateActivity extends SherlockActivity {
         
         createListView(this);
         
+    //    setTimer(1000);
     }
 
     public void createListView(Context ctx){
     	
-    	populateOrdersB(); // Sobreescribir para cogerlos de la BD
+    	populateOrdersB(); // populateOrders de la BD, populateOrdersB los crea
     	
     	prepareToDisplay();
     	
     	lv =  (ListView) findViewById(R.id.listViewCheckState);
-    	lv.setAdapter(new CheckStateArrayAdapter(this, ordersToDisplay));
+    	adapter = new CheckStateArrayAdapter(this, ordersToDisplay);
+    	lv.setAdapter(adapter);
+    //	lv.setAdapter(new CheckStateArrayAdapter(this, ordersToDisplay));
+    	
     }
     
     public void populateOrders(){
@@ -65,7 +78,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     	pd.setId(1);
     	ArrayList<LineaPedido> arraylinea = new ArrayList<LineaPedido>();
     	LineaPedido lp = new LineaPedido();
-    	lp.setCantidad(2);
+    	lp.setCantidad(6);
     	lp.setEstado(Estado.EN_COLA);
     	Producto pr = new Producto();
     	lp.setProducto(pr);
@@ -100,6 +113,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     		ord.round=listaPedidos.get(i).getId();
     		ord.roundmark=true;
     		ordersToDisplay.add(ord);
+    		countOrders++;
     		Iterator<LineaPedido> itr = listaPedidos.get(i).getLineas().iterator();
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
@@ -111,9 +125,50 @@ public class CheckOrderStateActivity extends SherlockActivity {
     				ordp.state = lp.getEstado();
     				ordp.image = mIcon_val;
     				ordersToDisplay.add(ordp);
+    				countOrders++;
     			}
     		}
+    		countChanges=countOrders*3;
     	}
+    }
+    
+    protected void setTimer( long time )
+    {
+        final long elapse = 1000+ (int)(Math.random()*2000);
+        Runnable t = new Runnable() {
+            public void run()
+            {
+                runNextTask();
+                	if(!flagTimer)
+                		taskHandler.postDelayed( this, elapse );
+                	
+                
+            }
+        };
+    	taskHandler.postDelayed( t, elapse );
+    }
+     
+    protected void runNextTask()
+    {
+        // run my task.
+        // determine isComplete.
+    	int nOrder = (int)(Math.random()*countOrders);
+    	while(ordersToDisplay.get(nOrder).roundmark==true)
+    		nOrder = (int)(Math.random()*countOrders);
+    	
+    	if(ordersToDisplay.get(nOrder).state == Estado.EN_COLA){
+    		ordersToDisplay.get(nOrder).state=Estado.PREPARANDO;
+    		countChanges--;
+    	}else if(ordersToDisplay.get(nOrder).state == Estado.PREPARANDO){
+    		ordersToDisplay.get(nOrder).state=Estado.LISTO;
+    		countChanges--;
+    	}else if(ordersToDisplay.get(nOrder).state == Estado.LISTO){
+    		ordersToDisplay.get(nOrder).state=Estado.SERVIDO;
+    		countChanges--;
+    	}
+    	adapter.notifyDataSetChanged();
+    	if(countChanges<=0)
+    		flagTimer=true;
     }
     
 }
