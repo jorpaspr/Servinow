@@ -43,10 +43,10 @@ public class CheckOrderStateActivity extends SherlockActivity {
 
     public void createListView(Context ctx){
     	
-    	
-    	populateOrders(); // Sobreescribir para cogerlos de la BD
+    	populateOrdersB(); // Sobreescribir para cogerlos de la BD
     	
     	prepareToDisplay();
+    	
     	lv =  (ListView) findViewById(R.id.listViewCheckState);
     	lv.setAdapter(new CheckStateArrayAdapter(this, ordersToDisplay));
     }
@@ -57,6 +57,23 @@ public class CheckOrderStateActivity extends SherlockActivity {
    
     	PedidoCache pd = new PedidoCache(this);
     	listaPedidos = pd.getAllPedidos();
+    }
+    
+    public void populateOrdersB(){
+    	Pedido pd = new Pedido();
+    	
+    	pd.setId(1);
+    	ArrayList<LineaPedido> arraylinea = new ArrayList<LineaPedido>();
+    	LineaPedido lp = new LineaPedido();
+    	lp.setCantidad(2);
+    	lp.setEstado(Estado.EN_COLA);
+    	Producto pr = new Producto();
+    	lp.setProducto(pr);
+    	arraylinea.add(lp);
+    	pd.setLineas(arraylinea);
+    	listaPedidos = new ArrayList<Pedido>();
+    	listaPedidos.add(pd);
+    	
     }
     
  
@@ -77,8 +94,9 @@ public class CheckOrderStateActivity extends SherlockActivity {
 			e.printStackTrace();
 		} 
     	
-    	OrdersState ord= new OrdersState();
+    	
     	for(int i=listaPedidos.size()-1; i>=0; i--){
+    		OrdersState ord= new OrdersState();
     		ord.round=listaPedidos.get(i).getId();
     		ord.roundmark=true;
     		ordersToDisplay.add(ord);
@@ -86,10 +104,13 @@ public class CheckOrderStateActivity extends SherlockActivity {
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
     			for(int j=0; j<lp.getCantidad(); j++){
-    				ord.name = lp.getProducto().getNombre();
-    				ord.state = lp.getEstado();
-    				ord.image = mIcon_val;
-    				ordersToDisplay.add(ord);
+    				OrdersState ordp = new OrdersState();
+    				ordp.roundmark=false;
+    			//	ord.name = lp.getProducto().getNombre();
+    				ordp.name = "mosquito frito";
+    				ordp.state = lp.getEstado();
+    				ordp.image = mIcon_val;
+    				ordersToDisplay.add(ordp);
     			}
     		}
     	}

@@ -90,15 +90,15 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 			
 			
 			if(ord.state == Estado.EN_COLA){
-				holder.state.setTextColor(Color.argb(255, 255, 0, 0));
+				TVState.setTextColor(Color.argb(255, 255, 0, 0));
 				TVState.setText(R.string.checkstateactivity_encola);
 			}
 			else if(ord.state == Estado.PREPARANDO){
-				holder.state.setTextColor(Color.argb(255, 187, 187, 0));
+				TVState.setTextColor(Color.argb(255, 187, 187, 0));
 				TVState.setText(R.string.checkstateactivity_encocina);
 			}
 			else if(ord.state == Estado.LISTO){
-				holder.state.setTextColor(Color.argb(255, 66, 204, 68));
+				TVState.setTextColor(Color.argb(255, 66, 204, 68));
 				TVState.setText(R.string.checkstateactivity_preparado);
 			}else{
 				TVState.setText(R.string.checkstateactivity_servido);
