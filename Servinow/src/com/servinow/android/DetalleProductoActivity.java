@@ -42,7 +42,6 @@ public class DetalleProductoActivity extends SherlockActivity {
 			placeID = extras.getInt(Param.PLACE.toString());
 			categoriaID = extras.getInt(Param.CATEGORIA.toString());
 			productoID = extras.getInt(Param.PRODUCTO.toString());
-			//kk
 			
 			this.producto = new ProductCache(this).getProducto(productoID);
 	        Resources res = getResources();
@@ -50,7 +49,6 @@ public class DetalleProductoActivity extends SherlockActivity {
 	        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 			imageView.setImageDrawable(producto.getImagen());
 			
-			// TODO el layout se desbarata al establecer el bitmap
 			ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
 			
 			Bitmap img = imageAsyncHelper.getBitmap(producto.getImageName(),

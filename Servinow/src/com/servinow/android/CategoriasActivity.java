@@ -53,16 +53,6 @@ public class CategoriasActivity extends SherlockActivity {
 		for (Categoria categoria: categorias)
 			categoria.setImagen(res.getDrawable(R.drawable.meal));
 
-        /*String uriString = "http://www.upv.es/noticias-upv/imagenes/crue.png";
-        Uri uri = Uri.parse(uriString);
-		try {
-			InputStream is = getContentResolver().openInputStream(uri);
-			Drawable.createFromStream(is, uri.getPath());
-		} catch (FileNotFoundException e) {
-			Log.d(FileNotFoundException.class.getSimpleName(), "Error al crear el InputStream");
-			e.printStackTrace();
-		}*/
-
         setContentView(R.layout.activity_categorias);
         
         GridView gridView = (GridView) findViewById(R.id.GridViewCategorias);
