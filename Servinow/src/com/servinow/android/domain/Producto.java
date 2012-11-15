@@ -160,4 +160,8 @@ public class Producto {
 	public void setMeals(Collection<Producto> meals) {
 		this.meals = meals;
 	}
+	
+	public Categoria getCategoria(){
+		return category;
+	}
 }
