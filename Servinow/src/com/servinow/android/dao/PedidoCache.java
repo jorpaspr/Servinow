@@ -43,8 +43,14 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 		pedidoDAO.delete(pedidoList);
 	}
 	
+	public void setPagado(Pedido pedido){
+		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
+		pedido.setPagado(true);
+		pedidoDAO.update(pedido);
+	}
+	
 	public Pedido getPedidoNotConfirmed(int place, int restaurant){
-		
+			
 		HashMap<String, Object> sqlFieldsToMatch = new HashMap<String, Object>();
 	    sqlFieldsToMatch.put("confirmado", false);
 	    sqlFieldsToMatch.put("restaurant_id", restaurant);

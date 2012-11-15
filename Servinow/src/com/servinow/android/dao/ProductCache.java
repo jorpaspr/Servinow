@@ -1,6 +1,7 @@
 package com.servinow.android.dao;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -35,10 +36,19 @@ public class ProductCache extends ServinowDAOBase<Producto, Integer> {
 			productDAO.createOrUpdate(product);
 		}
 	}
+
 	
 	public List<Producto> getProducts(){
 		RuntimeExceptionDao<Producto, Integer> productDAO = getDAO();
 		List<Producto> product = productDAO.queryForAll();
 		return product;
+	}
+
+	public Producto getProducto(int productoID) {
+		RuntimeExceptionDao<Producto, Integer> productDAO = getDAO();
+		Producto producto = productDAO.queryForId(productoID);
+		
+		return producto;
+
 	}
 }

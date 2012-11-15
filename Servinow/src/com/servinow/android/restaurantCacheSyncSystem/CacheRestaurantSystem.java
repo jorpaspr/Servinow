@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -34,6 +35,7 @@ public class CacheRestaurantSystem {
 	}
 	
 	public void start(){
+		callbacks.onStartSync();
 		callForRestaurantToCache = new CallForRestaurantToCache();
 		callForRestaurantToCache.execute();
 	}
@@ -65,18 +67,24 @@ public class CacheRestaurantSystem {
 					TypeToken<ArrayList<Integer>> productIDsListType = new TypeToken<ArrayList<Integer>>(){};
 					ArrayList<Integer> productIDsList = new Gson().fromJson(productsByCategoryJson, productIDsListType.getType());
 					
+					/*Workarround that very SOMETIMES the json downloaded is empty by an unknown reason. */
+					if(productIDsList == null) {
+						return false;
+					}
+					
 					//Rel. all this products with this category.
 					ProductCache productCache = new ProductCache(context);
 					productCache.setProductCacheByCategory(cat, productIDsList);
 					productCache.close();
 				}
 				
+				return true;
+				
 			}catch(JsonSyntaxException e){
 				return false;
 			} catch (IOException e) {
 				return false;
 			}
-			return true;
 		}
 
 		@Override
