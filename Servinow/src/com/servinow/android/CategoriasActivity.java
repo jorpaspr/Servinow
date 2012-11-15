@@ -3,7 +3,6 @@ package com.servinow.android;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,11 +46,6 @@ public class CategoriasActivity extends SherlockActivity {
 			listaCategorias.toArray(categorias);
 			setTitle(restaurant.getName());
 		}
-
-		//TODO obtener las imágenes a partir de su URL
-        Resources res = getResources();		
-		for (Categoria categoria: categorias)
-			categoria.setImagen(res.getDrawable(R.drawable.meal));
 
         setContentView(R.layout.activity_categorias);
         

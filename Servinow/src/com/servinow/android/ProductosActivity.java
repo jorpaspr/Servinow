@@ -41,11 +41,6 @@ public class ProductosActivity extends SherlockListActivity {
 			setTitle(categoria.getNombre());
 		}
 
-		//TODO obtener las imágenes a partir de su URL
-        Resources res = getResources();		
-		for (Producto producto: productos)
-			producto.setImagen(res.getDrawable(R.drawable.meal));
-
         ProductoAdapter adapter = new ProductoAdapter(this, R.layout.item_producto, productos);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(itemClickListener);
