@@ -27,7 +27,19 @@ public class Place {
 	public long getLastUpdate() {
 		return lastUpdate;
 	}
-
-	Place() {
+	
+	public void setLastUpdate(long lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+	
+	public void setOnlineId(int onlineId) {
+		this.onlineID = onlineId;
+	}
+	
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+	
+	public Place() {
 	}
 }
