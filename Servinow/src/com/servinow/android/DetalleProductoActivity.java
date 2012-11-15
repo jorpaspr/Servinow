@@ -54,7 +54,6 @@ public class DetalleProductoActivity extends SherlockActivity {
 				public void onImageSyn(Bitmap img) {
 					ImageView imageView = (ImageView) findViewById(R.id.imageView);
 					imageView.setImageBitmap(img);
-					printToast("Imagen obtenida");
 				}
 			}, null);
 			
