@@ -19,6 +19,7 @@
     <string name="lista_pedido_button_delete_cancel">Cancelar</string>
     <string name="lista_pedido_button_delete_confirm">Borrar</string>
     <string name="lista_pedido_button_change_quantity">Cambiar Cantidad</string>
+    <string name="categorias_button_lista_pedidos">Lista Pedidos</string>
     <string name="app_name">Servinow</string>
     <string name="title_activity_main">Servinow</string>
 	<string name="qrreading_loading">Entregando carta&#8230;</string>
