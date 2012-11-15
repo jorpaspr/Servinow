@@ -117,7 +117,7 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 	    //holder.image.setImageURI(Uri.parse(selectedItem.geturlImage()));
 	    holder.image.setImageResource(R.drawable.meal);
 	    holder.image.setVisibility(selectedItem.getImageVisibility());
-	    holder.unitPrice.setText(selectedItem.getUnitPrice()+"Û");
+	    holder.unitPrice.setText(selectedItem.getUnitPrice()+" â‚¬");
 	    holder.quantity.setText(""+selectedItem.getQuantity());
 	    holder.checkBox.setChecked(selectedItem.isChecked());
 	    holder.checkBox.setVisibility(selectedItem.getCheckBoxVisibility());
