@@ -173,6 +173,16 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.lista_pedido_button_go_to_categorias:
+    			Intent i = new Intent(ListaPedidoActivity.this, CategoriasActivity.class);
+    			Bundle b = new Bundle();
+    			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+    			b.putInt(Param.PLACE.toString(), placeID);
+    			i.putExtras(b);
+    			startActivity(i);
+        }
 	    return super.onOptionsItemSelected(item);
 	}
 	
