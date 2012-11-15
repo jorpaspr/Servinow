@@ -5,9 +5,6 @@ import java.util.List;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.servinow.android.domain.Pedido;
-import com.servinow.android.domain.Place;
-import com.servinow.android.domain.Producto;
-import com.servinow.android.domain.Restaurant;
 
 import android.content.Context;
 
@@ -46,16 +43,20 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 		pedidoDAO.delete(pedidoList);
 	}
 	
-	public Pedido getPedidoNotConfirmed(Place place, Restaurant restaurant){
+	public Pedido getPedidoNotConfirmed(int place, int restaurant){
 		
 		HashMap<String, Object> sqlFieldsToMatch = new HashMap<String, Object>();
 	    sqlFieldsToMatch.put("confirmado", false);
-	    sqlFieldsToMatch.put("restaurant", restaurant);
-	    sqlFieldsToMatch.put("place", place);
+	    sqlFieldsToMatch.put("restaurant_id", restaurant);
+	    sqlFieldsToMatch.put("place_id", place);
 		
 	    List<Pedido> pedidosList = getDAO().queryForFieldValues(sqlFieldsToMatch);
 		
-		Pedido pedido = pedidosList.get(0);
+	    Pedido pedido = null;
+	    
+	    if(pedidosList.size() > 0){
+	    	pedido = pedidosList.get(0);
+	    }
 		
 		return pedido;
 	}
@@ -71,13 +72,15 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
     
   }
 	  
-	public boolean IsThereOrderNotConfirmed(){
-		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
-		List<Pedido> pedidoList = pedidoDAO.queryForEq("confirmado", false);
-		boolean isThereOrderNotConfirmed = true;
-		if(pedidoList.size() == 0){
-			isThereOrderNotConfirmed = false;
-		}
-		return isThereOrderNotConfirmed;
+	public Pedido getPedidoById(int idPedido){
+		return getDAO().queryForId(idPedido);
+	}
+	
+	public Pedido insertPedidoIfNotExists(Pedido pedido){
+		Pedido pedidoIfNotExists = getDAO().createIfNotExists(pedido);
+		return pedidoIfNotExists;
+	}
+	public void updatePedido(Pedido pedido){
+		getDAO().update(pedido);
 	}
 }
