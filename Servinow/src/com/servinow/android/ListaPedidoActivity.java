@@ -373,12 +373,14 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	        	   new PedidosHandler(ListaPedidoActivity.this).cancelarPedido(ListaPedidoActivity.this.pedido.getId());
 	    	        	   
 	    	        	   // Ir a la actividad de categorías CategoriasActivity
-	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, CategoriasActivity.class);
+	    	        	  /* Intent myIntent = new Intent(ListaPedidoActivity.this, CategoriasActivity.class);
 	    	       			Bundle b = new Bundle();
 	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
 	    	       			b.putInt(Param.PLACE.toString(), placeID);
 	    	       			myIntent.putExtras(b);
-	    	               ListaPedidoActivity.this.startActivity(myIntent);
+	    	               ListaPedidoActivity.this.startActivity(myIntent);*/
+	    	        	   
+	    	        	   ListaPedidoActivity.this.finish();
 	    	           }
 	    	       });
 	    	builder.setNegativeButton(R.string.lista_pedido_cancel_button_cancel, new DialogInterface.OnClickListener() {
