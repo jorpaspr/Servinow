@@ -126,9 +126,43 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	}
 	
     @Override
-    protected void onStart() {
-        super.onStart();
-        this.pedido = new PedidoCache( this ).getPedidoNotConfirmed(placeID, restaurantID);
+    protected void onRestart() {
+        super.onRestart();
+        
+        // Borrar todos los elementos del adapter
+        for(int i=0; i < listaPedidoAdapter.getCount(); i++){
+        	listaPedidoAdapter.remove(listaPedidoAdapter.getItem(i));
+        }
+        
+        // Insertar los nuevos elementos en el adapter
+        
+		this.pedido = new PedidoCache( this ).getPedidoNotConfirmed(placeID, restaurantID);
+		
+		SelectedItem[] selectedItems = new SelectedItem[0];
+		if( pedido != null){
+		
+			int numSelectedItems = pedido.getLineas().size();
+		
+			selectedItems = new SelectedItem[numSelectedItems];
+	
+			List<LineaPedido> lineasPedido = new ArrayList<LineaPedido>(pedido.getLineas());
+			
+			for(int i=0; i < numSelectedItems; i++){
+				selectedItems[i] = new SelectedItem(lineasPedido.get(i), this.restaurantID, this.placeID);
+			}
+		}
+		 
+		 // Crear los datos para el Adapter a partir de los datos de la base de datos
+		 ArrayList<SelectedItem> arrayList = new ArrayList<SelectedItem>();
+		 arrayList.addAll(Arrays.asList(selectedItems));
+        
+		 // Crea el ADAPTER
+		 this.listaPedidoAdapter = new ListaPedidoAdapter(this, R.layout.lista_pedido_row, arrayList);
+		 setListAdapter( listaPedidoAdapter );
+		 
+		 // Modificar el precio total
+    	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " €");
+        
     }
 	
 	

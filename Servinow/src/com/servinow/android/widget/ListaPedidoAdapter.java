@@ -114,6 +114,7 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
       	holder.checkBox.setTag( selectedItem ); 
 	    
 	    holder.name.setText(selectedItem.getName());
+	    // TODO Coger la imagen de una URL
 	    //holder.image.setImageURI(Uri.parse(selectedItem.geturlImage()));
 	    holder.image.setImageResource(R.drawable.meal);
 	    holder.image.setVisibility(selectedItem.getImageVisibility());
