@@ -86,8 +86,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// IR A LA ACTIVIDAD DetalleProductoActivity
-				// TODO
-				Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class );
+				Intent myIntent = new Intent(ListaPedidoActivity.this, DetalleProductoActivity.class );
 	        	Bundle b = new Bundle();
 	        	SelectedItem selectedItem = (SelectedItem) parent.getAdapter().getItem(position);
 	        	b.putInt(Param.RESTAURANT.toString(), selectedItem.getRestaurantId());
@@ -299,8 +298,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	        	   ListaPedidoActivity.this.pedido.setConfirmado(true);
 	    	        	   new PedidoCache(ListaPedidoActivity.this).updatePedido(pedido);
 	    	        	   
-	    	        	   // INTENT A LA ACTIVIDAD DE CheckStateActivity.class
-	    	        	   // TODO
+	    	        	   // TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
 	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
 	    	       			Bundle b = new Bundle();
 	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
@@ -338,8 +336,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	        	   new PedidosHandler(ListaPedidoActivity.this).cancelarPedido(ListaPedidoActivity.this.pedido.getId());
 	    	        	   
 	    	        	   // Ir a la actividad de categor’as CategoriasActivity
-	    	        	   // TODO
-	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
+	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, CategoriasActivity.class);
 	    	       			Bundle b = new Bundle();
 	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
 	    	       			b.putInt(Param.PLACE.toString(), placeID);
