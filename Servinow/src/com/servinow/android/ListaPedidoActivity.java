@@ -47,7 +47,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista_pedido);
 		
-		// Leer los par‡metros recibidos: RESTAURANT y PLACE
+		// Leer los parï¿½metros recibidos: RESTAURANT y PLACE
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 		{
@@ -103,11 +103,11 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		
 		// Eventos de Botones
 		if(pedido != null){
-			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( Math.round(pedido.getTotal()*100.0)/100.0 + " Û");
-			//((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( pedido.getTotal() + " Û");
+			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( Math.round(pedido.getTotal()*100.0)/100.0 + " ï¿½");
+			//((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( pedido.getTotal() + " ï¿½");
 		}
 		else{
-			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText("0 Û");
+			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText("0 ï¿½");
 		}
 		if( this.pedido != null ){
 			((Button) findViewById(R.id.lista_pedido_button_edit)).setOnClickListener(editButtonClick);
@@ -125,6 +125,13 @@ public class ListaPedidoActivity extends SherlockListActivity {
 			((Button) findViewById(R.id.lista_pedido_button_confirm)).setEnabled(false);
 		}
 	}
+	
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.pedido = new PedidoCache( this ).getPedidoNotConfirmed(placeID, restaurantID);
+    }
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,7 +175,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
         	for(int i=0; i < numberOfItems; i++){
         		if(items[i].isChecked()){
         			listaPedidoAdapter.remove(items[i]);
-        			// Insertar los elementos en la lista para borrar despuŽs
+        			// Insertar los elementos en la lista para borrar despuï¿½s
         			// la lista entera de la base de datos
         			lineaPedidoIdList.add(items[i].getId());
                 	itemsRemoved++;
@@ -182,7 +189,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	        	// Modificar el valor del PrecioTotal
 	        	pedido = new PedidoCache( ListaPedidoActivity.this ).
 	        			getPedidoNotConfirmed(ListaPedidoActivity.this.placeID, ListaPedidoActivity.this.restaurantID);
-	        	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " Û");
+	        	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " ï¿½");
         	}
         	
         	for(int i=0; i < listaPedidoAdapter.getCount(); i++){
@@ -250,7 +257,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	                	   
 	                	   pedido = new PedidoCache( ListaPedidoActivity.this ).
 	       	        			getPedidoNotConfirmed(ListaPedidoActivity.this.placeID, ListaPedidoActivity.this.restaurantID);
-	       	        		((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " Û");
+	       	        		((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " ï¿½");
 	                	   
 	                  	   // Modificar en el adapter
 	                	   selectedItem.setQuantity(cantidad);
@@ -335,7 +342,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 
 	    	        	   new PedidosHandler(ListaPedidoActivity.this).cancelarPedido(ListaPedidoActivity.this.pedido.getId());
 	    	        	   
-	    	        	   // Ir a la actividad de categor’as CategoriasActivity
+	    	        	   // Ir a la actividad de categorï¿½as CategoriasActivity
 	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, CategoriasActivity.class);
 	    	       			Bundle b = new Bundle();
 	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
