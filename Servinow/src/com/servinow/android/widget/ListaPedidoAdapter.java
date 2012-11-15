@@ -115,7 +115,7 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 	    
 	    holder.name.setText(selectedItem.getName());
 	    //holder.image.setImageURI(Uri.parse(selectedItem.geturlImage()));
-	    holder.image.setImageResource(R.drawable.hamburguesa);
+	    holder.image.setImageResource(R.drawable.meal);
 	    holder.image.setVisibility(selectedItem.getImageVisibility());
 	    holder.unitPrice.setText(selectedItem.getUnitPrice()+"Û");
 	    holder.quantity.setText(""+selectedItem.getQuantity());
