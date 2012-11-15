@@ -42,6 +42,7 @@
 			android:uiOptions="splitActionBarWhenNarrow" >
 		</activity>
         <activity android:name="QRReading"></activity>
+        <activity android:name=".PickerActivity"></activity>
     </application>
 
 </manifest>
