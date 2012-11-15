@@ -42,6 +42,7 @@ public class DetalleProductoActivity extends SherlockActivity {
 			placeID = extras.getInt(Param.PLACE.toString());
 			categoriaID = extras.getInt(Param.CATEGORIA.toString());
 			productoID = extras.getInt(Param.PRODUCTO.toString());
+			//kk
 			
 			this.producto = new ProductCache(this).getProducto(productoID);
 	        Resources res = getResources();
