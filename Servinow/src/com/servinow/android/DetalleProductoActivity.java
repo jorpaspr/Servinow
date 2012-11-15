@@ -48,7 +48,7 @@ public class DetalleProductoActivity extends SherlockActivity {
 			textViewPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
 			
 			TextView textViewDisponible = (TextView) findViewById(R.id.textViewDisponibilidad);
-			String disponibilidad = producto.isStock()?"Disponible":"No disponible";
+			String disponibilidad = producto.isDisponible()?"Disponible":"No disponible";
 			textViewDisponible.setText(disponibilidad);
 			
 			TextView textViewDescripcion = (TextView) findViewById(R.id.textViewDescripcion);
