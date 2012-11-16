@@ -1,14 +1,12 @@
 package com.servinow.android;
 
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.servinow.android.Util.ImageAsyncHelper;
@@ -39,7 +37,6 @@ public class DetalleProductoActivity extends SherlockActivity {
 			productoID = extras.getInt(Param.PRODUCTO.toString());
 			
 			this.producto = new ProductCache(this).getProducto(productoID);
-	        Resources res = getResources();
 
 	        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 			imageView.setImageDrawable(producto.getImagen());
@@ -89,21 +86,9 @@ public class DetalleProductoActivity extends SherlockActivity {
 				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
 				b.putInt(Param.CANTIDAD.toString(), 1);
 				
-				// TODO conectar con la parte de Carlos.
-				
 				PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
 				pedidosHandler.insertarProducto(producto, 1, placeID, restaurantID);
-				/*Intent i = new Intent(DetalleProductoActivity.this, ?.class);
-				i.putExtras(b);
-				startActivity(i);*/
-				// TODO para depuración, eliminar
-            	printToast("Se ha hecho click en el botón de añadir");            	
             }
         });
     }
-	
-    // TODO para depuración, eliminar
-	private void printToast(String mensaje) {
-		Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-	}
 }
