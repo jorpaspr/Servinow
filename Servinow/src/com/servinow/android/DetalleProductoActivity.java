@@ -25,8 +25,6 @@ public class DetalleProductoActivity extends SherlockActivity {
 
 	private int restaurantID;
 	private int placeID;
-	private int categoriaID;
-	private int productoID;
 	private Producto producto;
 	
     @Override
@@ -39,10 +37,9 @@ public class DetalleProductoActivity extends SherlockActivity {
 		{
 			restaurantID = extras.getInt(Param.RESTAURANT.toString());
 			placeID = extras.getInt(Param.PLACE.toString());
-			categoriaID = extras.getInt(Param.CATEGORIA.toString());
-			productoID = extras.getInt(Param.PRODUCTO.toString());
 			
-			this.producto = new ProductCache(this).getProducto(productoID);
+			int productoID = extras.getInt(Param.PRODUCTO.toString());			
+			producto = new ProductCache(this).getProducto(productoID);
 
 	        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 			imageView.setImageDrawable(producto.getImagen());
@@ -118,10 +115,6 @@ public class DetalleProductoActivity extends SherlockActivity {
             	
     	    	AlertDialog alert = builder.create();
     	    	alert.show();
-				
-				//PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
-				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
-				//pedidosHandler.insertarProducto(producto, 1, placeID, restaurantID);
             }
         });
     }

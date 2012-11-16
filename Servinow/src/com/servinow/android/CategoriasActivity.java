@@ -26,11 +26,6 @@ public class CategoriasActivity extends SherlockActivity {
 	private Categoria [] categorias = new Categoria[0];
 	private int restaurantID;
 	private int placeID;
-	
-	public static enum PARAM {
-		RESTAURANT,
-		PLACE; // MESA
-	}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +34,8 @@ public class CategoriasActivity extends SherlockActivity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 		{
-			restaurantID = extras.getInt(PARAM.RESTAURANT.toString());
-			placeID = extras.getInt(PARAM.PLACE.toString());
+			restaurantID = extras.getInt(Param.RESTAURANT.toString());
+			placeID = extras.getInt(Param.PLACE.toString());
 			Restaurant restaurant = new RestaurantCache(this).
 					getRestaurantFromCache(restaurantID);
 			List<Categoria> listaCategorias = new CategoryCache(this).
