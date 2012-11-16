@@ -3,7 +3,9 @@ package com.servinow.android;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +71,7 @@ public class DetalleProductoActivity extends SherlockActivity {
 				buttonAdd.setEnabled(true);
 			} else {
 				textViewDisponible.setText("No disponible");
+				textViewDisponible.setTextColor(Color.RED);
 				buttonAdd.setEnabled(false);
 			}
 			
