@@ -83,13 +83,13 @@ public class DetalleProductoActivity extends SherlockActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	
-            	// TODO al intentar poner la cantidad del numberPicker a 1, explota
-            	//NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.lista_pedido_picker);
-            	//numberPicker.setCurrent(1); // Por defecto ponemos la cantidad a 1
-            	
             	AlertDialog.Builder builder = new AlertDialog.Builder(DetalleProductoActivity.this);
             	LayoutInflater inflater = DetalleProductoActivity.this.getLayoutInflater();
             	View view = inflater.inflate(R.layout.picker_activity, null);
+            	
+            	// TODO Solucionado. Era porque no había que utilizar v, sino view que era la de R.layout.picke_activity 
+            	NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.lista_pedido_picker);
+            	numberPicker.setCurrent(1); // Por defecto ponemos la cantidad a 1
             	
             	builder.setView(view)
             	.setPositiveButton(R.string.lista_pedido_cancel_button_ok, new DialogInterface.OnClickListener() {
@@ -112,10 +112,6 @@ public class DetalleProductoActivity extends SherlockActivity {
             	
     	    	AlertDialog alert = builder.create();
     	    	alert.show();
-				
-				//PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
-				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
-				//pedidosHandler.insertarProducto(producto, 1, placeID, restaurantID);
             }
         });
     }
