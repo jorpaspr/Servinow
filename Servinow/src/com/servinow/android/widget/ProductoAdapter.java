@@ -1,5 +1,8 @@
 package com.servinow.android.widget;
 
+import java.util.Iterator;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 import com.servinow.android.R;
 import com.servinow.android.Util.ImageAsyncHelper;
 import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
+import com.servinow.android.dao.LineaPedidoCache;
+import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Producto;
 
 public class ProductoAdapter extends ArrayAdapter<Producto> {
@@ -68,15 +73,21 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
 			 * pedido del pedido actual, y en tal caso obtener la cantidad.
 			 * Pensar en cómo hacerlo.
 			 */
-			TextView textViewCantidad = (TextView)view.findViewById(R.id.textViewCantidad);		
-			/*if (textViewCantidad != null) {
-				int cantidad = plato.getStock();
-
-				if (cantidad > 0)
-					textViewCantidad.setText("x " + plato.getStock());
-				else
-					textViewCantidad.setText("");
-			}*/
+			TextView textViewCantidad = (TextView)view.findViewById(R.id.textViewCantidad);
+			LineaPedidoCache lineaPedidoCache = new LineaPedidoCache(getContext());
+			List<LineaPedido> lineas = lineaPedidoCache.getAllListaPedido();
+				
+			Iterator<LineaPedido> itr = lineas.iterator();
+			boolean productoEncontrado = false;
+			while (itr.hasNext() && !productoEncontrado) {
+				LineaPedido lp = itr.next();
+				if (lp.getProducto().equals(producto)) {
+					textViewCantidad.setText("x" + lp.getCantidad());
+					productoEncontrado = true;
+				}
+			}
+			if (!productoEncontrado)
+				textViewCantidad.setText("");
 		}
 		
 		return view;
