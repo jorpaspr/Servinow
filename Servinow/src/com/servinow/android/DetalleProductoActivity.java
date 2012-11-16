@@ -1,11 +1,15 @@
 package com.servinow.android;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import com.servinow.android.picker.NumberPicker;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -78,16 +82,40 @@ public class DetalleProductoActivity extends SherlockActivity {
 		final Button button = (Button) findViewById(R.id.buttonAdd);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-				Bundle b = new Bundle();
-				b.putInt(Param.RESTAURANT.toString(), restaurantID);
-				b.putInt(Param.PLACE.toString(), placeID);
-				b.putInt(Param.CATEGORIA.toString(), categoriaID);
-				b.putInt(Param.PRODUCTO.toString(), productoID);
-				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
-				b.putInt(Param.CANTIDAD.toString(), 1);
+            	
+            	// TODO al intentar poner la cantidad del numberPicker a 1, explota
+            	//NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.lista_pedido_picker);
+            	//numberPicker.setCurrent(1); // Por defecto ponemos la cantidad a 1
+            	
+            	AlertDialog.Builder builder = new AlertDialog.Builder(DetalleProductoActivity.this);
+            	LayoutInflater inflater = DetalleProductoActivity.this.getLayoutInflater();
+            	View view = inflater.inflate(R.layout.picker_activity, null);
+            	
+            	builder.setView(view)
+            	.setPositiveButton(R.string.lista_pedido_cancel_button_ok, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						NumberPicker numberPicker = (NumberPicker) ((AlertDialog) dialog).findViewById(R.id.lista_pedido_picker);
+						int cantidad = numberPicker.getCurrent();
+						PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
+						pedidosHandler.insertarProducto(producto, cantidad, placeID, restaurantID);
+					}
+            		
+            	})
+            	.setNegativeButton(R.string.lista_pedido_cancel_button_cancel, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+            	});
+            	
+    	    	AlertDialog alert = builder.create();
+    	    	alert.show();
 				
-				PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
-				pedidosHandler.insertarProducto(producto, 1, placeID, restaurantID);
+				//PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
+				// TODO se envía cantidad=1 para probar. Implementar diálogo con NumberPicker
+				//pedidosHandler.insertarProducto(producto, 1, placeID, restaurantID);
             }
         });
     }
