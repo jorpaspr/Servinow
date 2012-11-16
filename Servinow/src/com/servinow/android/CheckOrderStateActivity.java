@@ -78,7 +78,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     	pd.setId(1);
     	ArrayList<LineaPedido> arraylinea = new ArrayList<LineaPedido>();
     	LineaPedido lp = new LineaPedido();
-    	lp.setCantidad(6);
+    	lp.setCantidad(8);
     	lp.setEstado(Estado.EN_COLA);
     	Producto pr = new Producto();
     	lp.setProducto(pr);
