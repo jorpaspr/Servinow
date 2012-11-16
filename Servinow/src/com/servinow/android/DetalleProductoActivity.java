@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.servinow.android.picker.NumberPicker;
 import android.widget.TextView;
 
@@ -100,6 +102,10 @@ public class DetalleProductoActivity extends SherlockActivity {
 						int cantidad = numberPicker.getCurrent();
 						PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
 						pedidosHandler.insertarProducto(producto, cantidad, placeID, restaurantID);
+		    	    	
+						Toast.makeText(DetalleProductoActivity.this, "Se han añadido " + cantidad +
+								" de " + producto.getNombre() + " al pedido", Toast.LENGTH_LONG).show();
+		    	    	finish();
 					}
             		
             	})
