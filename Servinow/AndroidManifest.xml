@@ -9,6 +9,7 @@
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -35,8 +36,8 @@
             android:name=".ListaPedidoActivity"
             android:label="@string/lista_pedido_title" >
         </activity>
-        <activity
-			android:name=".TicketActivity"
+        <activity 
+            android:name=".TicketActivity"
 			android:label="@string/activity_ticket_title" 
 			android:uiOptions="splitActionBarWhenNarrow" >
 		</activity>
@@ -46,7 +47,10 @@
         <activity android:name="ProductosActivity"></activity>
         <activity android:name="DetalleProductoActivity"></activity>
         
-       
+        <activity
+            android:name="com.paypal.android.MEP.PayPalActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>
