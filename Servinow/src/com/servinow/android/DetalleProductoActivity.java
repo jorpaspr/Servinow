@@ -86,7 +86,6 @@ public class DetalleProductoActivity extends SherlockActivity {
             	LayoutInflater inflater = DetalleProductoActivity.this.getLayoutInflater();
             	View view = inflater.inflate(R.layout.picker_activity, null);
             	
-            	// TODO Solucionado. Era porque no había que utilizar v, sino view que era la de R.layout.picke_activity 
             	NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.lista_pedido_picker);
             	numberPicker.setCurrent(1); // Por defecto ponemos la cantidad a 1
             	
