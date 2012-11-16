@@ -67,11 +67,10 @@ public class CacheRestaurantSystem {
 					TypeToken<ArrayList<Integer>> productIDsListType = new TypeToken<ArrayList<Integer>>(){};
 					ArrayList<Integer> productIDsList = new Gson().fromJson(productsByCategoryJson, productIDsListType.getType());
 					
-					if(productIDsList == null) {
-						Log.d("CACHERESTAURANTE", "productIDsList es null");
-						Log.d("CACHERESTAURANTE", productsByCategoryJson);
-						Log.d("CACHERESTAURANTE", "****");
-					}
+					/*Workaround that very SOMETIMES the json downloaded is empty by an unknown reason. */
+                    if(productIDsList == null) {
+                            return false;
+                    }
 					
 					//Rel. all this products with this category.
 					ProductCache productCache = new ProductCache(context);
