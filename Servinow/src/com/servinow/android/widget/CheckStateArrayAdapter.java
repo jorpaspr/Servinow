@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,7 +25,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.servinow.android.R;
+import com.servinow.android.dao.LineaPedidoCache;
 import com.servinow.android.domain.Estado;
+import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.OrdersState;
 import com.servinow.android.widget.PurchasedItemAdapter.ViewHolder;
 
@@ -35,6 +38,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 //	private final String[] platos;
 //	public Boolean res = false;
 	private OrdersState ord=null;
+	public HashMap<Integer, Integer> lineasCant=new HashMap<Integer, Integer>();
 	
 	protected Handler taskHandler = new Handler();
 	protected Boolean isComplete = false;
@@ -56,6 +60,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	//	this.platos = platos;
 		countOrders=orders.size();
 		countChanges=countOrders*3;
+		setLineasCantidad();
 		setTimer(1000);
 	}
 
@@ -164,7 +169,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 				Integer index = (Integer) vv.getTag();
      		   	orders.remove(index.intValue());  
      		   	notifyDataSetChanged();
-     		   	deleteInDB();
+     		   	deleteInDB(orders.get(index));
 			}						
 		});
 		builder.setNegativeButton(ctx.getString(R.string.checkstateactivity_no), new DialogInterface.OnClickListener() {						
@@ -179,8 +184,19 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		
 	}
 	
-	public void deleteInDB(){
+	public void deleteInDB(OrdersState ord){
 		//TODO BORRAR EN LA BASE DE DATOS
+		LineaPedidoCache lpCach = new LineaPedidoCache(context);
+	//	LineaPedido lp = new LineaPedido();
+	//	lp = lpCach.getLineaPedido(ord.productoId);
+		int cant = lineasCant.get(ord.lineaPedidoId);
+		if(cant<=1)
+			lpCach.deleteLineaPedido(ord.lineaPedidoId);
+		else
+			lpCach.updateQuantityLineaPedido(ord.lineaPedidoId, ord.cantidad-1);
+		lineasCant.remove(ord.lineaPedidoId);
+		lineasCant.put(ord.lineaPedidoId, cant-1);
+		
 	}
 	
 	protected void setTimer( long time )
@@ -222,6 +238,16 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
     	notifyDataSetChanged();
     	if(countChanges<=0)
     		flagTimer=true;
+    }
+    
+    public void setLineasCantidad(){
+    	int prevLn = -1;
+    	for(int i=0; i<orders.size(); i++){
+    		if(prevLn!=orders.get(i).lineaPedidoId){
+    			prevLn=orders.get(i).lineaPedidoId;
+    			lineasCant.put(prevLn, orders.get(i).cantidad);
+    		}
+    	}
     }
 	
 	

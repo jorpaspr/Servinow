@@ -53,7 +53,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
 
     public void createListView(Context ctx){
     	
-    	populateOrdersB(); // populateOrders de la BD, populateOrdersB los crea
+    	populateOrders(); // populateOrders de la BD, populateOrdersB los crea
     	
     	prepareToDisplay();
     	
@@ -93,7 +93,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     
     public void prepareToDisplay(){
     	
-    	Bitmap mIcon_val=null;
+  /*  	Bitmap mIcon_val=null;
     	URL newurl;
 		try {
 			newurl = new URL("http://www.recetasdiarias.com/wp-content/uploads/2010/01/tarta-de-queso.jpg");
@@ -105,7 +105,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} */
     	
     	
     	for(int i=listaPedidos.size()-1; i>=0; i--){
@@ -120,10 +120,13 @@ public class CheckOrderStateActivity extends SherlockActivity {
     			for(int j=0; j<lp.getCantidad(); j++){
     				OrdersState ordp = new OrdersState();
     				ordp.roundmark=false;
-    			//	ord.name = lp.getProducto().getNombre();
-    				ordp.name = "mosquito frito";
+    				ordp.name = lp.getProducto().getNombre();
     				ordp.state = lp.getEstado();
-    				ordp.image = mIcon_val;
+    				ordp.lineaPedidoId=lp.getId();
+    				ordp.cantidad=lp.getCantidad();
+    				//TODO imagen
+    				String imageName = lp.getProducto().getImageName();
+    			//	ordp.image = 
     				ordersToDisplay.add(ordp);
     				countOrders++;
     			}

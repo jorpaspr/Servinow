@@ -8,5 +8,6 @@ public class OrdersState {
 	public Bitmap image;
 	public int round = 1;
 	public Boolean roundmark=false;
-	
+	public int lineaPedidoId;
+	public int cantidad=0;
 }
