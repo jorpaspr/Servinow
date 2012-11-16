@@ -22,9 +22,9 @@ public class ProductosActivity extends SherlockListActivity {
 	private int placeID;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+	protected void onResume() {
+		super.onResume();
+		
         Bundle extras = getIntent().getExtras();
 		if(extras != null)
 		{
@@ -43,9 +43,9 @@ public class ProductosActivity extends SherlockListActivity {
         ProductoAdapter adapter = new ProductoAdapter(this, R.layout.item_producto, productos);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(itemClickListener);
-    }
+	}
 
-    private OnItemClickListener itemClickListener = new OnItemClickListener() {
+	private OnItemClickListener itemClickListener = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {

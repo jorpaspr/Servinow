@@ -67,12 +67,6 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
 			if (textViewPrecio != null)
 				textViewPrecio.setText(Double.toString(producto.getPrecio()) + " €");
 			
-			/*
-			 * Para mostrar la cantidad productos que hay de un mismo tipo (x4),
-			 * hay que buscar si el producto se encuentra en alguna línea de
-			 * pedido del pedido actual, y en tal caso obtener la cantidad.
-			 * Pensar en cómo hacerlo.
-			 */
 			TextView textViewCantidad = (TextView)view.findViewById(R.id.textViewCantidad);
 			LineaPedidoCache lineaPedidoCache = new LineaPedidoCache(getContext());
 			List<LineaPedido> lineas = lineaPedidoCache.getAllListaPedido();
