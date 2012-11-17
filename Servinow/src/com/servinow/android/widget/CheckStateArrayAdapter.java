@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.zip.Inflater;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -53,6 +54,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		    TextView state;
 		    ImageView image;
 		    TextView ronda;
+        public ImageButton deleteButtom;
 	}
 	
 	public CheckStateArrayAdapter(Context context, ArrayList<OrdersState> orders) {
@@ -65,105 +67,99 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		setLineasCantidad();
 		setTimer(1000);
 	}
+	
+	@Override
+	public int getViewTypeCount() {
+	  return 2;
+	}
+	
+	@Override
+	public int getItemViewType(int position) {
+	  if(orders.get(position).roundmark)
+	    return 1;
+	  else
+	    return 0;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO insertar im�genes
 		View rowView = convertView;
-		ViewHolder holder=new ViewHolder();;
-		
-		LayoutInflater inflater = null;
+		ViewHolder holder=new ViewHolder();
 		
 		ord = orders.get(position);
-	//	if(rowView==null){
-	//		inflater = (LayoutInflater) context
-	//			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			inflater = ((Activity)getContext()).getLayoutInflater();	
-		/*	if(!ord.roundmark){
-				rowView = inflater.inflate(R.layout.list_check_state, parent, false);
-			  
-			}else{
-				rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
-			}
-			holder.name = (TextView) rowView.findViewById(R.id.TextViewCheckStateName);
-			holder.state = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
-			holder.image = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
-			holder.ronda = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
-			rowView.setTag(holder);
+		if(rowView==null){
+		  LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();	
+		  if(!ord.roundmark){
+		    rowView = inflater.inflate(R.layout.list_check_state, parent, false);
+	      holder.name = (TextView) rowView.findViewById(R.id.TextViewCheckStateName);
+	      holder.state = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
+	      holder.image = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
+	      holder.deleteButtom = (ImageButton) rowView.findViewById(R.id.CheckState_row_Cancel);
+		  }else{
+		    rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
+	      holder.ronda = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
+		  }
+		  rowView.setTag(holder);
 		}else{
-			holder = (ViewHolder) rowView.getTag();*/
-//		}
+		  holder = (ViewHolder) rowView.getTag();
+		}
 		
 		
 		if(!ord.roundmark){
-			rowView = inflater.inflate(R.layout.list_check_state, parent, false);
-			
-			TextView TVName = (TextView) rowView.findViewById(R.id.TextViewCheckStateName);
-			TextView TVState = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
-			ImageView imageView = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
-			
-		
-			TVName.setText(ord.name);
-			
-			
-			if(ord.state == Estado.EN_COLA){
-				TVState.setTextColor(Color.argb(255, 255, 0, 0));
-				TVState.setText(R.string.checkstateactivity_encola);
-			}
-			else if(ord.state == Estado.PREPARANDO){
-				TVState.setTextColor(Color.argb(255, 187, 187, 0));
-				TVState.setText(R.string.checkstateactivity_encocina);
-			}
-			else if(ord.state == Estado.LISTO){
-				TVState.setTextColor(Color.argb(255, 66, 204, 68));
-				TVState.setText(R.string.checkstateactivity_preparado);
-			}else{
-				TVState.setTextColor(Color.argb(255, 0, 0, 0));
-				TVState.setText(R.string.checkstateactivity_servido);
-			}
-			
-		//	imageView.setImageResource(R.drawable.arroz);
-			if(ord.image == null) {
-        ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
-			  ord.image = imageAsyncHelper.getBitmap(ord.imageName, new ImageAsyncHelperCallBack() {
-          ImageView imgView;
-          
-          public ImageAsyncHelperCallBack setImageView(ImageView imgView) {
-            this.imgView = imgView;
-            return this;
-          }
-          
-          @Override
-          public void onImageSyn(Bitmap img) {
-            imgView.setImageBitmap(img);                
-          }
-        }.setImageView(imageView), null);
-			}
-			imageView.setImageBitmap(ord.image);
-			
-			
-			ImageButton deleteButton = (ImageButton) rowView.findViewById(R.id.CheckState_row_Cancel);
-	        deleteButton.setTag(position);
+		  holder.name.setText(ord.name);
 
-	        if(ord.state != Estado.EN_COLA)
-	        	deleteButton.setEnabled(false);
-	        
-	        deleteButton.setOnClickListener(
-	           new Button.OnClickListener() {
-	               @Override
-	               public void onClick(View v) {
-	            	   callDialog(context,v);
-	            		
-	               }
-	           }
-	       );
-			
+		  if(ord.state == Estado.EN_COLA){
+		    holder.state.setTextColor(Color.argb(255, 255, 0, 0));
+		    holder.state.setText(R.string.checkstateactivity_encola);
+		  }
+		  else if(ord.state == Estado.PREPARANDO){
+		    holder.state.setTextColor(Color.argb(255, 187, 187, 0));
+		    holder.state.setText(R.string.checkstateactivity_encocina);
+		  }
+		  else if(ord.state == Estado.LISTO){
+		    holder.state.setTextColor(Color.argb(255, 66, 204, 68));
+		    holder.state.setText(R.string.checkstateactivity_preparado);
+		  }else{
+		    holder.state.setTextColor(Color.argb(255, 0, 0, 0));
+		    holder.state.setText(R.string.checkstateactivity_servido);
+		  }
+
+		  if(ord.image == null) {
+		    ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
+		    ord.image = imageAsyncHelper.getBitmap(ord.imageName, new ImageAsyncHelperCallBack() {
+		      ImageView imgView;
+
+		      public ImageAsyncHelperCallBack setImageView(ImageView imgView) {
+		        this.imgView = imgView;
+		        return this;
+		      }
+
+		      @Override
+		      public void onImageSyn(Bitmap img) {
+		        imgView.setImageBitmap(img);                
+		      }
+		    }.setImageView(holder.image), null);
+		  }
+		  holder.image.setImageBitmap(ord.image);
+
+		  holder.deleteButtom.setTag(position);
+
+		  if(ord.state != Estado.EN_COLA)
+		    holder.deleteButtom.setEnabled(false);
+
+		  holder.deleteButtom.setOnClickListener(
+		                                         new Button.OnClickListener() {
+		                                           @Override
+		                                           public void onClick(View v) {
+		                                             callDialog(context,v);
+
+		                                           }
+		                                         }
+		      );
+
 		}
-		else{
-			rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
-			
-			TextView tv = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
-			tv.setText(" - Ronda "+ord.round+" - ");
+		else{			
+			holder.ronda.setText(" - Ronda "+ord.round+" - ");
 	//		Log.d("+++++","++++");
 		}
 		
