@@ -23,10 +23,13 @@ import com.servinow.android.domain.Producto;
 public class ProductoAdapter extends ArrayAdapter<Producto> {
 	
 	private int layoutResourceId;
+	private List<LineaPedido> lineas;
 
 	public ProductoAdapter(Context context, int layoutResourceId, Producto[] objects) {
 		super(context, layoutResourceId, objects);
 		this.layoutResourceId = layoutResourceId;
+		LineaPedidoCache lineaPedidoCache = new LineaPedidoCache(getContext());
+		lineas = lineaPedidoCache.getAllListaPedido();
 	}
 
 	@Override
@@ -68,10 +71,8 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
 				textViewPrecio.setText(Double.toString(producto.getPrecio()) + " €");
 			
 			TextView textViewCantidad = (TextView)view.findViewById(R.id.textViewCantidad);
-			LineaPedidoCache lineaPedidoCache = new LineaPedidoCache(getContext());
-			List<LineaPedido> lineas = lineaPedidoCache.getAllListaPedido();
 				
-			Iterator<LineaPedido> itr = lineas.iterator();
+			Iterator<LineaPedido> itr = this.lineas.iterator();
 			boolean productoEncontrado = false;
 			while (itr.hasNext() && !productoEncontrado) {
 				LineaPedido lp = itr.next();
