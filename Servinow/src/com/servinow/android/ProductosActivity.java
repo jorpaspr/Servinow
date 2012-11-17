@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.servinow.android.dao.CategoryCache;
 import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Producto;
@@ -44,6 +47,30 @@ public class ProductosActivity extends SherlockListActivity {
         setListAdapter(adapter);
         getListView().setOnItemClickListener(itemClickListener);
 	}
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.activity_categorias, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.categorias_button_lista_pedidos:
+    			Intent i = new Intent(ProductosActivity.this, ListaPedidoActivity.class);
+    			Bundle b = new Bundle();
+    			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+    			b.putInt(Param.PLACE.toString(), placeID);
+    			i.putExtras(b);
+
+    			startActivity(i);
+             default:
+            	 return true;
+        }
+    }
 
 	private OnItemClickListener itemClickListener = new OnItemClickListener() {
 		@Override
