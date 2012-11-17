@@ -3,7 +3,6 @@ package com.servinow.android;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.servinow.android.picker.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.servinow.android.Util.ImageAsyncHelper;
@@ -22,6 +19,7 @@ import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.dao.ProductCache;
 import com.servinow.android.domain.Producto;
 import com.servinow.android.pedidosSystem.PedidosHandler;
+import com.servinow.android.picker.NumberPicker;
 
 public class DetalleProductoActivity extends SherlockActivity {
 
@@ -102,7 +100,7 @@ public class DetalleProductoActivity extends SherlockActivity {
 						PedidosHandler pedidosHandler = new PedidosHandler(DetalleProductoActivity.this);
 						pedidosHandler.insertarProducto(producto, cantidad, placeID, restaurantID);
 		    	    	
-						Toast.makeText(DetalleProductoActivity.this, "Se han añadido " + cantidad +
+						Toast.makeText(DetalleProductoActivity.this, "Se ha añadido " + cantidad +
 								" de " + producto.getNombre() + " al pedido", Toast.LENGTH_LONG).show();
 		    	    	finish();
 					}
