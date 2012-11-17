@@ -42,7 +42,7 @@ public class PedidoCache extends ServinowDAOBase<Pedido, Integer> {
 		List<Pedido> pedidoList = pedidoDAO.queryForAll();
 		pedidoDAO.delete(pedidoList);
 	}
-
+	
 	public void setPagado(Pedido pedido){
 		RuntimeExceptionDao<Pedido, Integer> pedidoDAO = getDAO();
 		pedido.setPagado(true);
