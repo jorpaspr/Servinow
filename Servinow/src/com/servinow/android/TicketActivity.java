@@ -12,10 +12,10 @@ import com.servinow.android.dao.RestaurantCache;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Restaurant;
+import com.servinow.android.payment.IPaymentCallback;
+import com.servinow.android.payment.Payment;
+import com.servinow.android.payment.Payment.Method;
 import com.servinow.android.widget.PurchasedItemAdapter;
-import com.servinow.payment.IPaymentCallback;
-import com.servinow.payment.Payment;
-import com.servinow.payment.Payment.Method;
 
 import android.content.Intent;
 import android.content.res.Resources;
