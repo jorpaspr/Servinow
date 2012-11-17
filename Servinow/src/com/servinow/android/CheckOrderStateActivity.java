@@ -16,6 +16,8 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.servinow.android.Util.ImageAsyncHelper;
+import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.dao.PedidoCache;
 import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
@@ -65,7 +67,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     }
     
     public void populateOrders(){
-    	//TODO acceder a la BD para poblar la lista de —rdenes
+    	//TODO acceder a la BD para poblar la lista de ï¿½rdenes
     	
    
     	PedidoCache pd = new PedidoCache(this);
@@ -115,6 +117,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     		ordersToDisplay.add(ord);
     		countOrders++;
     		Iterator<LineaPedido> itr = listaPedidos.get(i).getLineas().iterator();
+    		ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
     			for(int j=0; j<lp.getCantidad(); j++){
@@ -124,9 +127,22 @@ public class CheckOrderStateActivity extends SherlockActivity {
     				ordp.state = lp.getEstado();
     				ordp.lineaPedidoId=lp.getId();
     				ordp.cantidad=lp.getCantidad();
-    				//TODO imagen
+    				
     				String imageName = lp.getProducto().getImageName();
-    			//	ordp.image = 
+    				ordp.image = imageAsyncHelper.getBitmap(imageName, new ImageAsyncHelperCallBack() {
+    				  OrdersState order;
+    				  
+    				  public ImageAsyncHelperCallBack setOrder(OrdersState order) {
+    				    this.order = order;
+    				    return this;
+    				  }
+              
+              @Override
+              public void onImageSyn(Bitmap img) {
+                order.image = img;                
+              }
+            }.setOrder(ordp), null);
+    				
     				ordersToDisplay.add(ordp);
     				countOrders++;
     			}
