@@ -117,7 +117,6 @@ public class CheckOrderStateActivity extends SherlockActivity {
     		ordersToDisplay.add(ord);
     		countOrders++;
     		Iterator<LineaPedido> itr = listaPedidos.get(i).getLineas().iterator();
-    		ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
     			for(int j=0; j<lp.getCantidad(); j++){
@@ -128,20 +127,8 @@ public class CheckOrderStateActivity extends SherlockActivity {
     				ordp.lineaPedidoId=lp.getId();
     				ordp.cantidad=lp.getCantidad();
     				
-    				String imageName = lp.getProducto().getImageName();
-    				ordp.image = imageAsyncHelper.getBitmap(imageName, new ImageAsyncHelperCallBack() {
-    				  OrdersState order;
-    				  
-    				  public ImageAsyncHelperCallBack setOrder(OrdersState order) {
-    				    this.order = order;
-    				    return this;
-    				  }
-              
-              @Override
-              public void onImageSyn(Bitmap img) {
-                order.image = img;                
-              }
-            }.setOrder(ordp), null);
+    				ordp.imageName = lp.getProducto().getImageName();
+    				ordp.image = null;
     				
     				ordersToDisplay.add(ordp);
     				countOrders++;

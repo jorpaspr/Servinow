@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.servinow.android.R;
+import com.servinow.android.Util.ImageAsyncHelper;
+import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.dao.LineaPedidoCache;
 import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
@@ -66,7 +68,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO insertar im‡genes
+		// TODO insertar imï¿½genes
 		View rowView = convertView;
 		ViewHolder holder=new ViewHolder();;
 		
@@ -121,6 +123,22 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 			}
 			
 		//	imageView.setImageResource(R.drawable.arroz);
+			if(ord.image == null) {
+        ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
+			  ord.image = imageAsyncHelper.getBitmap(ord.imageName, new ImageAsyncHelperCallBack() {
+          ImageView imgView;
+          
+          public ImageAsyncHelperCallBack setImageView(ImageView imgView) {
+            this.imgView = imgView;
+            return this;
+          }
+          
+          @Override
+          public void onImageSyn(Bitmap img) {
+            imgView.setImageBitmap(img);                
+          }
+        }.setImageView(imageView), null);
+			}
 			imageView.setImageBitmap(ord.image);
 			
 			
