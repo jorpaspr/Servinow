@@ -41,7 +41,7 @@ public class TicketActivity extends SherlockFragmentActivity implements IPayment
 		Bundle parameters = getIntent().getExtras();
 
 
-		if (parameters == null) {
+		if (parameters != null) {
 
 			restaurantID = parameters.getInt("restaurantID");
 			pedidos = new PedidoCache(this).getPedidosNoPagados(restaurantID);
