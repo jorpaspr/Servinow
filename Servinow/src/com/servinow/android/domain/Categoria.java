@@ -88,7 +88,7 @@ public class Categoria {
 		this.imagen = imagen;
 	}
 
-	@Deprecated
+	//@Deprecated
 	public Collection<Producto> getProducts2() {
 		ArrayList<Producto> products = new ArrayList<Producto>();
 		
