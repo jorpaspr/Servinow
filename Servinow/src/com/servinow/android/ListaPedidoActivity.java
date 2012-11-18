@@ -327,10 +327,10 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	builder.setPositiveButton(R.string.lista_pedido_confirm_button_ok, new DialogInterface.OnClickListener() {
 	    		public void onClick(DialogInterface dialog, int id) {
 	    			// Marcar pedido como confirmado
-	    			/*ListaPedidoActivity.this.pedido.setConfirmado(true);
+	    			ListaPedidoActivity.this.pedido.setConfirmado(true);
 	    			new PedidoCache(ListaPedidoActivity.this).updatePedido(pedido);
 
-	    			// TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
+	    			/*// TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
 	    			// SOLO HAY QUE CAMBIAR MainActivity por CheckStateActivity
 	    			Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
 	    			Bundle b = new Bundle();
