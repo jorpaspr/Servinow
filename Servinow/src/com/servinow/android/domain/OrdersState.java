@@ -10,5 +10,5 @@ public class OrdersState {
 	public Boolean roundmark=false;
 	public int lineaPedidoId;
 	public int cantidad=0;
-  public String imageName;
+	public String imageName;
 }

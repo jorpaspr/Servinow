@@ -332,7 +332,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	        	   
 	    	        	   // TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
 	    	        	   // SOLO HAY QUE CAMBIAR MainActivity por CheckStateActivity
-	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
+	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, CheckOrderStateActivity.class);
 	    	       			Bundle b = new Bundle();
 	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
 	    	       			b.putInt(Param.PLACE.toString(), placeID);

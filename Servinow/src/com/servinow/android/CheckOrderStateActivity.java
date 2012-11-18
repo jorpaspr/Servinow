@@ -8,11 +8,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -176,5 +178,15 @@ public class CheckOrderStateActivity extends SherlockActivity {
     	if(countChanges<=0)
     		flagTimer=true;
     }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			startActivity(new Intent(CheckOrderStateActivity.this, CategoriasActivity.class));
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
     
 }
