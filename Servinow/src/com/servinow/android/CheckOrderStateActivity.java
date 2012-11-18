@@ -62,6 +62,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
 		if(extras != null)
 		{
 			restaurantID = extras.getInt(Param.RESTAURANT.toString());
+			Log.d("restaurantID: ",""+restaurantID+"------");
 			placeID = extras.getInt(Param.PLACE.toString());
 			Restaurant restaurant = new RestaurantCache(this).
 					getRestaurantFromCache(restaurantID);
@@ -71,7 +72,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
 			// TODO cambiar a List en el adapter
 
 			setTitle(restaurant.getName());
-		}
+    	}
         
         setContentView(R.layout.activity_check_state); 
         setTitle("Servinow");
@@ -231,10 +232,11 @@ public class CheckOrderStateActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
-        case R.id.categorias_button_lista_pedidos:
+        case R.id.checkstate_button_ticket:
 			Intent i = new Intent(CheckOrderStateActivity.this, TicketActivity.class);
 			Bundle b = new Bundle();
 			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+			Log.d("restaurantID: ",""+restaurantID+"---2---");
 			b.putInt(Param.PLACE.toString(), placeID);
 			i.putExtras(b);
 

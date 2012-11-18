@@ -146,6 +146,8 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
 		  if(ord.state != Estado.EN_COLA)
 		    holder.deleteButtom.setEnabled(false);
+		  else
+			  holder.deleteButtom.setEnabled(true);
 
 		  holder.deleteButtom.setOnClickListener(
 		                                         new Button.OnClickListener() {

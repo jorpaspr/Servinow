@@ -89,6 +89,7 @@ public class CategoriasActivity extends SherlockActivity {
 			Bundle b = new Bundle();
 			b.putInt(Param.RESTAURANT.toString(), restaurantID);
 			b.putInt(Param.PLACE.toString(), placeID);
+			b.putInt(Param.CATEGORIA.toString(), categoriaID);
 			i.putExtras(b);
 
 			startActivity(i);
