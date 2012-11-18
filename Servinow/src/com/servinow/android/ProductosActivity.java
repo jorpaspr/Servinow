@@ -36,7 +36,7 @@ public class ProductosActivity extends SherlockListActivity {
 			
 			int categoriaID = extras.getInt(Param.CATEGORIA.toString());
 			Categoria categoria = new CategoryCache(this).getCategoria(categoriaID);
-			List<Producto> listaProductos = new ArrayList<Producto>(categoria.getProducts());
+			List<Producto> listaProductos = new ArrayList<Producto>(categoria.getProducts2());
 			
 			productos = new Producto [listaProductos.size()];
 			listaProductos.toArray(productos);

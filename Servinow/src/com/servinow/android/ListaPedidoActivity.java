@@ -86,7 +86,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	        	SelectedItem selectedItem = (SelectedItem) parent.getAdapter().getItem(position);
 	        	b.putInt(Param.RESTAURANT.toString(), selectedItem.getRestaurantId());
 	        	b.putInt(Param.PLACE.toString(), selectedItem.getPlaceId());
-	        	b.putInt(Param.CATEGORIA.toString(), selectedItem.getCategoriaId());
+	        	//b.putInt(Param.CATEGORIA.toString(), selectedItem.getCategoriaId());
 	        	b.putInt(Param.PRODUCTO.toString(), selectedItem.getProductoId());
 	        	
 	        	myIntent.putExtras(b);

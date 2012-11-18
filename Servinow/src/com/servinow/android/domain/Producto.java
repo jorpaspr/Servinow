@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import android.graphics.drawable.Drawable;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -53,8 +54,11 @@ public class Producto {
 	public Producto product;
 	
 	// Requerido por ORMLite - No getter or setter for this.
-	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
-	public Categoria category;
+	/*@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
+	public Categoria category;*/
+	
+	@ForeignCollectionField(eager = true)
+	private ForeignCollection<ProductInCategory> cats;
 	
 	// Requerido por ORMLite - No getter or setter for this.
 	@DatabaseField(foreign=true, foreignAutoCreate=true, foreignAutoRefresh=true)
@@ -161,9 +165,9 @@ public class Producto {
 		this.meals = meals;
 	}
 	
-	public Categoria getCategoria(){
+	/*public Categoria getCategoria(){
 		return category;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object o) {
