@@ -92,12 +92,6 @@ public class Categoria {
 	public Collection<Producto> getProducts2() {
 		ArrayList<Producto> products = new ArrayList<Producto>();
 		
-		Iterator<ProductInCategory> it = this.products.iterator();
-		
-		while(it.hasNext()){
-			it.next();
-		}
-		
 		for(ProductInCategory pic: this.products){
 			products.add(pic.getProduct());
 		}
