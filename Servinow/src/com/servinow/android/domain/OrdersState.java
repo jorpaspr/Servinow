@@ -11,4 +11,5 @@ public class OrdersState {
 	public int lineaPedidoId;
 	public int cantidad=0;
 	public String imageName;
+	public Boolean pagado=false;
 }

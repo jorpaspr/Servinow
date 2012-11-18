@@ -54,6 +54,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		    TextView state;
 		    ImageView image;
 		    TextView ronda;
+		    TextView pagado;
         public ImageButton deleteButtom;
 	}
 	
@@ -95,6 +96,7 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	      holder.state = (TextView) rowView.findViewById(R.id.TextViewCheckStateState);
 	      holder.image = (ImageView) rowView.findViewById(R.id.ImageViewCheckState);
 	      holder.deleteButtom = (ImageButton) rowView.findViewById(R.id.CheckState_row_Cancel);
+	      holder.pagado = (TextView) rowView.findViewById(R.id.CheckStateListTextPagado);
 		  }else{
 		    rowView = inflater.inflate(R.layout.list_check_state_round, parent, false);
 	      holder.ronda = (TextView) rowView.findViewById(R.id.TextViewCheckStateRound);
@@ -107,6 +109,10 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		
 		if(!ord.roundmark){
 		  holder.name.setText(ord.name);
+		  if(ord.pagado)
+			  holder.pagado.setText(R.string.checkstate_pagado);
+		  else
+			  holder.pagado.setText("");
 
 		  if(ord.state == Estado.EN_COLA){
 		    holder.state.setTextColor(Color.argb(255, 255, 0, 0));

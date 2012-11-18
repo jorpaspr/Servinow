@@ -125,20 +125,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     
     public void prepareToDisplay(){
     	
-  /*  	Bitmap mIcon_val=null;
-    	URL newurl;
-		try {
-			newurl = new URL("http://www.recetasdiarias.com/wp-content/uploads/2010/01/tarta-de-queso.jpg");
-			mIcon_val = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream()); 
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
-    	
+    	Boolean pagado=false;
     	
     	for(int i=listaPedidos.size()-1; i>=0; i--){
     		OrdersState ord= new OrdersState();
@@ -146,6 +133,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     		ord.roundmark=true;
     		ordersToDisplay.add(ord);
     		countOrders++;
+    		pagado=listaPedidos.get(i).isPagado();
     		Iterator<LineaPedido> itr = listaPedidos.get(i).getLineas().iterator();
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
@@ -156,7 +144,7 @@ public class CheckOrderStateActivity extends SherlockActivity {
     				ordp.state = lp.getEstado();
     				ordp.lineaPedidoId=lp.getId();
     				ordp.cantidad=lp.getCantidad();
-    				
+    				ord.pagado=pagado;
     				ordp.imageName = lp.getProducto().getImageName();
     				ordp.image = null;
     				
