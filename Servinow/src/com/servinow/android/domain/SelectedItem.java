@@ -10,7 +10,7 @@ public class SelectedItem {
 	  
 	  private int productoId;
 	  
-	  private int categoriaId;
+	  //private int categoriaId;
 	  
 	  private int placeId;
 	  
@@ -54,7 +54,7 @@ public class SelectedItem {
 	    this.unitPrice = producto.getPrecio();
 	    this.imageName = producto.getImageName();
 	    this.productoId = producto.getId();
-	    this.categoriaId = producto.getCategoria().getId();
+	    //this.categoriaId = producto.getCategoria().getId();
 	    this.placeId = placeId;
 	    this.restaurantId = restaurantId;
 	  }
@@ -123,13 +123,13 @@ public class SelectedItem {
 		  return id;
 	  }
 	  
-	  public int getCategoriaId(){
+	 /* public int getCategoriaId(){
 		  return categoriaId;
 	  }
 	  
 	  public void setCategoriaId(int categoriaId){
 		  this.categoriaId = categoriaId;
-	  }
+	  }*/
 	  
 	  public int getProductoId(){
 		  return this.productoId;

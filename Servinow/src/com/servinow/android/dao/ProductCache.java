@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.servinow.android.domain.Categoria;
+import com.servinow.android.domain.ProductInCategory;
 import com.servinow.android.domain.Producto;
 import com.servinow.android.domain.Restaurant;
 
@@ -29,9 +30,13 @@ public class ProductCache extends ServinowDAOBase<Producto, Integer> {
 	public void setProductCacheByCategory(Categoria category, List<Integer> productIDsList){
 		RuntimeExceptionDao<Producto, Integer> productDAO = getDAO();
 		
+		RuntimeExceptionDao<ProductInCategory, Integer> picDAO = servinowDatabase.getRuntimeExceptionDao(ProductInCategory.class);
+		
 		for(Integer productID: productIDsList){
 			Producto product = productDAO.queryForId(productID);
-			product.category = category;
+
+			ProductInCategory pic = new ProductInCategory(product, category);
+			picDAO.createOrUpdate(pic);
 			
 			productDAO.createOrUpdate(product);
 		}

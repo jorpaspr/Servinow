@@ -18,14 +18,21 @@ import android.view.KeyEvent;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.servinow.android.Util.ImageAsyncHelper;
 import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
+import com.servinow.android.dao.CategoryCache;
 import com.servinow.android.dao.PedidoCache;
+import com.servinow.android.dao.RestaurantCache;
+import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.OrdersState;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Producto;
+import com.servinow.android.domain.Restaurant;
 import com.servinow.android.widget.CheckStateArrayAdapter;
 
 public class CheckOrderStateActivity extends SherlockActivity {
@@ -34,6 +41,9 @@ public class CheckOrderStateActivity extends SherlockActivity {
 	public Boolean flagTimer=false;
 	public int countOrders=0;
 	public int countChanges=0;
+	
+	private int restaurantID;
+	private int placeID;
 	
 	private List<Pedido> listaPedidos = null;
 
@@ -47,6 +57,22 @@ public class CheckOrderStateActivity extends SherlockActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Bundle extras = getIntent().getExtras();
+		if(extras != null)
+		{
+			restaurantID = extras.getInt(Param.RESTAURANT.toString());
+			placeID = extras.getInt(Param.PLACE.toString());
+			Restaurant restaurant = new RestaurantCache(this).
+					getRestaurantFromCache(restaurantID);
+			List<Categoria> listaCategorias = new CategoryCache(this).
+					getCategories(restaurant);
+			
+			// TODO cambiar a List en el adapter
+
+			setTitle(restaurant.getName());
+		}
+        
         setContentView(R.layout.activity_check_state); 
         setTitle("Servinow");
         
@@ -183,10 +209,39 @@ public class CheckOrderStateActivity extends SherlockActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			startActivity(new Intent(CheckOrderStateActivity.this, CategoriasActivity.class));
+			Intent i = new Intent(CheckOrderStateActivity.this, CategoriasActivity.class);
+			Bundle b = new Bundle();
+			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+			b.putInt(Param.PLACE.toString(), placeID);
+			i.putExtras(b);
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		 MenuInflater inflater = getSupportMenuInflater();
+	        inflater.inflate(R.menu.activity_checkstate, menu);
+	        return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+        case R.id.categorias_button_lista_pedidos:
+			Intent i = new Intent(CheckOrderStateActivity.this, TicketActivity.class);
+			Bundle b = new Bundle();
+			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+			b.putInt(Param.PLACE.toString(), placeID);
+			i.putExtras(b);
+
+			startActivity(i);
+         default:
+        	 return true;
+    }
 	}
     
 }

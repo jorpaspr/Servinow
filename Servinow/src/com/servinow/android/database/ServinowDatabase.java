@@ -12,6 +12,7 @@ import com.servinow.android.domain.Categoria;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.Pedido;
 import com.servinow.android.domain.Place;
+import com.servinow.android.domain.ProductInCategory;
 import com.servinow.android.domain.Producto;
 import com.servinow.android.domain.Restaurant;
 
@@ -41,6 +42,7 @@ public class ServinowDatabase extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Place.class);
 			TableUtils.createTable(connectionSource, Categoria.class);
 			TableUtils.createTable(connectionSource, Producto.class);
+			TableUtils.createTable(connectionSource, ProductInCategory.class);
 			TableUtils.createTable(connectionSource, Pedido.class);
 			TableUtils.createTable(connectionSource, LineaPedido.class);
 		} catch (SQLException e) {
