@@ -5,12 +5,15 @@ package com.servinow.android.widget;
 
 import java.util.ArrayList;
 
+import com.servinow.android.ListaPedidoActivity;
 import com.servinow.android.R;
+import com.servinow.android.Util.ImageAsyncHelper;
+import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.domain.SelectedItem;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +30,14 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 	
 	/* ViewHolder pattern
 	 * Se usa en los ListView para reducir el numero de findById (optimizacion)
+	 * 
 	 */
 	static class ListaPedidoViewHolder {
 	  TextView name;
-	  ImageView image;
 	  TextView unitPrice;
 	  TextView quantity;
 	  CheckBox checkBox;
-	}
+	}	
 	
 	private int layoutResourceId;
 	
@@ -56,7 +59,6 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 		    //ViewHolder pattern
 		    holder = new ListaPedidoViewHolder();
 		    holder.name = (TextView) row.findViewById(R.id.lista_pedido_row_titulo);
-		    holder.image = (ImageView) row.findViewById(R.id.lista_pedido_row_image);
 		    holder.unitPrice = (TextView) row.findViewById(R.id.lista_pedido_row_precio_unidad);
 		    holder.quantity = (TextView) row.findViewById(R.id.lista_pedido_row_cantidad);
 		    holder.checkBox = (CheckBox) row.findViewById(R.id.lista_pedido_row_checkbox);
@@ -71,6 +73,30 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 	            CheckBox cb = (CheckBox) v ;
 	            SelectedItem selectedItem = (SelectedItem) cb.getTag();
 	            selectedItem.setChecked( cb.isChecked() );
+	            
+	            ListaPedidoAdapter listaPedidoAdapter = (ListaPedidoAdapter) ((ListaPedidoActivity) v.getContext()).getListAdapter();
+	            int numItemsSelected=0;
+	            for(int i=0; i < listaPedidoAdapter.getCount(); i++){
+	            	if(listaPedidoAdapter.getItem(i).isChecked()){
+	            		numItemsSelected++;
+	            		if(numItemsSelected > 1){
+	            			break;
+	            		}
+	            	}
+	            }
+	            
+	            if(numItemsSelected == 0 ){
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_change_quantity).setEnabled(false);
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_delete_confirm).setEnabled(false);
+	            }
+	            else if(numItemsSelected == 1 ){
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_change_quantity).setEnabled(true);
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_delete_confirm).setEnabled(true);
+	            }
+	            else{	            	
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_change_quantity).setEnabled(false);
+	            	((Activity) v.getContext()).findViewById(R.id.lista_pedido_button_delete_confirm).setEnabled(true);
+	            }
 	          }
 	        });
 	  }
@@ -81,19 +107,38 @@ public class ListaPedidoAdapter extends ArrayAdapter<SelectedItem> {
 	  
 	    SelectedItem selectedItem = (SelectedItem) getItem(position);
 	    
+	    // Coger imagen
+		if (selectedItem != null) {
+			final ImageView imageViewBitmap = (ImageView) row.findViewById(R.id.lista_pedido_row_image);
+			
+			imageViewBitmap.setVisibility(selectedItem.getImageVisibility());
+			
+			if (imageViewBitmap != null) {			
+				ImageAsyncHelper imageAsyncHelper = new ImageAsyncHelper();
+				
+				Bitmap img = imageAsyncHelper.getBitmap(selectedItem.getImageName(),
+						new ImageAsyncHelperCallBack() {
+					
+					@Override
+					public void onImageSyn(Bitmap img) {
+						imageViewBitmap.setImageBitmap(img);
+					}
+				}, null);
+				
+				if (img != null)
+					imageViewBitmap.setImageBitmap(img);
+			}
+		}
+	    
 	  	// Tag the CheckBox with the Planet it is displaying, so that we can
       	// access the planet in onClick() when the CheckBox is toggled.
       	holder.checkBox.setTag( selectedItem ); 
-	    
 	    holder.name.setText(selectedItem.getName());
-	    holder.image.setImageURI(Uri.parse(selectedItem.geturlImage()));
-	    holder.image.setVisibility(selectedItem.getImageVisibility());
-	    holder.unitPrice.setText(selectedItem.getUnitPrice()+"Û");
+	    holder.unitPrice.setText(selectedItem.getUnitPrice()+" â‚¬");
 	    holder.quantity.setText(""+selectedItem.getQuantity());
 	    holder.checkBox.setChecked(selectedItem.isChecked());
 	    holder.checkBox.setVisibility(selectedItem.getCheckBoxVisibility());
 	    
-	    return row;
+	    return row;   
 	}
-
 }
