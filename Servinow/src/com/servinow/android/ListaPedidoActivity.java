@@ -325,21 +325,23 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	
 	    	// Add the buttons
 	    	builder.setPositiveButton(R.string.lista_pedido_confirm_button_ok, new DialogInterface.OnClickListener() {
-	    	           public void onClick(DialogInterface dialog, int id) {
-	    	        	   // Marcar pedido como confirmado
-	    	        	   ListaPedidoActivity.this.pedido.setConfirmado(true);
-	    	        	   new PedidoCache(ListaPedidoActivity.this).updatePedido(pedido);
-	    	        	   
-	    	        	   // TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
-	    	        	   // SOLO HAY QUE CAMBIAR MainActivity por CheckStateActivity
-	    	        	   Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
-	    	       			Bundle b = new Bundle();
-	    	       			b.putInt(Param.RESTAURANT.toString(), restaurantID);
-	    	       			b.putInt(Param.PLACE.toString(), placeID);
-	    	       			myIntent.putExtras(b);
-	    	               ListaPedidoActivity.this.startActivity(myIntent);
-	    	           }
-	    	       });
+	    		public void onClick(DialogInterface dialog, int id) {
+	    			// Marcar pedido como confirmado
+	    			ListaPedidoActivity.this.pedido.setConfirmado(true);
+	    			new PedidoCache(ListaPedidoActivity.this).updatePedido(pedido);
+
+	    			/*// TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
+	    			// SOLO HAY QUE CAMBIAR MainActivity por CheckStateActivity
+	    			Intent myIntent = new Intent(ListaPedidoActivity.this, MainActivity.class);
+	    			Bundle b = new Bundle();
+	    			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+	    			b.putInt(Param.PLACE.toString(), placeID);
+	    			myIntent.putExtras(b);
+	    			ListaPedidoActivity.this.startActivity(myIntent);*/
+	    			
+	    			finish(); //Importante sino no se desapila la activdad.
+	    		}
+	    	});
 	    	builder.setNegativeButton(R.string.lista_pedido_confirm_button_cancel, new DialogInterface.OnClickListener() {
 	    	           public void onClick(DialogInterface dialog, int id) {
 	    	               // User cancelled the dialog

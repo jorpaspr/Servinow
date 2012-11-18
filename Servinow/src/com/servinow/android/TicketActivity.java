@@ -93,6 +93,9 @@ public class TicketActivity extends SherlockFragmentActivity implements IPayment
 			payment = new Payment(this, restaurant, pedidos);
 			payment.setPaymentMethod();
 			break;
+		case R.id.itemBack:
+			this.finish();
+      	  	break;
 		}
 		return false;
 	}
