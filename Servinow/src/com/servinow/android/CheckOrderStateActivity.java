@@ -100,7 +100,8 @@ public class CheckOrderStateActivity extends SherlockActivity {
     	
    
     	PedidoCache pd = new PedidoCache(this);
-    	listaPedidos = pd.getAllPedidosConfirmados();
+   // 	listaPedidos = pd.getAllPedidosConfirmados();
+    	listaPedidos = pd.getAllPedidosConfirmed(placeID, restaurantID);
     }
     
     public void populateOrdersB(){
