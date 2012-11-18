@@ -40,6 +40,11 @@ public class MainActivity extends SherlockActivity {
 
 			@Override
 			public void onClick(View v) {
+				if(!Util.isOnline(MainActivity.this)) {
+					Toast.makeText(MainActivity.this, "Se requiere conxión a internet.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				
 				Intent i = new Intent(MainActivity.this, QRReading.class);
 				Bundle b = new Bundle();
 				b.putBoolean(QRReading.PARAM.GOTORESTAURANT.toString(), true);
