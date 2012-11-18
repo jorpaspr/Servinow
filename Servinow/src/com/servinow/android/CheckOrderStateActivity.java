@@ -16,6 +16,8 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.servinow.android.Util.ImageAsyncHelper;
+import com.servinow.android.Util.ImageAsyncHelper.ImageAsyncHelperCallBack;
 import com.servinow.android.dao.PedidoCache;
 import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
@@ -65,11 +67,11 @@ public class CheckOrderStateActivity extends SherlockActivity {
     }
     
     public void populateOrders(){
-    	//TODO acceder a la BD para poblar la lista de —rdenes
+    	//TODO acceder a la BD para poblar la lista de ï¿½rdenes
     	
    
     	PedidoCache pd = new PedidoCache(this);
-    	listaPedidos = pd.getAllPedidos();
+    	listaPedidos = pd.getAllPedidosConfirmados();
     }
     
     public void populateOrdersB(){
@@ -124,9 +126,10 @@ public class CheckOrderStateActivity extends SherlockActivity {
     				ordp.state = lp.getEstado();
     				ordp.lineaPedidoId=lp.getId();
     				ordp.cantidad=lp.getCantidad();
-    				//TODO imagen
-    				String imageName = lp.getProducto().getImageName();
-    			//	ordp.image = 
+    				
+    				ordp.imageName = lp.getProducto().getImageName();
+    				ordp.image = null;
+    				
     				ordersToDisplay.add(ordp);
     				countOrders++;
     			}
