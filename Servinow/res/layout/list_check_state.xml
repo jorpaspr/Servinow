@@ -28,10 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="Carcamusas Toledanas" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
+           
                 <TextView
                     android:id="@+id/TextViewCheckStateState"
                     android:layout_width="71dp"
@@ -40,14 +37,9 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#FF0000" />
 
-                <TextView
-                    android:id="@+id/CheckStateListTextPagado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                
 
-            </LinearLayout>
+         
         </LinearLayout>
 
         <RelativeLayout

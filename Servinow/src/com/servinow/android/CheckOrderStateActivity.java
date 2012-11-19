@@ -128,25 +128,36 @@ public class CheckOrderStateActivity extends SherlockActivity {
     	Boolean pagado=false;
     	
     	for(int i=listaPedidos.size()-1; i>=0; i--){
+    		if(!pagado){
+    			if(listaPedidos.get(i).isPagado()){
+    				OrdersState ordpd= new OrdersState();
+    				ordpd.round=listaPedidos.get(i).getId();
+    				ordpd.pagado=true;
+    				ordersToDisplay.add(ordpd);
+    				pagado=true;
+    			}
+    		}
     		OrdersState ord= new OrdersState();
     		ord.round=listaPedidos.get(i).getId();
     		ord.roundmark=true;
     		ordersToDisplay.add(ord);
     		countOrders++;
-    		pagado=listaPedidos.get(i).isPagado();
     		Iterator<LineaPedido> itr = listaPedidos.get(i).getLineas().iterator();
     		while (itr.hasNext()) {
     			LineaPedido lp = itr.next();
     			for(int j=0; j<lp.getCantidad(); j++){
     				OrdersState ordp = new OrdersState();
     				ordp.roundmark=false;
+    				ordp.pagado=false;
+    				ordp.pedidoId=listaPedidos.get(i).getId();
+    				ordp.productoId=lp.getProducto().getId();
     				ordp.name = lp.getProducto().getNombre();
     				ordp.state = lp.getEstado();
     				ordp.lineaPedidoId=lp.getId();
     				ordp.cantidad=lp.getCantidad();
-    				ord.pagado=pagado;
     				ordp.imageName = lp.getProducto().getImageName();
     				ordp.image = null;
+    				ordp.lp = lp;
     				
     				ordersToDisplay.add(ordp);
     				countOrders++;
