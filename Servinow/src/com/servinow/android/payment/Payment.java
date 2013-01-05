@@ -212,6 +212,7 @@ public class Payment {
 		
 		protected void onPostExecute(Void a) {
 			iPaymentActivity.onPaymentProcess(paymentMethod);
+			iPaymentActivity.onPaymentSuccesful(paymentMethod);
 		}
 	}
 	
