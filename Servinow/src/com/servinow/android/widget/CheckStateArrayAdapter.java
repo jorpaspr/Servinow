@@ -32,6 +32,7 @@ import com.servinow.android.dao.LineaPedidoCache;
 import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.OrdersState;
+import com.servinow.android.restaurantCacheSyncSystem.CallForBorrar;
 import com.servinow.android.widget.PurchasedItemAdapter.ViewHolder;
 
 public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
@@ -183,9 +184,10 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
 					public void onClick(DialogInterface arg0, int arg1) {
 					//	Integer index = (Integer) vv.getTag();
-						deleteInDB(orders.get(position));
-						orders.remove(position);
-						notifyDataSetChanged();
+						if(deleteInDB(orders.get(position))) {
+						  orders.remove(position);
+						  notifyDataSetChanged();
+						}
 					}
 				});
 		builder.setNegativeButton(
@@ -202,9 +204,9 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 
 	}
 
-	public void deleteInDB(OrdersState ord) {
+	public boolean deleteInDB(OrdersState ord) {
 		// TODO BORRAR EN LA BASE DE DATOS
-		LineaPedidoCache lpCach = new LineaPedidoCache(context);
+		//LineaPedidoCache lpCach = new LineaPedidoCache(context);
 		// LineaPedido lp = new LineaPedido();
 		// lp = lpCach.getLineaPedido(ord.productoId);
 		/*
@@ -221,12 +223,14 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		 * Log.d("--casa---","---"); Log.d("     lp:"+lp.getId(),"");
 		 * lpCach.updateQuantityLineaPedido(ord.lineaPedidoId, cantidad-1);
 		 */
-		int cantidad = ord.lp.getCantidad();
-		
-		if(cantidad-1<=0)
-			lpCach.deleteLineaPedido(ord.lp.getId());
-		else
-			lpCach.updateQuantityLineaPedido(ord.lp.getId(), cantidad - 1);
+	  
+	  int cantidad = ord.lp.getCantidad();
+//		if(cantidad-1<=0)
+//			lpCach.deleteLineaPedido(ord.lp.getId());
+//		else
+//			lpCach.updateQuantityLineaPedido(ord.lp.getId(), cantidad - 1);
+	  
+	  new CallForBorrar(context, ord.restaurantID, ord.mesa_id, ord.pedidoId, ord.lineaPedidoId, cantidad-1).start();
 			
 
 	}
