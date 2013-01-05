@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.Inflater;
 
 import android.app.Activity;
@@ -34,6 +37,7 @@ import com.servinow.android.domain.Estado;
 import com.servinow.android.domain.LineaPedido;
 import com.servinow.android.domain.OrdersState;
 import com.servinow.android.restaurantCacheSyncSystem.CallForBorrar;
+import com.servinow.android.restaurantCacheSyncSystem.CallForConsultar;
 import com.servinow.android.widget.PurchasedItemAdapter.ViewHolder;
 
 public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
@@ -50,6 +54,8 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	public Boolean flagTimer = false;
 	public int countOrders = 0;
 	public int countChanges = 0;
+	
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	static class ViewHolder {
 		TextView name;
@@ -67,7 +73,13 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 		countOrders = orders.size();
 		countChanges = countOrders * 3;
 		setLineasCantidad();
-		setTimer(1000);
+		
+		scheduler.scheduleAtFixedRate(new Runnable() {      
+      @Override
+      public void run() {
+        runNextTask();        
+      }
+    }, 5, 3, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -233,44 +245,18 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 	  
 	  new CallForBorrar(context, ord.restaurantID, ord.mesa_id, ord.pedidoId, ord.lineaPedidoId, cantidad-1).start();
 			
-
-	}
-
-	protected void setTimer(long time) {
-		final long elapse = 1000 + (int) (Math.random() * 2000);
-		Runnable t = new Runnable() {
-			public void run() {
-				runNextTask();
-				if (!flagTimer)
-					taskHandler.postDelayed(this, elapse);
-
-			}
-		};
-		taskHandler.postDelayed(t, elapse);
+		return true;
 	}
 
 	protected void runNextTask() {
 		// run my task.
-		// determine isComplete.
-		int nOrder = (int) (Math.random() * orders.size());
-		if (orders.size() > 0) {
-			while (orders.get(nOrder).roundmark == true)
-				nOrder = (int) (Math.random() * orders.size());
-
-			if (orders.get(nOrder).state == Estado.EN_COLA) {
-				orders.get(nOrder).state = Estado.PREPARANDO;
-				countChanges--;
-			} else if (orders.get(nOrder).state == Estado.PREPARANDO) {
-				orders.get(nOrder).state = Estado.LISTO;
-				countChanges--;
-			} else if (orders.get(nOrder).state == Estado.LISTO) {
-				orders.get(nOrder).state = Estado.SERVIDO;
-				countChanges--;
-			}
-		}
-		notifyDataSetChanged();
-		if (countChanges <= 0)
-			flagTimer = true;
+	  ArrayList<Integer> pedidos = new ArrayList<Integer>();
+	  for(Iterator<OrdersState> it = orders.iterator(); it.hasNext();) {
+	    int pedidoId = it.next().pedidoId;
+	    if(!pedidos.contains(pedidoId))
+	      pedidos.add(pedidoId);
+	  }
+	  new CallForConsultar(context, orders.get(0).restaurantID, orders.get(0).mesa_id, pedidos, this).start();
 	}
 
 	public void setLineasCantidad() {
@@ -282,5 +268,19 @@ public class CheckStateArrayAdapter extends ArrayAdapter<OrdersState> {
 			}
 		}
 	}
+
+  public void updateOrder(int id, Estado estado) {
+    for(int i=0;i<orders.size();i++) {
+      OrdersState order = orders.get(i);
+      if(order.lineaPedidoId==id) {
+        order.state = estado;
+      }
+    }
+    notifyDataSetChanged();
+  }
+
+  public void stopScheduler() {
+    scheduler.shutdown();
+  }
 
 }
