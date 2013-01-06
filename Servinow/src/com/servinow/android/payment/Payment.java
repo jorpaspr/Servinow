@@ -170,7 +170,6 @@ public class Payment {
 	    	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 	    	
 	    	List<CharSequence> paymentMethods = new LinkedList<CharSequence>();
-	    	paymentMethods.add(getString(R.string.paymentmethoddialog_normal));
 	    	
 	    	if(restaurante.getEmailPayPal() != null) paymentMethods.add(getString(R.string.paymentmethoddialog_paypal));
 	    	
@@ -181,9 +180,6 @@ public class Payment {
 	               public void onClick(DialogInterface dialog, int which) {
 	            	   switch(which){
 		            	   case 0:
-		            		   paymentMethod = Payment.Method.NORMAL;
-		            		   break;
-		            	   case 1:
 		            		   paymentMethod = Payment.Method.PAYPAL;
 		            		   break;
 	            	   }
