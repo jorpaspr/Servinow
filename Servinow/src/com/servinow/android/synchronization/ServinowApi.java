@@ -1,17 +1,26 @@
 package com.servinow.android.synchronization;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+
+import org.apache.http.client.methods.HttpPost;
+
+import android.util.Log;
 
 public abstract class ServinowApi {
 
-	protected final static String host = "http://travelme.bloodblog.net/servinow/api";
+	protected final static String host = "http://www.enjoyandtravel.com";
 	protected final static int readTimeout = 30000; //20 seconds.
 	protected final static int connectTimeout = 15000; //15 seconds.
+	
+	protected String payload = null;
 
 	protected String api_url;
 
@@ -21,21 +30,37 @@ public abstract class ServinowApi {
 
 	protected InputStream doConnection() throws IOException{
 		InputStream is = null;
+		String parameters = null;
 
 		URL url = new URL(api_url);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setReadTimeout(getReadTimeout());
 		conn.setConnectTimeout(getConnectTimeout());
-
-		conn.connect();
-
+		conn.setUseCaches(false);
+		if(payload != null) {
+		  parameters = "DATA="+URLEncoder.encode(payload, "utf-8");
+		  conn.setDoInput(true);
+		  conn.setDoOutput(true);
+		  conn.setRequestMethod("POST");
+		  conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		  conn.setRequestProperty("charset", "utf-8");
+		  conn.setRequestProperty("Content-Length", "" + Integer.toString(parameters.getBytes().length));
+		  DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+		  wr.write(parameters.getBytes());
+		  wr.flush();
+		  wr.close();
+		} else {
+		  conn.connect();
+		}
+		
 		is = conn.getInputStream();
-
+		
 		return is;
 	}
 
 	public String call() throws IOException{
 
+	  Log.d("ServinowApi", "Calling: "+api_url);
 		InputStream is = doConnection();
 
 		BufferedReader r = new BufferedReader(new InputStreamReader(is));

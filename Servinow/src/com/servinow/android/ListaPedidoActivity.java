@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.servinow.android.R;
 import com.servinow.android.domain.LineaPedido;
@@ -30,6 +32,7 @@ import com.servinow.android.domain.Pedido;
 
 import com.servinow.android.pedidosSystem.PedidosHandler;
 import com.servinow.android.picker.NumberPicker;
+import com.servinow.android.restaurantCacheSyncSystem.CallForConfirmar;
 
 public class ListaPedidoActivity extends SherlockListActivity {
 
@@ -99,10 +102,10 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		
 		// Eventos de Botones
 		if(pedido != null){
-			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( Math.round(pedido.getTotal()*100.0)/100.0 + " €");
+			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( String.format("%.2f €", pedido.getTotal()));
 		}
 		else{
-			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText("0 €");
+			((TextView) findViewById(R.id.lista_pedido_precio_total)).setText("0.00 €");
 		}
 		if( this.pedido != null ){
 			((Button) findViewById(R.id.lista_pedido_button_edit)).setOnClickListener(editButtonClick);
@@ -122,7 +125,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		
 		getSupportActionBar().setHomeButtonEnabled(true);
 	}
-	
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -159,7 +162,9 @@ public class ListaPedidoActivity extends SherlockListActivity {
 		 setListAdapter( listaPedidoAdapter );
 		 
 		 // Modificar el precio total
-    	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " €");
+		 if(pedido != null){
+			 ((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( String.format("%.2f €", pedido.getTotal()));
+		 }
         
     }
 	
@@ -209,7 +214,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	        	// Modificar el valor del PrecioTotal
 	        	pedido = new PedidoCache( ListaPedidoActivity.this ).
 	        			getPedidoNotConfirmed(ListaPedidoActivity.this.placeID, ListaPedidoActivity.this.restaurantID);
-	        	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " €");
+	        	((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( String.format("%.2f €", pedido.getTotal()));
         	}
         	
         	for(int i=0; i < listaPedidoAdapter.getCount(); i++){
@@ -285,7 +290,7 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	                	   
 	                	   pedido = new PedidoCache( ListaPedidoActivity.this ).
 	       	        			getPedidoNotConfirmed(ListaPedidoActivity.this.placeID, ListaPedidoActivity.this.restaurantID);
-	       	        		((TextView) findViewById(R.id.lista_pedido_precio_total)).setText(Math.round(pedido.getTotal()*100.0)/100.0 + " €");
+	       	        		((TextView) findViewById(R.id.lista_pedido_precio_total)).setText( String.format("%.2f €", pedido.getTotal()));
 	                	   
 	                  	   // Modificar en el adapter
 	                	   selectedItem.setQuantity(cantidad);
@@ -332,12 +337,15 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	    	     
 
 	    		public void onClick(DialogInterface dialog, int id) {
+	    		  
+	    		  new CallForConfirmar(ListaPedidoActivity.this, pedido, restaurantID).start();
 	    			// Marcar pedido como confirmado
 	    			ListaPedidoActivity.this.pedido.setConfirmado(true);
 	    			new PedidoCache(ListaPedidoActivity.this).updatePedido(pedido);
 
 	    			// TODO INTENT A LA ACTIVIDAD DE CheckStateActivity.class
 	    			// SOLO HAY QUE CAMBIAR MainActivity por CheckStateActivity
+	    			
 	    			Intent myIntent = new Intent(ListaPedidoActivity.this, CheckOrderStateActivity.class);
 	    			Bundle b = new Bundle();
 	    			b.putInt(Param.RESTAURANT.toString(), restaurantID);
@@ -401,23 +409,30 @@ public class ListaPedidoActivity extends SherlockListActivity {
 	};
 	
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	switch (item.getItemId()) {
-    	case android.R.id.home:
-    		// app icon in action bar clicked; go home
-    		Intent i = new Intent(this, CategoriasActivity.class);
-    		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    		
-    		Bundle b = new Bundle();
-    		b.putInt(Param.RESTAURANT.toString(), restaurantID);
-    		b.putInt(Param.PLACE.toString(), placeID);
-    		i.putExtras(b);
-    		
-    		startActivity(i);
-    		return true;
-    	default:
-    		return super.onOptionsItemSelected(item);
-    	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.activity_lista_pedido, menu);
+        return true;
     }
+	
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.lista_pedido_button_check_state:
+    			Intent i = new Intent(ListaPedidoActivity.this, CheckOrderStateActivity.class);
+    			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    			
+    			Bundle b = new Bundle();
+    			b.putInt(Param.RESTAURANT.toString(), restaurantID);
+    			b.putInt(Param.PLACE.toString(), placeID);
+    			i.putExtras(b);
+
+    			startActivity(i);
+             default:
+            	 return super.onOptionsItemSelected(item);
+        }
+    }
+	
 	
 }
